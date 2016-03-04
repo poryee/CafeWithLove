@@ -1,0 +1,139 @@
+﻿@model CafeWithLove.Models.CafeDetail
+
+@Scripts.Render("~/bundles/cafedetails")
+
+<h3 class="no-top-margin">@Html.DisplayFor(model => model.cafeName)</h3>
+<hr />
+<div class="container col-md-12">
+    <div class="col-md-7">
+        <dl class="dl-horizontal">
+            <dt>
+                <img class="img-rounded col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.cafeLogo))">
+            </dt>
+            <dd>
+                <p>@Html.DisplayFor(model => model.cafeDesc)</p>
+            </dd>
+
+            <!-- NOT FROM MODEL -->
+            <dt>
+                Address
+            </dt>
+            <dd>
+                <p>
+                    Blk 44 Jalan Merah Saga<br />
+                    #01-52<br />
+                    Singapore 278116
+                </p>
+            </dd>
+
+            <!-- NOT FROM MODEL -->
+            <dt>
+                Opening Hours<br />
+                <a href="#" id="openingHoursToggle">(Show All)</a>
+            </dt>
+            <dd>
+                <table class="col-md-12">
+                    <tr class="collaspedDay collapse" id="monday">
+                        <td class="monday col-md-5">
+                            Monday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="tuesday">
+                        <td class="col-md-5">
+                            Tuesday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="wednesday">
+                        <td class="col-md-5">
+                            Wednesday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="thursday">
+                        <td class="col-md-5">
+                            Thursday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="friday">
+                        <td class="col-md-5">
+                            Friday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="saturday">
+                        <td class="col-md-5">
+                            Saturday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="sunday">
+                        <td class="col-md-5">
+                            Sunday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.cafePrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.cafePrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.cafeRating)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.cafeRating)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.cafeCategory)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.cafeCategory)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.cafeWebsite)
+            </dt>
+            <dd>
+                <a href="@Html.DisplayFor(model => model.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.cafeWebsite)</a>
+            </dd>
+        </dl>
+    </div>
+    <!-- GOOGLE MAP HERE -->
+    <div class="col-md-5">
+        <div class="row">
+            <img class="img-rounded col-md-11 col-md-offset-1" src="http://dummyimage.com/600x400/81cfe0/ffffff.png&text=GOOGLE+MAP+HERE">
+        </div>
+        <div class="row" style="padding-top: 5px;">
+            <div class="col-md-7 col-md-offset-1">
+                <div class="form-search search-only">
+                    <i class="search-icon glyphicon glyphicon-search"></i>
+                    <input type="text" class="form-control" placeholder="Current Location">
+                </div>
+            </div>
+            <button type="button" class="btn btn-info col-md-3">Get Here</button>
+        </div>
+    </div>
+</div>

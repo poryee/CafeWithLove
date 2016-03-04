@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+    <nav class="navbar navbar-default ">    <!-- dummy navbar to ensure body contents are not hidden by navbar-->
+    </nav>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container col-md-12">
+            <div class="navbar-header col-md-2">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("CAFE WITH L💗VE", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Top 10", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Browse All Cafes", "Index", "CafeDetails")</li>
+                    <li>@Html.ActionLink("Cafe Reviews", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="dropdown-header">Header</li>
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="active"><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li class="disabled"><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Estates <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="dropdown-header">Header</li>
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="active"><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li class="disabled"><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="#" data-toggle="modal" data-target="#loginModal">Log in</a></li>
+                    <li>@Html.ActionLink("Sign Up", "Index", "Home")</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-6">
+                <div class="form-search search-only">
+                    <i class="search-icon glyphicon glyphicon-search"></i>
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                    {
+                        @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder="Search for a cafe.." })
+                    }
+                </div>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Price <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Estates <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">KM <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <hr />
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="container col-md-12">
+            <div class="col-md-9">
+                @RenderBody()   <!-- PAGE CONTENT HERE-->
+            </div>
+            <!-- POPULAR SEARCHES -->
+            <div class="col-md-3">
+                <h4 class="no-top-margin">Popular Searches</h4>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">facilisis in</a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Cras sit amet nibh libero</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    <a href="#" class="list-group-item">facilisis in</a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Cras sit amet nibh libero</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">facilisis in</a>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <footer>
+            <h6>ABOUT CAFE WITH L💗VE</h6>
+            <div class="footer-border">
+                <span class="pull-left">
+                    Copyright&copy; @DateTime.Now.Year - CAFE WITH L💗VE
+                </span>
+                <span class="pull-right col-md-3">
+                    <a href="#" class="col-md-offset-2 col-md-4">Help</a>
+                    <a href="#" class="col-md-6">Contact Us</a>
+                </span>
+            </div>
+        </footer>
+        <!-- LOGIN MODAL-->
+        <div class="modal fade" id="loginModal">
+            <div class="modal-dialog">
+                <div class="modal-content" style="text-align: center;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">CAFE WITH L💗VE</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-8 col-md-offset-2">
+                            <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Login with Facebook</button>
+                            <div class="login-or">
+                                <hr class="hr-or">
+                                <span class="span-or">or</span>
+                            </div>
+                            <input type="email" name="cpf" placeholder="Email" required class="form-control input-lg" value="" /> <br />
+                            <input type="password" class="form-control input-lg" id="password" placeholder="Password" required="" /> <br />
+                            <div class="pwstrength_viewport_progress"></div>
+                            <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Login</button>
+                            <div>
+                                <a href="#">Register for a new account</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

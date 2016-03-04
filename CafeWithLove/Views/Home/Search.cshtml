@@ -1,0 +1,56 @@
+﻿@model CafeWithLove.Models.ViewModel
+@{
+    ViewBag.Title = "CAFE WITH L💗VE - HOME";
+    var myboolean = false;
+}
+
+<!-- SEARCH RESULTS -->
+<h3 class="no-top-margin" style="display:inline-block;">Search Results</h3>
+<button type="button" class="btn btn-default add-15-bottom-margin add-15-left-margin active"><span class="glyphicon glyphicon-list"></span></button>
+<button type="button" class="btn btn-default add-15-bottom-margin"><span class="glyphicon glyphicon-map-marker"></span></button>
+@if (Model.CafeOutletVM.Count() == 0)
+{
+    <h4>No Cafe match search criteria</h4>
+    myboolean = false;
+}
+
+else
+{
+    <h4>We found @Model.CafeOutletVM.Count() results for search keyword</h4>
+    myboolean = true;
+}
+<ul class="list-group">
+    @if (myboolean == true)
+    {
+        foreach (var item in Model.CafeOutletVM)
+        {
+            var temp = Model.CafeDetailVM.Where(a => a.Id == item.cafeId).First();
+            
+            <li class="list-group-item">
+                <div class="row">
+                    <img class="img-rounded col-md-2" src="@Url.Content(String.Format("~/Images/{0}", temp.cafeLogo))">
+                    <div class="col-md-7" style="vertical-align: middle;">
+                        <h5 class="no-bottom-margin no-top-margin">@Html.DisplayFor(modelItem => temp.cafeName)</h5>
+                        <span class="label label-danger" style="">253 ❤</span>
+                        <p></p>
+                        <p>
+                            @Html.DisplayFor(ModelItem=> temp.cafeDesc)
+                        </p>
+                        @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = temp.Id }, null)
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <strong>Address</strong><br />
+                            @Html.DisplayFor(modelItem => item.cafeAddress)<br />
+                            Singapore @Html.DisplayFor(modelItem => item.cafePostalCode)
+                        </p>
+                        <a href="#">View On Map</a><br />
+                        <a href="#">Get Directions</a>
+                    </div>
+                </div>
+            </li>
+        }
+    }
+
+</ul>
+  

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CafeWithLove.Models.CafeDetail>
+
+<h3 class="no-top-margin" style="display:inline-block;">All Cafes</h3>
+
+@foreach (var item in Model)
+{
+    <li class="list-group-item">
+        <div class="row">
+            <img class="img-rounded col-md-2" src="@Url.Content(String.Format("~/Images/{0}", item.cafeLogo))">
+            <div class="col-md-7" style="vertical-align: middle;">
+                <h5 class="no-bottom-margin no-top-margin">@Html.DisplayFor(modelItem => item.cafeName)</h5>
+                <span class="label label-danger" style="">253 ❤</span>
+                <p></p>
+                <p>
+                    @Html.DisplayFor(modelItem => item.cafeDesc)
+                </p>
+                @Html.ActionLink("View Cafe Details", "Details", new { id = item.Id })
+            </div>
+            <div class="col-md-3">
+                <p>
+                    <strong>Address</strong><br />
+                    Blk 44 Jalan Merah Saga<br />
+                    #01-52<br />
+                    Singapore 278116
+                </p>
+                <a href="#">View On Map</a><br />
+                <a href="#">Get Directions</a>
+            </div>
+        </div>
+    </li>
+}
