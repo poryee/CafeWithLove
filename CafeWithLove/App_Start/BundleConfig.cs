@@ -26,7 +26,7 @@ namespace CafeWithLove
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css/styles").Include(
+            bundles.Add(new StyleBundle("~/bundles/css/styles").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css",
                       "~/Content/bootflat.css"));
