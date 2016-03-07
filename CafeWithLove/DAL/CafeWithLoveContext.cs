@@ -4,12 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using CafeWithLove.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CafeWithLove.DAL
 {
-    public class CafeWithLoveContext: DbContext
+    public class CafeWithLoveContext : IdentityDbContext<ApplicationUser>
     {
-        public CafeWithLoveContext(): base("CafeWithLoveDB"){
+        public CafeWithLoveContext() : base("CafeWithLoveDB")
+        {
 
         }
         public DbSet<CafeDetail> CafeDetails { get; set; }

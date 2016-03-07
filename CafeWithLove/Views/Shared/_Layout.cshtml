@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/css/styles")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
-    <nav class="navbar navbar-default ">    <!-- dummy navbar to ensure body contents are not hidden by navbar-->
+    <nav class="navbar navbar-default ">
+        <!-- dummy navbar to ensure body contents are not hidden by navbar-->
     </nav>
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container col-md-12">
@@ -56,7 +57,7 @@
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     <li><a href="#" data-toggle="modal" data-target="#loginModal">Log in</a></li>
-                    <li>@Html.ActionLink("Sign Up", "Index", "Home")</li>
+                    @Html.Partial("_LoginPartial")
                 </ul>
             </div>
         </div>
@@ -66,7 +67,7 @@
                     <i class="search-icon glyphicon glyphicon-search"></i>
                     @using (Html.BeginForm("Search", "Home", FormMethod.Post))
                     {
-                        @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder="Search for a cafe.." })
+                        @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
                     }
                 </div>
             </div>
@@ -180,7 +181,7 @@
         </div>
     </div>
 
-    
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
