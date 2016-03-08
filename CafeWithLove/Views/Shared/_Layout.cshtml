@@ -65,7 +65,7 @@
             <div class="col-md-6">
                 <div class="form-search search-only">
                     <i class="search-icon glyphicon glyphicon-search"></i>
-                    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                    @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Post))
                     {
                         @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
                     }

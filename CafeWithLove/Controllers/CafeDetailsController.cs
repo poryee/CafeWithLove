@@ -13,12 +13,20 @@ namespace CafeWithLove.Controllers
 {
     public class CafeDetailsController : Controller
     {
+        private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
+        private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
+        private ViewModel mymodel = new ViewModel();
+
         private CafeWithLoveContext db = new CafeWithLoveContext();
 
         // GET: CafeDetails
         public ActionResult Index()
         {
-            return View(db.CafeDetails.ToList());
+            IEnumerable<CafeDetail> result = cafeDetailGateway.SelectAll();
+            mymodel.CafeDetailVM = result;
+
+            mymodel.CafeOutletVM = cafeOutletGateway.Populate(result);
+            return View(mymodel);
         }
 
         // GET: CafeDetails/Details/5
@@ -28,12 +36,12 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            if (cafeDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cafeDetails);
+            //CafeDetail cafeDetails = db.CafeDetails.Find(id);
+            //if (cafeDetails == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(cafeDetailGateway.SelectById(id));
         }
 
         // GET: CafeDetails/Create
@@ -51,8 +59,7 @@ namespace CafeWithLove.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CafeDetails.Add(cafeDetails);
-                db.SaveChanges();
+                cafeDetailGateway.Insert(cafeDetails);
                 return RedirectToAction("Index");
             }
 
@@ -66,12 +73,12 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            if (cafeDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cafeDetails);
+            //CafeDetail cafeDetails = db.CafeDetails.Find(id);
+            //if (cafeDetails == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(cafeDetailGateway.SelectById(id));
         }
 
         // POST: CafeDetails/Edit/5
@@ -83,8 +90,7 @@ namespace CafeWithLove.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cafeDetails).State = EntityState.Modified;
-                db.SaveChanges();
+                cafeDetailGateway.Update(cafeDetails);
                 return RedirectToAction("Index");
             }
             return View(cafeDetails);
@@ -97,12 +103,12 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            if (cafeDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cafeDetails);
+            //CafeDetail cafeDetails = db.CafeDetails.Find(id);
+            //if (cafeDetails == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View(cafeDetailGateway.SelectById(id));
         }
 
         // POST: CafeDetails/Delete/5
@@ -110,10 +116,19 @@ namespace CafeWithLove.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            db.CafeDetails.Remove(cafeDetails);
-            db.SaveChanges();
+            cafeDetailGateway.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Search(string searchInput)
+        {
+            ViewBag.Message = "Your search page.";
+            IEnumerable<CafeDetail> result = cafeDetailGateway.Search(searchInput);
+            mymodel.CafeDetailVM = result;
+
+            mymodel.CafeOutletVM = cafeOutletGateway.Populate(result);
+            return View(mymodel);
         }
 
         protected override void Dispose(bool disposing)

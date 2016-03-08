@@ -11,7 +11,7 @@
 </style>
 
 @{
-    ViewBag.Title = "CAFE WITH L💗VE - All Cafes";
+    ViewBag.Title = "CAFE WITH L💗VE - Search Results";
     var myboolean = false;
 }
 
@@ -36,7 +36,7 @@ else
         foreach (var item in Model.CafeOutletVM)
         {
             var temp = Model.CafeDetailVM.Where(a => a.Id == item.cafeId).First();
-
+            
             <li class="list-group-item">
                 <div class="row">
                     <img class="img-rounded col-md-2" src="@Url.Content(String.Format("~/Images/{0}", temp.cafeLogo))">
@@ -45,21 +45,20 @@ else
                         <span class="label label-danger" style="">253 ❤</span>
                         <p></p>
                         <p>
-                            @Html.DisplayFor(ModelItem => temp.cafeDesc)
+                            @Html.DisplayFor(ModelItem=> temp.cafeDesc)
                         </p>
                         @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = temp.Id }, null)
                     </div>
                     <div class="col-md-3">
                         <p>
                             <strong>Address</strong><br />
-                            @Html.Raw(Html.Encode(item.cafeAddress).Replace(",", "<br/>").Replace(";",""))<br/>
+                            @Html.DisplayFor(modelItem => item.cafeAddress)<br />
                             Singapore @Html.DisplayFor(modelItem => item.cafePostalCode)
                         </p>
-                        
                         <!-- Button to trigger modal -->
-                        <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal"
-                           data-cafepostalcode="@item.cafePostalCode" data-cafeaddress="@item.cafeAddress"
-                           data-cafelogo="@temp.cafeLogo" data-cafedesc="@temp.cafeDesc"
+                        <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal" 
+                           data-cafepostalcode="@item.cafePostalCode" data-cafeaddress="@item.cafeAddress" 
+                           data-cafelogo="@temp.cafeLogo" data-cafedesc="@temp.cafeDesc" 
                            data-cafename="@temp.cafeName">View On Map</a><br />
                         <!-- Modals -->
                         <div class="modal fade" id="mapmodals">
@@ -86,3 +85,4 @@ else
     }
 
 </ul>
+  

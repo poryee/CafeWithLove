@@ -259,7 +259,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\CafeDetails\Search.cshtml" />
     <Content Include="Views\CafeDetails\Create.cshtml" />
     <Content Include="Views\CafeDetails\Delete.cshtml" />
     <Content Include="Views\CafeDetails\Details.cshtml" />

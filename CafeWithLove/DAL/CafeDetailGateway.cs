@@ -16,7 +16,6 @@ namespace CafeWithLove.DAL
         public CafeDetailGateway()
         {
             this.data = db.Set<CafeDetail>();
-
         }
 
         public void save()
@@ -44,8 +43,6 @@ namespace CafeWithLove.DAL
 
         public IEnumerable<CafeDetail> SelectAll()
         {
-
-
             IEnumerable<CafeDetail> model = data.ToList();
 
             return model;
@@ -63,7 +60,6 @@ namespace CafeWithLove.DAL
         public void Update(CafeDetail obj)
         {
             db.Entry(obj).State = EntityState.Modified;
-
             save();
             //throw new NotImplementedException();
         }
