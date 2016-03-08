@@ -151,43 +151,53 @@ function setupLocationMarker(map) {
 }
 
 
-var map;
-var marker;
 
+
+var newMarkerLocation;
+
+//Map Initialization for Search Cafe
 function map_init(var_postalcode, var_cafename, var_contentstring) {
-    var var_location = new google.maps.LatLng(1.424749, 103.8449983);
-
+    var location = new google.maps.LatLng(1.3614221, 103.8238732); //center map to coordinates trying
+    var location2 = new google.maps.LatLng(1.3285714, 103.9283453); //FATCAT LOCATION
     var mapOptions = {
-        center: new google.maps.LatLng(40.680898, -8.684059),
-        zoom: 11,
+        center: location, //center map to coordinates
+        zoom: 11, //Initial zoom level
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
-    searchAddress(var_postalcode);
+    var map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
+    var result2 = searchAddress(var_postalcode, map);
+    console.log("result2 = " + result2);
     $('#mapmodals').on('shown.bs.modal', function () {
         google.maps.event.trigger(map, "resize");
-        map.setCenter(var_location);
+        map.setCenter(newMarkerLocation);
+        alert(newMarkerLocation);
+        alert(result2);
     });
+
 }
 
-function searchAddress(postalCode) {
+//Convert Cafe Postalcode to lat and lon coordinates
+function searchAddress(postalCode, map) {
     var geocoder = new google.maps.Geocoder();
     var result = "";
     geocoder.geocode({ 'address': String(postalCode) }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            result = results[0].geometry.location
-            createMarker(result);
+            newMarkerLocation = results[0].geometry.location;
+            result = results[0].geometry.location;
+            createMarker(result, map);
         } else {
             result = "Unable to find address: " + status;
-            alert(result);
         }
     });
+    console.log("result = " + result);
+    console.log("newMarkerLocation = " + newMarkerLocation);
     return result;
 
 }
 
-function createMarker(latlng) {
+//Create Map Marker of Search Cafe Location
+function createMarker(latlng, map) {
     var marker;
     // If the user makes another search you must clear the marker variable
     if (marker != undefined && marker != '') {
