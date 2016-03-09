@@ -15,6 +15,8 @@ namespace CafeWithLove.Controllers
     {
         private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
+        private SearchGateway searchGateway = new SearchGateway();
+
         private ViewModel mymodel = new ViewModel();
 
         private CafeWithLoveContext db = new CafeWithLoveContext();
@@ -128,6 +130,11 @@ namespace CafeWithLove.Controllers
             mymodel.CafeDetailVM = result;
 
             mymodel.CafeOutletVM = cafeOutletGateway.Populate(result);
+
+            // results found, add/update search database
+            if(result.Any())
+                searchGateway.Insert(searchInput);
+
             return View(mymodel);
         }
 
