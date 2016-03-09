@@ -12,26 +12,16 @@
 
 @{
     ViewBag.Title = "CAFE WITH L💗VE - All Cafes";
-    var myboolean = false;
+    var myboolean = true;
 }
 
-<!-- SEARCH RESULTS -->
-<h3 class="no-top-margin" style="display:inline-block;">Search Results</h3>
+<!-- BROWSE ALL CAFES -->
+<h3 class="no-top-margin" style="display:inline-block;">Browse all cafes</h3>
 <button type="button" class="btn btn-default add-15-bottom-margin add-15-left-margin active"><span class="glyphicon glyphicon-list"></span></button>
 <button type="button" class="btn btn-default add-15-bottom-margin"><span class="glyphicon glyphicon-map-marker"></span></button>
-@if (Model.CafeOutletVM.Count() == 0)
-{
-    <h4>No Cafe match search criteria</h4>
-    myboolean = false;
-}
 
-else
-{
-    <h4>We found @Model.CafeOutletVM.Count() results for search keyword</h4>
-    myboolean = true;
-}
 <ul class="list-group">
-    @if (myboolean == true)
+    @if (myboolean == true)         // will spoil the moment i remove it
     {
         foreach (var item in Model.CafeOutletVM)
         {

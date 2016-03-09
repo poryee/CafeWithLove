@@ -10,8 +10,6 @@ namespace CafeWithLove.DAL
     //our cafedetailgateway 
     public class CafeDetailGateway : DataGateway<CafeDetail>
     {
-        
-
         //initialise cafedetails and store into our data within this class
         public CafeDetailGateway()
         {
@@ -51,7 +49,6 @@ namespace CafeWithLove.DAL
 
         public CafeDetail SelectById(int? id)
         {
-
             CafeDetail obj = data.Find(id);
             return obj;
             //throw new NotImplementedException();

@@ -1,96 +1,142 @@
 ﻿@model CafeWithLove.Models.CafeDetail
 
-@{
-    Layout = null;
-}
+@Scripts.Render("~/bundles/cafedetails")
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
-    <h3>Are you sure you want to delete this?</h3>
-    <div>
-        <h4>CafeDetails</h4>
-        <hr />
+<h3 class="no-top-margin">@Html.DisplayFor(model => model.cafeName)</h3>
+<hr />
+<div>
+    <div class="container col-md-12">
+        <img class="img-rounded col-md-4 col-md-offset-4" src="@Url.Content(String.Format("~/Images/{0}", Model.cafeLogo))">
+    </div>
+    <div class="col-md-12">
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.cafeName)
             </dt>
-    
             <dd>
                 @Html.DisplayFor(model => model.cafeName)
             </dd>
-    
             <dt>
                 @Html.DisplayNameFor(model => model.cafeDesc)
             </dt>
-    
             <dd>
                 @Html.DisplayFor(model => model.cafeDesc)
             </dd>
-    
+
+            <!-- NOT FROM MODEL -->
             <dt>
-                @Html.DisplayNameFor(model => model.cafeLogo)
+                Address
             </dt>
-    
             <dd>
-                @Html.DisplayFor(model => model.cafeLogo)
+                <p>
+                    Blk 44 Jalan Merah Saga<br />
+                    #01-52<br />
+                    Singapore 278116
+                </p>
             </dd>
-    
+
+            <!-- NOT FROM MODEL -->
+            <dt>
+                Opening Hours<br />
+                <a href="#" id="openingHoursToggle">(Show All)</a>
+            </dt>
+            <dd>
+                <table class="col-md-12">
+                    <tr class="collaspedDay collapse" id="monday">
+                        <td class="monday col-md-3">
+                            Monday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="tuesday">
+                        <td class="col-md-3">
+                            Tuesday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="wednesday">
+                        <td class="col-md-3">
+                            Wednesday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="thursday">
+                        <td class="col-md-3">
+                            Thursday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="friday">
+                        <td class="col-md-3">
+                            Friday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="saturday">
+                        <td class="col-md-3">
+                            Saturday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse" id="sunday">
+                        <td class="col-md-3">
+                            Sunday
+                        </td>
+                        <td>
+                            11:00 - 23:00
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.cafePrice)
             </dt>
-    
             <dd>
                 @Html.DisplayFor(model => model.cafePrice)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.cafeRating)
             </dt>
-    
             <dd>
                 @Html.DisplayFor(model => model.cafeRating)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.cafeCategory)
             </dt>
-    
             <dd>
                 @Html.DisplayFor(model => model.cafeCategory)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.cafeWebsite)
             </dt>
-    
             <dd>
-                @Html.DisplayFor(model => model.cafeWebsite)
+                <a href="@Html.DisplayFor(model => model.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.cafeWebsite)</a>
             </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.numOfVisit)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.numOfVisit)
-            </dd>
-    
         </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
     </div>
-</body>
-</html>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+    
+        <div class="form-actions no-color text-center">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
