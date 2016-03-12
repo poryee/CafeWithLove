@@ -17,17 +17,16 @@ namespace CafeWithLove.Controllers
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
         private SearchGateway searchGateway = new SearchGateway();
 
-        private ViewModel mymodel = new ViewModel();
+        private CafeMapper cafeMapper = new CafeMapper();
 
         private CafeWithLoveContext db = new CafeWithLoveContext();
 
         // GET: CafeDetails
         public ActionResult Index()
         {
-            IEnumerable<CafeDetail> result = cafeDetailGateway.SelectAll();
-            mymodel.CafeDetailVM = result;
 
-            mymodel.CafeOutletVM = cafeOutletGateway.Populate(result);
+           ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+
             return View(mymodel);
         }
 
@@ -38,11 +37,7 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            //if (cafeDetails == null)
-            //{
-            //    return HttpNotFound();
-            //}
+           
             return View(cafeDetailGateway.SelectById(id));
         }
 
@@ -75,11 +70,7 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            //if (cafeDetails == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            
             return View(cafeDetailGateway.SelectById(id));
         }
 
@@ -105,11 +96,8 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            //if (cafeDetails == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            
+          
             return View(cafeDetailGateway.SelectById(id));
         }
 
@@ -126,15 +114,18 @@ namespace CafeWithLove.Controllers
         public ActionResult Search(string searchInput)
         {
             ViewBag.Message = "Your search page.";
-            IEnumerable<CafeDetail> result = cafeDetailGateway.Search(searchInput);
-            mymodel.CafeDetailVM = result;
 
-            mymodel.CafeOutletVM = cafeOutletGateway.Populate(result);
+
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMap(searchInput);
+
 
             // results found, add/update search database
-            if(result.Any())
+            if (mymodel.Any())
+            {
                 searchGateway.Insert(searchInput);
+            }
 
+           
             return View(mymodel);
         }
 
