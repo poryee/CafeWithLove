@@ -10,6 +10,17 @@
     @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
+    <!--Start of facebook javascript SDK-->
+    <div id="fb-root"></div>
+    <script>
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=563313847156850";
+     fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!--End of facebook javascript SDK-->
     <nav class="navbar navbar-default ">
         <!-- dummy navbar to ensure body contents are not hidden by navbar-->
     </nav>
@@ -65,7 +76,7 @@
             <div class="col-md-6">
                 <div class="form-search search-only">
                     <i class="search-icon glyphicon glyphicon-search"></i>
-                    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                    @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Post))
                     {
                         @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
                     }

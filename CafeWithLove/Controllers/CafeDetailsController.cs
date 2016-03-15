@@ -13,12 +13,21 @@ namespace CafeWithLove.Controllers
 {
     public class CafeDetailsController : Controller
     {
+        private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
+        private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
+        private SearchGateway searchGateway = new SearchGateway();
+
+        private CafeMapper cafeMapper = new CafeMapper();
+
         private CafeWithLoveContext db = new CafeWithLoveContext();
 
         // GET: CafeDetails
         public ActionResult Index()
         {
-            return View(db.CafeDetails.ToList());
+
+           ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+
+            return View(mymodel);
         }
 
         // GET: CafeDetails/Details/5
@@ -28,12 +37,8 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            if (cafeDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cafeDetails);
+           
+            return View(cafeDetailGateway.SelectById(id));
         }
 
         // GET: CafeDetails/Create
@@ -51,8 +56,7 @@ namespace CafeWithLove.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CafeDetails.Add(cafeDetails);
-                db.SaveChanges();
+                cafeDetailGateway.Insert(cafeDetails);
                 return RedirectToAction("Index");
             }
 
@@ -66,12 +70,8 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            if (cafeDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cafeDetails);
+            
+            return View(cafeDetailGateway.SelectById(id));
         }
 
         // POST: CafeDetails/Edit/5
@@ -83,8 +83,7 @@ namespace CafeWithLove.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cafeDetails).State = EntityState.Modified;
-                db.SaveChanges();
+                cafeDetailGateway.Update(cafeDetails);
                 return RedirectToAction("Index");
             }
             return View(cafeDetails);
@@ -97,12 +96,9 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            if (cafeDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cafeDetails);
+            
+          
+            return View(cafeDetailGateway.SelectById(id));
         }
 
         // POST: CafeDetails/Delete/5
@@ -110,10 +106,27 @@ namespace CafeWithLove.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CafeDetail cafeDetails = db.CafeDetails.Find(id);
-            db.CafeDetails.Remove(cafeDetails);
-            db.SaveChanges();
+            cafeDetailGateway.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Search(string searchInput)
+        {
+            ViewBag.Message = "Your search page.";
+
+
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMap(searchInput);
+
+
+            // results found, add/update search database
+            if (mymodel.Any())
+            {
+                searchGateway.Insert(searchInput);
+            }
+
+           
+            return View(mymodel);
         }
 
         protected override void Dispose(bool disposing)

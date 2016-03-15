@@ -170,11 +170,13 @@
     <Compile Include="Controllers\CafeDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\CafeDetailGateway.cs" />
+    <Compile Include="DAL\CafeMapper.cs" />
     <Compile Include="DAL\CafeOutletGateway.cs" />
     <Compile Include="DAL\CafeWithLoveContext.cs" />
     <Compile Include="DAL\DataGateway.cs" />
     <Compile Include="DAL\ICafeDetailsGateway.cs" />
     <Compile Include="DAL\IDataGateway.cs" />
+    <Compile Include="DAL\SearchGateway.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,8 +184,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CafeDetail.cs" />
     <Compile Include="Models\CafeOutlet.cs" />
+    <Compile Include="Models\CafeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Search.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -217,7 +221,9 @@
     <Content Include="Images\thedispensary.png" />
     <Content Include="Images\thelivingcafe.jpg" />
     <Content Include="Images\thelokal.png" />
+    <Content Include="Images\theprovisionshop.jpg" />
     <Content Include="Images\tianns.jpg" />
+    <Content Include="Images\tobysestate.jpg" />
     <Content Include="Images\w39.jpg" />
     <Content Include="Images\whiskandpaddle.png" />
     <Content Include="Images\windowsillpies.png" />
@@ -260,7 +266,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\CafeDetails\Search.cshtml" />
     <Content Include="Views\CafeDetails\Create.cshtml" />
     <Content Include="Views\CafeDetails\Delete.cshtml" />
     <Content Include="Views\CafeDetails\Details.cshtml" />
@@ -278,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

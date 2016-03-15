@@ -6,22 +6,14 @@ namespace CafeWithLove.DAL
 {
     public class CafeOutletGateway : DataGateway<CafeOutlet>
     {
-        private ICollection<CafeOutlet> temp;
+        
         public ICollection<CafeOutlet> model; 
 
-        public ICollection<CafeOutlet> Populate(IEnumerable<CafeDetail> result)
+        public ICollection<CafeOutlet> getOutlet(CafeDetail cafe)
         {
             ICollection<CafeOutlet> model = new List<CafeOutlet>();
-            foreach (CafeDetail cafe in result)
-            {
-                temp=data.Where(p => p.cafeId == cafe.Id).ToList();
-
-                foreach(CafeOutlet t in temp)
-                {
-                    model.Add(t);
-                }
-            };
-
+            
+            model = data.Where(p => p.cafeId == cafe.Id).ToList();
             return model;
         }
     }

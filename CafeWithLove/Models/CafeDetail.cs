@@ -11,23 +11,37 @@ namespace CafeWithLove.Models
     {
         public int Id { get; set; }
         
+        [DisplayName("Cafe Name")]
+        [Required]
         public string cafeName { get; set; }
 
+        [DisplayName("Cafe Description")]
+        [Required]
         public string cafeDesc { get; set; }
 
+        [DisplayName("Cafe Logo")]
+        [Required]
         public string cafeLogo { get; set; }
 
         [DisplayName("Price")]
+        [Range(1, 5)]
+        [Required]
         public int cafePrice { get; set; }
-
+        
         [DisplayName("Rating")]
+        [Range(1, 5)]
+        [Required]
         public decimal cafeRating { get; set; }
 
+        [DisplayName("Category")]
+        [Required]
         public string cafeCategory { get; set; }
 
         [DisplayName("Website")]
+        [Required]
         public string cafeWebsite { get; set; }
 
+        [DefaultValue(0)]
         public int numOfVisit { get; set; }
 
 

@@ -1,4 +1,5 @@
-﻿﻿@model ICollection<CafeWithLove.Models.CafeViewModel>
+﻿@model ICollection<CafeWithLove.Models.CafeViewModel>
+
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
@@ -11,28 +12,30 @@
 </style>
 
 @{
-    ViewBag.Title = "CAFE WITH L💗VE - All Cafes";
-    var myboolean = true;
+    ViewBag.Title = "CAFE WITH L💗VE - Search Results";
+    var myboolean = false;
 }
 
-<!-- BROWSE ALL CAFES -->
-<h3 class="no-top-margin" style="display:inline-block;">Browse all cafes</h3>
+<!-- SEARCH RESULTS -->
+<h3 class="no-top-margin" style="display:inline-block;">Search Results</h3>
 <button type="button" class="btn btn-default add-15-bottom-margin add-15-left-margin active"><span class="glyphicon glyphicon-list"></span></button>
 <button type="button" class="btn btn-default add-15-bottom-margin"><span class="glyphicon glyphicon-map-marker"></span></button>
 
 @if (Model.Count() == 0)
 {
     //if nothing
-    <h4>No Cafe</h4>
+    <h4>No Cafe match search criteria</h4>
     myboolean = false;
 }
 else
 {
-   
+    <h4>We found @Model.Count() results for search keyword</h4>
     myboolean = true;
 }
-
 <ul class="list-group">
+
+
+
 
     @if (myboolean == true)
     {
@@ -62,9 +65,9 @@ else
                                 Singapore @Html.DisplayFor(modelItem => outletlist.cafePostalCode)
                             </p>
                             <!-- Button to trigger modal -->
-                            <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal"
-                               data-cafepostalcode="@outletlist.cafePostalCode" data-cafeaddress="@outletlist.cafeAddress"
-                               data-cafelogo="@modellist.CafeDetailVM.cafeLogo" data-cafedesc="@modellist.CafeDetailVM.cafeDesc"
+                            <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal" 
+                               data-cafepostalcode="@outletlist.cafePostalCode" data-cafeaddress="@outletlist.cafeAddress" 
+                               data-cafelogo="@modellist.CafeDetailVM.cafeLogo" data-cafedesc="@modellist.CafeDetailVM.cafeDesc" 
                                data-cafename="@modellist.CafeDetailVM.cafeName">View On Map</a><br />
                             <!-- Modals -->
                             <div class="modal fade" id="mapmodals">
@@ -90,4 +93,6 @@ else
 
         }
     }
+
 </ul>
+  
