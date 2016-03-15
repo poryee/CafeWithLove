@@ -277,6 +277,7 @@ $(document).on("click", ".openmodal", function () {
     var cafePostalCode = $(this).data('cafepostalcode');
     var cafeAddress = $(this).data('cafeaddress');
     var cafeWebsite = $(this).data('cafewebsite');
+    var cafeContact = $(this).data('cafecontact');
 
     map_init(cafePostalCode, "Click to visit the " + cafeName + "",
           '<div id="mapInfo">' +
@@ -284,7 +285,7 @@ $(document).on("click", ".openmodal", function () {
           cafeDesc + '<br>' +
           cafeAddress + '<br>' +
           cafePostalCode + '<br>' +
-          'Phone: (+39) 041 240 5411</p>' +
+          cafeContact + '<br>' +
           '<a href="' + cafeWebsite + '" target="_blank">Plan your visit</a>' +
           '</div>');
     $(".modal-header #title_id").html(cafeName);
