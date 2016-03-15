@@ -38,7 +38,7 @@ namespace CafeWithLove.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
            
-            return View(cafeDetailGateway.SelectById(id));
+            return View(cafeMapper.CafeOutletMap((int)id));
         }
 
         // GET: CafeDetails/Create

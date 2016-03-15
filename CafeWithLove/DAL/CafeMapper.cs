@@ -25,9 +25,7 @@ namespace CafeWithLove.DAL
                 CafeViewModel tempmodel = new CafeViewModel();
                 tempmodel.CafeDetailVM = cafe;
                 tempmodel.CafeOutletVM = outletList;
-                //Debug.WriteLine("Send to debug output.");
                 modelList.Add(tempmodel);
-                //Debug.WriteLine("Send to debug output.");
             }
 
 
@@ -52,6 +50,18 @@ namespace CafeWithLove.DAL
 
 
             return modelList;
+        }
+
+        public OutletViewModel CafeOutletMap(int outletID)
+        {
+
+            CafeOutlet cafeOutlet = cafeOutletGateway.SelectById(outletID);
+            CafeDetail cafeDetail = cafeDetailGateway.SelectById(cafeOutlet.cafeId);
+            OutletViewModel tempmodel = new OutletViewModel();
+            tempmodel.CafeDetailVM = cafeDetail;
+            tempmodel.CafeOutletVM = cafeOutlet;
+            
+            return tempmodel;
         }
 
     }

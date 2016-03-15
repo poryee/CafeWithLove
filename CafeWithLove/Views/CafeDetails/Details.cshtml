@@ -1,4 +1,4 @@
-﻿@model CafeWithLove.Models.CafeDetail
+﻿@model CafeWithLove.Models.OutletViewModel
 
 @Scripts.Render("~/bundles/cafedetails")
 
@@ -8,16 +8,16 @@
 <script type="text/javascript" src="~/Scripts/Map.js"></script>
 
 
-<h3 class="no-top-margin">@Html.DisplayFor(model => model.cafeName)</h3>
+<h3 class="no-top-margin">@Html.DisplayFor(model => model.CafeDetailVM.cafeName)</h3>
 <hr />
 <div class="container col-md-12">
     <div class="col-md-7">
         <dl class="dl-horizontal">
             <dt>
-                <img class="img-rounded col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.cafeLogo))">
+                <img class="img-rounded col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.CafeDetailVM.cafeLogo))">
             </dt>
             <dd>
-                <p>@Html.DisplayFor(model => model.cafeDesc)</p>
+                <p>@Html.DisplayFor(model => model.CafeDetailVM.cafeDesc)</p>
             </dd>
 
             <!-- NOT FROM MODEL -->
@@ -26,9 +26,8 @@
             </dt>
             <dd>
                 <p>
-                    Blk 44 Jalan Merah Saga<br />
-                    #01-52<br />
-                    Singapore 278116
+                    @Html.DisplayFor(model => model.CafeOutletVM.cafeAddress)<br />
+                    @Html.DisplayFor(model => model.CafeOutletVM.cafePostalCode)
                 </p>
             </dd>
 
@@ -99,31 +98,31 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafePrice)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafePrice)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.cafePrice)
+                @Html.DisplayFor(model => model.CafeDetailVM.cafePrice)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafeRating)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeRating)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.cafeRating)
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeRating)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafeCategory)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeCategory)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.cafeCategory)
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeCategory)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafeWebsite)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeWebsite)
             </dt>
             <dd>
-                <a href="@Html.DisplayFor(model => model.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.cafeWebsite)</a>
+                <a href="@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)</a>
             </dd>
         </dl>
     </div>
