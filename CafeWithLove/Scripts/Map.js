@@ -154,6 +154,8 @@ function setupLocationMarker(map) {
 
 
 var newMarkerLocation;
+var marker;
+var var_infowindow
 
 //Map Initialization for Search Cafe
 function map_init(var_postalcode, var_cafename, var_contentstring) {
@@ -166,13 +168,12 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
     };
 
     var map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
-    var result2 = searchAddress(var_postalcode, map);
-    console.log("result2 = " + result2);
+    var_infowindow = new google.maps.InfoWindow({content: var_contentstring});
+    searchAddress(var_postalcode, map);
+
     $('#mapmodals').on('shown.bs.modal', function () {
         google.maps.event.trigger(map, "resize");
         map.setCenter(newMarkerLocation);
-        alert(newMarkerLocation);
-        alert(result2);
     });
 
 }
@@ -186,19 +187,16 @@ function searchAddress(postalCode, map) {
             newMarkerLocation = results[0].geometry.location;
             result = results[0].geometry.location;
             createMarker(result, map);
+            setInfoWindow(map);
         } else {
             result = "Unable to find address: " + status;
         }
     });
-    console.log("result = " + result);
-    console.log("newMarkerLocation = " + newMarkerLocation);
     return result;
-
 }
 
 //Create Map Marker of Search Cafe Location
 function createMarker(latlng, map) {
-    var marker;
     // If the user makes another search you must clear the marker variable
     if (marker != undefined && marker != '') {
         marker.setMap(null);
@@ -207,17 +205,17 @@ function createMarker(latlng, map) {
 
     marker = new google.maps.Marker({
         map: map,
-        position: latlng
+        position: latlng,
+        title: 'test'
     });
 }
 
 
-function setInfoWindow(marker, latlng, map)
+function setInfoWindow(map)
 {
-    var_infowindow.setContent(latlng);
-    var_infowindow.open(map, marker);
-
+    //var_infowindow.setContent(newMarkerLocation);
     google.maps.event.addListener(marker, 'click', function () {
+        //var_infowindow.setContent('address');
         var_infowindow.open(map, marker);
     });
 }
@@ -227,7 +225,6 @@ $(document).on("click", ".openmodal", function () {
     var cafeName = $(this).data('cafename');
     var cafeDesc = $(this).data('cafedesc');
     var cafeLogo = $(this).data('cafelogo');
-
     var cafePostalCode = $(this).data('cafepostalcode');
 
     map_init(cafePostalCode, "Click to visit the " + cafeName + "",
