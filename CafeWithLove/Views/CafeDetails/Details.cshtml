@@ -2,6 +2,12 @@
 
 @Scripts.Render("~/bundles/cafedetails")
 
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<script type="text/javascript" src="~/Scripts/Map.js"></script>
+
+
 <h3 class="no-top-margin">@Html.DisplayFor(model => model.cafeName)</h3>
 <hr />
 <div class="container col-md-12">
@@ -124,7 +130,8 @@
     <!-- GOOGLE MAP HERE -->
     <div class="col-md-5">
         <div class="row">
-            <img class="img-rounded col-md-11 col-md-offset-1" src="http://dummyimage.com/600x400/81cfe0/ffffff.png&text=GOOGLE+MAP+HERE">
+            <div class="img-rounded col-md-11 col-md-offset-1" style="width:500px;height:300px;" id="googleMap"></div>
+            <!-- <img class="img-rounded col-md-11 col-md-offset-1" src="http://dummyimage.com/600x400/81cfe0/ffffff.png&text=GOOGLE+MAP+HERE">-->
         </div>
         <div class="row" style="padding-top: 5px;">
             <div class="col-md-7 col-md-offset-1">
@@ -133,7 +140,7 @@
                     <input type="text" class="form-control" placeholder="Current Location">
                 </div>
             </div>
-            <button type="button" class="btn btn-info col-md-3">Get Here</button>
+            <button type="button" class="btn btn-info col-md-3" data-toggle="modal" data-test="760423" onclick="getThereClicked()">Get Here</button>
         </div>
     </div>
     <div class="col-md-7 col-md-offset-1">         

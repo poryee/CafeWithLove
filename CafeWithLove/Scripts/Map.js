@@ -1,6 +1,59 @@
 ﻿$(function () {
     //initialize();
+    if (window.location.pathname.match('Details/1')) {
+        google.maps.event.addDomListener(window, 'load', initialDetailGoogleMap);
+    }
 });
+
+var detailsMap
+var marker2
+
+
+function initialDetailGoogleMap()
+{
+    var mapProp = {
+        center: new google.maps.LatLng(1.3614221, 103.8238732),
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    detailsMap = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+    var marker2 = new google.maps.Marker({
+        map: detailsMap,
+        position: new google.maps.LatLng(1.3614221, 103.8238732)
+    });
+}
+
+function getThereClicked()
+{
+    if (marker2 != undefined && marker2 != '') {
+        marker2.setMap(null);
+        marker2 = '';
+    }
+    displayRoute();
+}
+
+function displayRoute() {
+
+    var start = new google.maps.LatLng(1.3614221, 103.8238732);
+    var end = new google.maps.LatLng(1.3285714, 103.9283453);
+
+    var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
+    directionsDisplay.setMap(detailsMap); // map should be already initialized.
+
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
 
 //Execute initialize ONLY when the complete document model has been loaded
 function initialize() {
@@ -150,9 +203,6 @@ function setupLocationMarker(map) {
     })
 }
 
-
-
-
 var newMarkerLocation;
 var marker;
 var var_infowindow
@@ -206,7 +256,6 @@ function createMarker(latlng, map) {
     marker = new google.maps.Marker({
         map: map,
         position: latlng,
-        title: 'test'
     });
 }
 
@@ -226,14 +275,17 @@ $(document).on("click", ".openmodal", function () {
     var cafeDesc = $(this).data('cafedesc');
     var cafeLogo = $(this).data('cafelogo');
     var cafePostalCode = $(this).data('cafepostalcode');
+    var cafeAddress = $(this).data('cafeaddress');
+    var cafeWebsite = $(this).data('cafewebsite');
 
     map_init(cafePostalCode, "Click to visit the " + cafeName + "",
           '<div id="mapInfo">' +
-          '<p><img class="img-rounded" src="/Images/' + cafeLogo + '" alt="' + cafeName + '" width="300px" /><br><br>' +
-          'Blk 44 Jalan Merah Saga<br>' +
-          '#01-52<br>278116<br>' +
+          '<p><img class="img-rounded" src="/Images/' + cafeLogo + '" alt="' + cafeName + '" width="150px" /><br><br>' +
+          cafeDesc + '<br>' +
+          cafeAddress + '<br>' +
+          cafePostalCode + '<br>' +
           'Phone: (+39) 041 240 5411</p>' +
-          '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>' +
+          '<a href="' + cafeWebsite + '" target="_blank">Plan your visit</a>' +
           '</div>');
     $(".modal-header #title_id").html(cafeName);
     $('#mapmodals').modal('show');
