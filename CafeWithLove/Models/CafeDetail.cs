@@ -16,6 +16,7 @@ namespace CafeWithLove.Models
         public string cafeName { get; set; }
 
         [DisplayName("Cafe Description")]
+        [MaxLength(255)]
         [Required]
         public string cafeDesc { get; set; }
 

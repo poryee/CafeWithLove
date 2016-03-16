@@ -30,6 +30,14 @@ namespace CafeWithLove.Controllers
             return View(mymodel);
         }
 
+        // GET: CafeDetails
+        public ActionResult _FeaturedCafes()
+        {
+            ICollection<CafeViewModel> mymodel = cafeMapper.MostVisited();
+
+            return PartialView(mymodel);
+        }
+
         // GET: CafeDetails/Details/5
         public ActionResult Details(int? id)
         {

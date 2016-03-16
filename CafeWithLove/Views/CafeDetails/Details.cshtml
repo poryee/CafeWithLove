@@ -26,8 +26,8 @@
             </dt>
             <dd>
                 <p>
-                    @Html.DisplayFor(model => model.CafeOutletVM.cafeAddress)<br />
-                    @Html.DisplayFor(model => model.CafeOutletVM.cafePostalCode)
+                    @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOutletVM.cafeAddress)).Replace(",", "<br/>"))<br />
+                    Singapore @Html.DisplayFor(model => model.CafeOutletVM.cafePostalCode)
                 </p>
             </dd>
 

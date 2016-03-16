@@ -35,7 +35,6 @@ namespace CafeWithLove.DAL
 
         public ICollection<CafeViewModel> CafeMapAll()
         {
-            
             IEnumerable<CafeDetail> CafeList = cafeDetailGateway.SelectAll();
 
             foreach (CafeDetail cafe in CafeList)
@@ -46,15 +45,12 @@ namespace CafeWithLove.DAL
                 tempmodel.CafeOutletVM = outletList;
                 modelList.Add(tempmodel);
             }
-
-
-
+            
             return modelList;
         }
 
         public OutletViewModel CafeOutletMap(int outletID)
         {
-
             CafeOutlet cafeOutlet = cafeOutletGateway.SelectById(outletID);
             CafeDetail cafeDetail = cafeDetailGateway.SelectById(cafeOutlet.cafeId);
             OutletViewModel tempmodel = new OutletViewModel();
@@ -64,5 +60,20 @@ namespace CafeWithLove.DAL
             return tempmodel;
         }
 
+        public ICollection<CafeViewModel> MostVisited()
+        {
+            IEnumerable<CafeDetail> CafeList = cafeDetailGateway.MostVisited();
+
+            foreach (CafeDetail cafe in CafeList)
+            {
+                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe);
+                CafeViewModel tempmodel = new CafeViewModel();
+                tempmodel.CafeDetailVM = cafe;
+                tempmodel.CafeOutletVM = outletList;
+                modelList.Add(tempmodel);
+            }
+
+            return modelList;
+        }
     }
 }
