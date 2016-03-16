@@ -1,4 +1,4 @@
-﻿@model CafeWithLove.Models.ViewModel
+﻿﻿@model ICollection<CafeWithLove.Models.CafeViewModel>
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
@@ -20,61 +20,75 @@
 <button type="button" class="btn btn-default add-15-bottom-margin add-15-left-margin active"><span class="glyphicon glyphicon-list"></span></button>
 <button type="button" class="btn btn-default add-15-bottom-margin"><span class="glyphicon glyphicon-map-marker"></span></button>
 
-<ul class="list-group">
-    @if (myboolean == true)         // will spoil the moment i remove it
-    {
-        foreach (var item in Model.CafeOutletVM)
-        {
-            var temp = Model.CafeDetailVM.Where(a => a.Id == item.cafeId).First();
+@if (Model.Count() == 0)
+{
+    //if nothing
+    <h4>No Cafe</h4>
+    myboolean = false;
+}
+else
+{
+   
+    myboolean = true;
+}
 
-            <li class="list-group-item">
-                <div class="row">
-                    <img class="img-rounded col-md-2" src="@Url.Content(String.Format("~/Images/{0}", temp.cafeLogo))">
-                    <div class="col-md-7" style="vertical-align: middle;">
-                        <h5 class="no-bottom-margin no-top-margin">@Html.DisplayFor(modelItem => temp.cafeName)</h5>
-                        <span class="label label-danger" style="">253 ❤</span>
-                        <p></p>
-                        <p>
-                            @Html.DisplayFor(ModelItem => temp.cafeDesc)
-                        </p>
-                        <p>
-                            Category: @Html.ActionLink(temp.cafeCategory, "Search", "CafeDetails", new { searchInput = temp.cafeCategory }, null)
-                        </p>
-                        @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = temp.Id }, null)
+<ul class="list-group">
+
+    @if (myboolean == true)
+    {
+        foreach (var modellist in Model)
+        {
+            //var temp = Model.CafeDetailVM.Where(a => a.Id == item.cafeId).First();
+            foreach (var outletlist in modellist.CafeOutletVM)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <img class="img-rounded col-md-2" src="@Url.Content(String.Format("~/Images/{0}", modellist.CafeDetailVM.cafeLogo))">
+                        <div class="col-md-7" style="vertical-align: middle;">
+                            <h5 class="no-bottom-margin no-top-margin">@Html.DisplayFor(modelItem => modellist.CafeDetailVM.cafeName)</h5>
+                            <span class="label label-danger" style="">253 ❤</span>
+                            <p></p>
+                            <p>
+                                @Html.DisplayFor(ModelItem => modellist.CafeDetailVM.cafeDesc)
+                            </p>
+                            <p>
+                                Category: @Html.ActionLink(modellist.CafeDetailVM.cafeCategory, "Search", "CafeDetails", new { searchInput = modellist.CafeDetailVM.cafeCategory }, null)
+                            </p>
+                            @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = modellist.CafeDetailVM.Id }, null)
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                <strong>Address</strong><br />
+                                @Html.Raw(Html.Encode(outletlist.cafeAddress).Replace(",", "<br/>").Replace(";", ""))<br />
+                                Singapore @Html.DisplayFor(modelItem => outletlist.cafePostalCode)
+                            </p>
+                            <!-- Button to trigger modal -->
+                            <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal"
+                               data-cafepostalcode="@outletlist.cafePostalCode" data-cafeaddress="@outletlist.cafeAddress"
+                               data-cafelogo="@modellist.CafeDetailVM.cafeLogo" data-cafedesc="@modellist.CafeDetailVM.cafeDesc"
+                               data-cafename="@modellist.CafeDetailVM.cafeName">View On Map</a><br />
+                            <!-- Modals -->
+                            <div class="modal fade" id="mapmodals">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="title_id"></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="map-container"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="close" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <p>
-                            <strong>Address</strong><br />
-                            @Html.Raw(Html.Encode(item.cafeAddress).Replace(",", "<br/>").Replace(";",""))<br/>
-                            Singapore @Html.DisplayFor(modelItem => item.cafePostalCode)
-                        </p>
-                        
-                        <!-- Button to trigger modal -->
-                        <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal"
-                           data-cafepostalcode="@item.cafePostalCode" data-cafeaddress="@item.cafeAddress"
-                           data-cafelogo="@temp.cafeLogo" data-cafedesc="@temp.cafeDesc"
-                           data-cafename="@temp.cafeName">View On Map</a><br />
-                        <!-- Modals -->
-                        <div class="modal fade" id="mapmodals">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="title_id"></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="map-container"></div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="close" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                    </div>
-                </div>
-            </li>
+                </li>
+            }
+
         }
     }
-
 </ul>

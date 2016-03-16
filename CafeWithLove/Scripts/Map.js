@@ -1,6 +1,59 @@
 ﻿$(function () {
     //initialize();
+    if (window.location.pathname.match('Details/1')) {
+        google.maps.event.addDomListener(window, 'load', initialDetailGoogleMap);
+    }
 });
+
+var detailsMap
+var marker2
+
+
+function initialDetailGoogleMap()
+{
+    var mapProp = {
+        center: new google.maps.LatLng(1.3614221, 103.8238732),
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    detailsMap = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+    var marker2 = new google.maps.Marker({
+        map: detailsMap,
+        position: new google.maps.LatLng(1.3614221, 103.8238732)
+    });
+}
+
+function getThereClicked()
+{
+    if (marker2 != undefined && marker2 != '') {
+        marker2.setMap(null);
+        marker2 = '';
+    }
+    displayRoute();
+}
+
+function displayRoute() {
+
+    var start = new google.maps.LatLng(1.3614221, 103.8238732);
+    var end = new google.maps.LatLng(1.3285714, 103.9283453);
+
+    var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
+    directionsDisplay.setMap(detailsMap); // map should be already initialized.
+
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
 
 //Execute initialize ONLY when the complete document model has been loaded
 function initialize() {
@@ -150,10 +203,9 @@ function setupLocationMarker(map) {
     })
 }
 
-
-
-
 var newMarkerLocation;
+var marker;
+var var_infowindow
 
 //Map Initialization for Search Cafe
 function map_init(var_postalcode, var_cafename, var_contentstring) {
@@ -166,13 +218,12 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
     };
 
     var map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
-    var result2 = searchAddress(var_postalcode, map);
-    console.log("result2 = " + result2);
+    var_infowindow = new google.maps.InfoWindow({content: var_contentstring});
+    searchAddress(var_postalcode, map);
+
     $('#mapmodals').on('shown.bs.modal', function () {
         google.maps.event.trigger(map, "resize");
         map.setCenter(newMarkerLocation);
-        alert(newMarkerLocation);
-        alert(result2);
     });
 
 }
@@ -186,19 +237,16 @@ function searchAddress(postalCode, map) {
             newMarkerLocation = results[0].geometry.location;
             result = results[0].geometry.location;
             createMarker(result, map);
+            setInfoWindow(map);
         } else {
             result = "Unable to find address: " + status;
         }
     });
-    console.log("result = " + result);
-    console.log("newMarkerLocation = " + newMarkerLocation);
     return result;
-
 }
 
 //Create Map Marker of Search Cafe Location
 function createMarker(latlng, map) {
-    var marker;
     // If the user makes another search you must clear the marker variable
     if (marker != undefined && marker != '') {
         marker.setMap(null);
@@ -207,17 +255,16 @@ function createMarker(latlng, map) {
 
     marker = new google.maps.Marker({
         map: map,
-        position: latlng
+        position: latlng,
     });
 }
 
 
-function setInfoWindow(marker, latlng, map)
+function setInfoWindow(map)
 {
-    var_infowindow.setContent(latlng);
-    var_infowindow.open(map, marker);
-
+    //var_infowindow.setContent(newMarkerLocation);
     google.maps.event.addListener(marker, 'click', function () {
+        //var_infowindow.setContent('address');
         var_infowindow.open(map, marker);
     });
 }
@@ -227,16 +274,19 @@ $(document).on("click", ".openmodal", function () {
     var cafeName = $(this).data('cafename');
     var cafeDesc = $(this).data('cafedesc');
     var cafeLogo = $(this).data('cafelogo');
-
     var cafePostalCode = $(this).data('cafepostalcode');
+    var cafeAddress = $(this).data('cafeaddress');
+    var cafeWebsite = $(this).data('cafewebsite');
+    var cafeContact = $(this).data('cafecontact');
 
     map_init(cafePostalCode, "Click to visit the " + cafeName + "",
           '<div id="mapInfo">' +
-          '<p><img class="img-rounded" src="/Images/' + cafeLogo + '" alt="' + cafeName + '" width="300px" /><br><br>' +
-          'Blk 44 Jalan Merah Saga<br>' +
-          '#01-52<br>278116<br>' +
-          'Phone: (+39) 041 240 5411</p>' +
-          '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>' +
+          '<p><img class="img-rounded" src="/Images/' + cafeLogo + '" alt="' + cafeName + '" width="150px" /><br><br>' +
+          cafeDesc + '<br>' +
+          cafeAddress + '<br>' +
+          cafePostalCode + '<br>' +
+          cafeContact + '<br>' +
+          '<a href="' + cafeWebsite + '" target="_blank">Plan your visit</a>' +
           '</div>');
     $(".modal-header #title_id").html(cafeName);
     $('#mapmodals').modal('show');

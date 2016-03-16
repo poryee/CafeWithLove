@@ -1,17 +1,23 @@
-﻿@model CafeWithLove.Models.CafeDetail
+﻿@model CafeWithLove.Models.OutletViewModel
 
 @Scripts.Render("~/bundles/cafedetails")
 
-<h3 class="no-top-margin">@Html.DisplayFor(model => model.cafeName)</h3>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<script type="text/javascript" src="~/Scripts/Map.js"></script>
+
+
+<h3 class="no-top-margin">@Html.DisplayFor(model => model.CafeDetailVM.cafeName)</h3>
 <hr />
 <div class="container col-md-12">
     <div class="col-md-7">
         <dl class="dl-horizontal">
             <dt>
-                <img class="img-rounded col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.cafeLogo))">
+                <img class="img-rounded col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.CafeDetailVM.cafeLogo))">
             </dt>
             <dd>
-                <p>@Html.DisplayFor(model => model.cafeDesc)</p>
+                <p>@Html.DisplayFor(model => model.CafeDetailVM.cafeDesc)</p>
             </dd>
 
             <!-- NOT FROM MODEL -->
@@ -20,9 +26,8 @@
             </dt>
             <dd>
                 <p>
-                    Blk 44 Jalan Merah Saga<br />
-                    #01-52<br />
-                    Singapore 278116
+                    @Html.DisplayFor(model => model.CafeOutletVM.cafeAddress)<br />
+                    @Html.DisplayFor(model => model.CafeOutletVM.cafePostalCode)
                 </p>
             </dd>
 
@@ -93,38 +98,39 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafePrice)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafePrice)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.cafePrice)
+                @Html.DisplayFor(model => model.CafeDetailVM.cafePrice)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafeRating)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeRating)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.cafeRating)
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeRating)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafeCategory)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeCategory)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.cafeCategory)
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeCategory)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.cafeWebsite)
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeWebsite)
             </dt>
             <dd>
-                <a href="@Html.DisplayFor(model => model.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.cafeWebsite)</a>
+                <a href="@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)</a>
             </dd>
         </dl>
     </div>
     <!-- GOOGLE MAP HERE -->
     <div class="col-md-5">
         <div class="row">
-            <img class="img-rounded col-md-11 col-md-offset-1" src="http://dummyimage.com/600x400/81cfe0/ffffff.png&text=GOOGLE+MAP+HERE">
+            <div class="img-rounded col-md-11 col-md-offset-1" style="width:500px;height:300px;" id="googleMap"></div>
+            <!-- <img class="img-rounded col-md-11 col-md-offset-1" src="http://dummyimage.com/600x400/81cfe0/ffffff.png&text=GOOGLE+MAP+HERE">-->
         </div>
         <div class="row" style="padding-top: 5px;">
             <div class="col-md-7 col-md-offset-1">
@@ -133,7 +139,12 @@
                     <input type="text" class="form-control" placeholder="Current Location">
                 </div>
             </div>
-            <button type="button" class="btn btn-info col-md-3">Get Here</button>
+            <button type="button" class="btn btn-info col-md-3" data-toggle="modal" data-test="760423" onclick="getThereClicked()">Get Here</button>
         </div>
     </div>
-</div>
+    <div class="col-md-7 col-md-offset-1">         
+        <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-numposts="5"></div>
+        </div>
+        <!-- get the current URL only, so different page got different comment box, eg commenting on fatcat wont comment on cali cafe -->
+
+    </div>
