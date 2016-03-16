@@ -17,6 +17,8 @@ namespace CafeWithLove.DAL
 
         public virtual void Insert(String userInputKeyword)
         {
+            // caps first letter only
+            userInputKeyword = char.ToUpper(userInputKeyword[0]) + userInputKeyword.Substring(1).ToLower();
             Search obj = SelectBySearchKeyword(userInputKeyword);
 
             // not searched before in search database, insert new row
@@ -47,6 +49,12 @@ namespace CafeWithLove.DAL
                 return model.First();
             else
                 return null;
+        }
+
+        public IEnumerable<Search> GetPopularSearch()
+        {
+            IEnumerable<Search> model = data.OrderByDescending(x => x.numOfSearches).Take(10);
+            return model;
         }
     }
 }

@@ -122,7 +122,7 @@ namespace CafeWithLove.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Search(string searchInput)
         {
             ViewBag.Message = "Your search page.";

@@ -65,7 +65,7 @@
             <div class="col-md-6">
                 <div class="form-search search-only">
                     <i class="search-icon glyphicon glyphicon-search"></i>
-                    @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Post))
+                    @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Get))
                     {
                         @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
                     }
@@ -119,22 +119,7 @@
             <div class="col-md-9">
                 @RenderBody()   <!-- PAGE CONTENT HERE-->
             </div>
-            <!-- POPULAR SEARCHES -->
-            <div class="col-md-3">
-                <h4 class="no-top-margin">Popular Searches</h4>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">facilisis in</a>
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item">Cras sit amet nibh libero</a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item">Vestibulum at eros</a>
-                    <a href="#" class="list-group-item">facilisis in</a>
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item">Cras sit amet nibh libero</a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item">facilisis in</a>
-                </div>
-            </div>
+            @{Html.RenderAction("_PopularSearchPartial", "Search"); }    <!-- i not sure if i have to split to folder -->
         </div>
 
         <hr />

@@ -63,7 +63,11 @@ namespace CafeWithLove.DAL
 
         public IEnumerable<CafeDetail> Search(String input)
         {
-            IEnumerable<CafeDetail> model = db.CafeDetails.Where(x => x.cafeName.ToUpper().Contains(input.ToUpper()) || input == null).ToList();
+            input = input.ToUpper();
+            IEnumerable<CafeDetail> model = db.CafeDetails.Where(
+                                            x => x.cafeName.ToUpper().Contains(input) ||
+                                            x.cafeCategory.ToUpper().Contains(input) ||
+                                            input == null) .ToList();
             //throw new NotImplementedException();
 
             return model;
