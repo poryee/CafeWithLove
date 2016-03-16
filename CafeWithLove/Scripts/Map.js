@@ -1,14 +1,17 @@
-﻿$(function () {
-    //initialize();
-    if (window.location.pathname.match('Details/1')) {
+﻿//Load When Website Loaded
+$(function () {
+    //Check webpage If it is Details/1
+    if (window.location.pathname.match('CafeDetails/Details/')) {
+        getLocation();
         google.maps.event.addDomListener(window, 'load', initialDetailGoogleMap);
     }
 });
 
 var detailsMap
 var marker2
+var currentLocation
 
-
+//Initialize Google Map for Details/1 Page
 function initialDetailGoogleMap()
 {
     var mapProp = {
@@ -36,7 +39,8 @@ function getThereClicked()
 
 function displayRoute() {
 
-    var start = new google.maps.LatLng(1.3614221, 103.8238732);
+    //var start = new google.maps.LatLng(1.3614221, 103.8238732);
+    var start = currentLocation;
     var end = new google.maps.LatLng(1.3285714, 103.9283453);
 
     var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
@@ -53,6 +57,18 @@ function displayRoute() {
             directionsDisplay.setDirections(response);
         }
     });
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 }
 
 //Execute initialize ONLY when the complete document model has been loaded

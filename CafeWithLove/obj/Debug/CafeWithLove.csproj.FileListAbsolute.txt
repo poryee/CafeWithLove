@@ -411,3 +411,4 @@ C:\Users\LoonX\Source\Repos\CafeWithLove\CafeWithLove\bin\Microsoft.Owin.Securit
 C:\Users\LoonX\Source\Repos\CafeWithLove\CafeWithLove\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\LoonX\Source\Repos\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.dll
 C:\Users\LoonX\Source\Repos\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.pdb
+C:\Users\LoonX\Source\Repos\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.csprojResolveAssemblyReference.cache
