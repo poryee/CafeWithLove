@@ -63,10 +63,36 @@ namespace CafeWithLove.DAL
 
         public IEnumerable<CafeDetail> Search(String input)
         {
-            IEnumerable<CafeDetail> model = db.CafeDetails.Where(x => x.cafeName.ToUpper().Contains(input.ToUpper()) || input == null).ToList();
+            input = input.ToUpper();
+            IEnumerable<CafeDetail> model = db.CafeDetails.Where(
+                                            x => x.cafeName.ToUpper().Contains(input) ||
+                                            x.cafeCategory.ToUpper().Contains(input) ||
+                                            input == null) .ToList();
             //throw new NotImplementedException();
 
             return model;
+        }
+
+        public IEnumerable<CafeDetail> MostVisited()
+        {
+            IEnumerable<CafeDetail> model = db.CafeDetails.OrderByDescending(
+                                            x => x.numOfVisit).Take(4).ToList();
+            //throw new NotImplementedException();
+
+            return model;
+        }
+
+        public bool ValidNameOrCat(String input)
+        {
+            input = input.ToUpper();
+            IEnumerable<CafeDetail> model = db.CafeDetails.Where(
+                                            x => x.cafeName.ToUpper().Equals(input) ||
+                                            x.cafeCategory.ToUpper().Equals(input) ||
+                                            input == null).Take(1);
+            //throw new NotImplementedException();
+            if (model.Any())
+                return true;
+            return false;
         }
 
         public void Dispose()

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<CafeWithLove.Models.Search>
+
+<!-- POPULAR SEARCHES -->
+<div class="col-md-3">
+    <h4 class="no-top-margin">Popular Searches</h4>
+    <div class="list-group">
+        @foreach (var item in Model) {
+            @Html.ActionLink(item.searchKeyword, "Search", "CafeDetails", new { searchInput = item.searchKeyword }, new { @class = "list-group-item" });
+            @*<a href="#" class="list-group-item">@Html.DisplayFor(modelItem => item.searchKeyword)</a>*@
+        }
+    </div>
+</div>

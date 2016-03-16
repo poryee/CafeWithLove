@@ -3,8 +3,11 @@ ViewBag.Title = "CAFE WITH L💗VE - HOME";
 }
 
 <!-- MOST VISITED CAFES -->
-<h2 class="no-top-margin">MOST VISITED CAFES</h2>
+@{Html.RenderAction("_FeaturedCafes", "CafeDetails"); }
+@*{Html.RenderAction("_LoginPartial", "CafeDetails"); }*@
+@*<h2 class="no-top-margin">MOST VISITED CAFES</h2>
 <div class="row">
+    
     <div class="col-sm-6 col-md-3">
         <div class="thumbnail">
             <img class="img-rounded" src="~/Content/Images/sundayfolks.jpg">
@@ -49,4 +52,4 @@ ViewBag.Title = "CAFE WITH L💗VE - HOME";
             </div>
         </div>
     </div>
-</div>
+</div>*@

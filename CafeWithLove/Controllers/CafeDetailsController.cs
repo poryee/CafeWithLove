@@ -30,6 +30,14 @@ namespace CafeWithLove.Controllers
             return View(mymodel);
         }
 
+        // GET: CafeDetails
+        public ActionResult _FeaturedCafes()
+        {
+            ICollection<CafeViewModel> mymodel = cafeMapper.MostVisited();
+
+            return PartialView(mymodel);
+        }
+
         // GET: CafeDetails/Details/5
         public ActionResult Details(int? id)
         {
@@ -38,7 +46,7 @@ namespace CafeWithLove.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
            
-            return View(cafeDetailGateway.SelectById(id));
+            return View(cafeMapper.CafeOutletMap((int)id));
         }
 
         // GET: CafeDetails/Create
@@ -110,7 +118,7 @@ namespace CafeWithLove.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Search(string searchInput)
         {
             ViewBag.Message = "Your search page.";

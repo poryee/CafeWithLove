@@ -41,8 +41,6 @@ else
             //var temp = Model.CafeDetailVM.Where(a => a.Id == item.cafeId).First();
             foreach (var outletlist in modellist.CafeOutletVM)
             {
-
-
                 <li class="list-group-item">
                     <div class="row">
                         <img class="img-rounded col-md-2" src="@Url.Content(String.Format("~/Images/{0}", modellist.CafeDetailVM.cafeLogo))">
@@ -52,6 +50,9 @@ else
                             <p></p>
                             <p>
                                 @Html.DisplayFor(ModelItem => modellist.CafeDetailVM.cafeDesc)
+                            </p>
+                            <p>
+                                Category: @Html.ActionLink(modellist.CafeDetailVM.cafeCategory, "Search", "CafeDetails", new { searchInput = modellist.CafeDetailVM.cafeCategory }, null)
                             </p>
                             @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = modellist.CafeDetailVM.Id }, null)
                         </div>

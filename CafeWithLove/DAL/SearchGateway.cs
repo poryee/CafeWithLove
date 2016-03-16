@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace CafeWithLove.DAL
@@ -17,8 +18,13 @@ namespace CafeWithLove.DAL
 
         public virtual void Insert(String userInputKeyword)
         {
-            Search obj = SelectBySearchKeyword(userInputKeyword);
+            if (!new CafeDetailGateway().ValidNameOrCat(userInputKeyword))
+                return;
 
+            // caps first letter of each word
+            userInputKeyword = Regex.Replace(userInputKeyword, @"(^\w)|(\s\w)", m => m.Value.ToUpper());
+            Search obj = SelectBySearchKeyword(userInputKeyword);
+           
             // not searched before in search database, insert new row
             if (obj == null)
             {
@@ -42,11 +48,17 @@ namespace CafeWithLove.DAL
 
         public Search SelectBySearchKeyword(String userInputKeyword)
         {
-            IEnumerable<Search> model = data.Where(x => x.searchKeyword.ToUpper().Contains(userInputKeyword.ToUpper())).Take(1);
+            IEnumerable<Search> model = data.Where(x => x.searchKeyword.Contains(userInputKeyword)).Take(1);
             if (model.Any())
                 return model.First();
             else
                 return null;
+        }
+
+        public IEnumerable<Search> GetPopularSearch()
+        {
+            IEnumerable<Search> model = data.OrderByDescending(x => x.numOfSearches).Take(10);
+            return model;
         }
     }
 }

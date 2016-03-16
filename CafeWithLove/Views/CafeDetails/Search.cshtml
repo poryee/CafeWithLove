@@ -56,6 +56,9 @@ else
                             <p>
                                 @Html.DisplayFor(ModelItem => modellist.CafeDetailVM.cafeDesc)
                             </p>
+                            <p>
+                                Category: @Html.ActionLink(modellist.CafeDetailVM.cafeCategory, "Search", "CafeDetails", new { searchInput = modellist.CafeDetailVM.cafeCategory }, null)
+                            </p>
                             @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = modellist.CafeDetailVM.Id }, null)
                         </div>
                         <div class="col-md-3">
@@ -68,7 +71,7 @@ else
                             <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal" 
                                data-cafepostalcode="@outletlist.cafePostalCode" data-cafeaddress="@outletlist.cafeAddress" 
                                data-cafelogo="@modellist.CafeDetailVM.cafeLogo" data-cafedesc="@modellist.CafeDetailVM.cafeDesc" 
-                               data-cafename="@modellist.CafeDetailVM.cafeName" data-cafewebsite="@modellist.CafeDetailVM.cafeWebsite" >View On Map</a><br />
+                               data-cafename="@modellist.CafeDetailVM.cafeName" data-cafewebsite="@modellist.CafeDetailVM.cafeWebsite", data-cafecontact="@outletlist.cafeContactNum" >View On Map</a><br />
                             <!-- Modals -->
                             <div class="modal fade" id="mapmodals">
                                 <div class="modal-dialog modal-lg">
