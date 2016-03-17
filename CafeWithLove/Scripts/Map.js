@@ -1,14 +1,12 @@
 ﻿$(function () {
     //initialize();
-    if (window.location.pathname.match('Details/1')) {
+    if (window.location.pathname.match('CafeDetails/Details')) {
         google.maps.event.addDomListener(window, 'load', initialDetailGoogleMap);
     }
 });
 
 var detailsMap
 var marker2
-
-
 function initialDetailGoogleMap()
 {
     var mapProp = {
@@ -36,7 +34,7 @@ function getThereClicked()
 
 function displayRoute() {
 
-    var start = new google.maps.LatLng(1.3614221, 103.8238732);
+    var start = currentLocation;
     var end = new google.maps.LatLng(1.3285714, 103.9283453);
 
     var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
@@ -203,21 +201,30 @@ function setupLocationMarker(map) {
     })
 }
 
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+    currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+}
+
+
+
+
+
+
+
+
+
+
 var newMarkerLocation;
 var marker;
 var var_infowindow;
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Map Initialization for Search Cafe
 function map_init(var_postalcode, var_cafename, var_contentstring) {
