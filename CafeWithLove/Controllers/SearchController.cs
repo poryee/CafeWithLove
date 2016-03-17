@@ -12,7 +12,7 @@ namespace CafeWithLove.Controllers
         private SearchGateway searchGateway = new SearchGateway();
 
         // GET: Search
-        public ActionResult _PopularSearchPartial()
+        public ActionResult _PopularSearches()
         {
             return PartialView(searchGateway.GetPopularSearch());
         }
