@@ -21,7 +21,7 @@ namespace CafeWithLove.DAL
             
             foreach (CafeDetail cafe in CafeList)
             {
-                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe);
+                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe.Id);
                 CafeViewModel tempmodel = new CafeViewModel();
                 tempmodel.CafeDetailVM = cafe;
                 tempmodel.CafeOutletVM = outletList;
@@ -39,7 +39,7 @@ namespace CafeWithLove.DAL
 
             foreach (CafeDetail cafe in CafeList)
             {
-                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe);
+                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe.Id);
                 CafeViewModel tempmodel = new CafeViewModel();
                 tempmodel.CafeDetailVM = cafe;
                 tempmodel.CafeOutletVM = outletList;
@@ -66,7 +66,7 @@ namespace CafeWithLove.DAL
 
             foreach (CafeDetail cafe in CafeList)
             {
-                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe);
+                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe.Id);
                 CafeViewModel tempmodel = new CafeViewModel();
                 tempmodel.CafeDetailVM = cafe;
                 tempmodel.CafeOutletVM = outletList;

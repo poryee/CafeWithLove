@@ -9,11 +9,11 @@ namespace CafeWithLove.DAL
         
         public ICollection<CafeOutlet> model; 
 
-        public ICollection<CafeOutlet> getOutlet(CafeDetail cafe)
+        public ICollection<CafeOutlet> getOutlet(int cafeId)
         {
             ICollection<CafeOutlet> model = new List<CafeOutlet>();
             
-            model = data.Where(p => p.cafeId == cafe.Id).ToList();
+            model = data.Where(p => p.cafeId == cafeId).ToList();
             return model;
         }
     }
