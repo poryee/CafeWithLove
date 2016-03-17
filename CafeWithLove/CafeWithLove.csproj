@@ -183,6 +183,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CafeDetail.cs" />
+    <Compile Include="Models\CafeOpeningHour.cs" />
     <Compile Include="Models\CafeOutlet.cs" />
     <Compile Include="Models\CafeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -193,6 +194,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CafeWithLoveDB.mdf" />
+    <Content Include="App_Data\CafeWithLoveDB_log.ldf">
+      <DependentUpon>CafeWithLoveDB.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootflat.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -285,7 +290,6 @@
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Search2\" />
   </ItemGroup>
   <ItemGroup>
