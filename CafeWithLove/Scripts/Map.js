@@ -205,7 +205,19 @@ function setupLocationMarker(map) {
 
 var newMarkerLocation;
 var marker;
-var var_infowindow
+var var_infowindow;
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Map Initialization for Search Cafe
 function map_init(var_postalcode, var_cafename, var_contentstring) {
@@ -219,7 +231,7 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
 
     var map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
     var_infowindow = new google.maps.InfoWindow({content: var_contentstring});
-    searchAddress(var_postalcode, map);
+    getCoordinate(var_postalcode, map);
 
     $('#mapmodals').on('shown.bs.modal', function () {
         google.maps.event.trigger(map, "resize");
@@ -229,7 +241,7 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
 }
 
 //Convert Cafe Postalcode to lat and lon coordinates
-function searchAddress(postalCode, map) {
+function getCoordinate(postalCode, map) {
     var geocoder = new google.maps.Geocoder();
     var result = "";
     geocoder.geocode({ 'address': String(postalCode) }, function (results, status) {
