@@ -1,44 +1,59 @@
-﻿$(function () {
+﻿var map;
+var cafeMarker;
+var currentLocation;
+var inputLocation;
+var currentCafeLocation;
+var markersArray = [];
+
+$(function () {
     //initialize();
     if (window.location.pathname.match('CafeDetails/Details')) {
         google.maps.event.addDomListener(window, 'load', initialDetailGoogleMap);
     }
 });
 
-var detailsMap
-var marker2
 function initialDetailGoogleMap()
 {
+    var postalCode = document.getElementById("postalCode");
+
+
     var mapProp = {
-        center: new google.maps.LatLng(1.3614221, 103.8238732),
+        center: new google.maps.LatLng(1.3285714, 103.9283453),
         zoom: 11,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
-    detailsMap = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-    var marker2 = new google.maps.Marker({
-        map: detailsMap,
-        position: new google.maps.LatLng(1.3614221, 103.8238732)
-    });
+    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+    getCoordinate(postalCode.innerHTML, map);
 }
 
-function getThereClicked()
+function getThereClicked(value)
 {
-    if (marker2 != undefined && marker2 != '') {
-        marker2.setMap(null);
-        marker2 = '';
+    if (cafeMarker != undefined && cafeMarker != '') {
+        cafeMarker.setMap(null);
+        cafeMarker = '';
     }
+
+    inputLocation = value;
     displayRoute();
 }
 
 function displayRoute() {
-
-    var start = currentLocation;
-    var end = new google.maps.LatLng(1.3285714, 103.9283453);
+    clearOverlays();
+    var start
+    var end
+    if (inputLocation == "") {
+        start = currentLocation;
+        end = currentCafeLocation;
+    }
+    else
+    {
+        start = inputLocation;
+        end = currentCafeLocation;
+    }
 
     var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
-    directionsDisplay.setMap(detailsMap); // map should be already initialized.
+    directionsDisplay.setMap(map); // map should be already initialized.
 
     var request = {
         origin: start,
@@ -51,6 +66,9 @@ function displayRoute() {
             directionsDisplay.setDirections(response);
         }
     });
+    markersArray.push(directionsDisplay);
+    //markersArray.push(start);
+    //markersArray.push(end);
 }
 
 //Execute initialize ONLY when the complete document model has been loaded
@@ -211,6 +229,7 @@ function getCurrentLocation() {
 
 function showPosition(position) {
     currentLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    createMarker(currentLocation);
 }
 
 
@@ -222,11 +241,11 @@ function showPosition(position) {
 
 
 
-var newMarkerLocation;
-var marker;
+
+
 var var_infowindow;
 
-//Map Initialization for Search Cafe
+//map Initialization for Search Cafe
 function map_init(var_postalcode, var_cafename, var_contentstring) {
     var location = new google.maps.LatLng(1.3614221, 103.8238732); //center map to coordinates trying
     var location2 = new google.maps.LatLng(1.3285714, 103.9283453); //FATCAT LOCATION
@@ -236,13 +255,13 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    var map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
+    map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
     var_infowindow = new google.maps.InfoWindow({content: var_contentstring});
     getCoordinate(var_postalcode, map);
 
     $('#mapmodals').on('shown.bs.modal', function () {
         google.maps.event.trigger(map, "resize");
-        map.setCenter(newMarkerLocation);
+        map.setCenter(currentCafeLocation);
     });
 
 }
@@ -251,9 +270,10 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
 function getCoordinate(postalCode, map) {
     var geocoder = new google.maps.Geocoder();
     var result = "";
+    //alert(result + "1");
     geocoder.geocode({ 'address': String(postalCode) }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            newMarkerLocation = results[0].geometry.location;
+            currentCafeLocation = results[0].geometry.location;
             result = results[0].geometry.location;
             createMarker(result, map);
             setInfoWindow(map);
@@ -265,26 +285,32 @@ function getCoordinate(postalCode, map) {
 }
 
 //Create Map Marker of Search Cafe Location
-function createMarker(latlng, map) {
+function createMarker(latlng) {
     // If the user makes another search you must clear the marker variable
-    if (marker != undefined && marker != '') {
-        marker.setMap(null);
-        marker = '';
-    }
+    //if (cafeMarker != undefined && cafeMarker != '') {
+    //    cafeMarker.setMap(null);
+    //    cafeMarker = '';
+    //}
 
-    marker = new google.maps.Marker({
+    cafeMarker = new google.maps.Marker({
         map: map,
-        position: latlng,
+        position: latlng
     });
+    //markersArray.push(cafeMarker);
 }
 
-
+function clearOverlays() {
+    for (var i = 0; i < markersArray.length; i++) {
+        markersArray[i].setMap(null);
+    }
+    markersArray.length = 0;
+}
 function setInfoWindow(map)
 {
-    //var_infowindow.setContent(newMarkerLocation);
-    google.maps.event.addListener(marker, 'click', function () {
+    //var_infowindow.setContent(currentCafeLocation);
+    google.maps.event.addListener(cafeMarker, 'click', function () {
         //var_infowindow.setContent('address');
-        var_infowindow.open(map, marker);
+        var_infowindow.open(map, cafeMarker);
     });
 }
 
