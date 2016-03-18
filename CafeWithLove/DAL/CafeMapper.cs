@@ -53,6 +53,7 @@ namespace CafeWithLove.DAL
         {
             CafeOutlet cafeOutlet = cafeOutletGateway.SelectById(outletID);
             CafeDetail cafeDetail = cafeDetailGateway.SelectById(cafeOutlet.cafeId);
+            cafeDetailGateway.UpdateNumOfVisits(cafeDetail);
             OutletViewModel tempmodel = new OutletViewModel();
             tempmodel.CafeDetailVM = cafeDetail;
             tempmodel.CafeOutletVM = cafeOutlet;

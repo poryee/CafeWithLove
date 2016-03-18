@@ -95,6 +95,13 @@ namespace CafeWithLove.DAL
             return false;
         }
 
+        public void UpdateNumOfVisits(CafeDetail cafe)
+        {
+            cafe.numOfVisit++;
+            db.Entry(cafe).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
         public void Dispose()
         {
 
