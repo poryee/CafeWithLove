@@ -30,6 +30,24 @@ namespace CafeWithLove.Controllers
             return View(mymodel);
         }
 
+        // GET: CafeFilter by Price
+        public ActionResult PFilter()
+        {
+
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+
+            return View("Index", mymodel);
+        }
+
+        // GET: CafeFilter by Region
+        public ActionResult RFilter()
+        {
+
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+
+            return View("Index", mymodel);
+        }
+
         // GET: CafeDetails
         public ActionResult _FeaturedCafes()
         {
