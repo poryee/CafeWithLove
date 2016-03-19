@@ -82,6 +82,17 @@ namespace CafeWithLove.DAL
             return model;
         }
 
+        public IEnumerable<CafeDetail> PFilter(string chosen)
+        {
+
+            int price = int.Parse(chosen);
+            IEnumerable<CafeDetail> model = db.CafeDetails.Where(
+                                            x => x.cafePrice== price).ToList();
+            //throw new NotImplementedException();
+
+            return model;
+        }
+
         public bool ValidNameOrCat(String input)
         {
             input = input.ToUpper();

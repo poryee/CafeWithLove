@@ -76,5 +76,22 @@ namespace CafeWithLove.DAL
 
             return modelList;
         }
+
+
+        public ICollection<CafeViewModel> CafePFilter(string chosen)
+        {
+            IEnumerable<CafeDetail> CafeList = cafeDetailGateway.PFilter(chosen);
+
+            foreach (CafeDetail cafe in CafeList)
+            {
+                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe.Id);
+                CafeViewModel tempmodel = new CafeViewModel();
+                tempmodel.CafeDetailVM = cafe;
+                tempmodel.CafeOutletVM = outletList;
+                modelList.Add(tempmodel);
+            }
+
+            return modelList;
+        }
     }
 }

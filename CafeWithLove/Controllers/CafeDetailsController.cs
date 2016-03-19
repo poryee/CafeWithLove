@@ -31,10 +31,19 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeFilter by Price
-        public ActionResult PFilter()
+        public ActionResult PFilter(string chosen)
         {
+            ICollection<CafeViewModel> mymodel = null;
 
-            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+            if (chosen == null)
+            {
+                mymodel = cafeMapper.CafeMapAll();
+            }
+            else
+            {
+                mymodel = cafeMapper.CafePFilter(chosen);
+            }
+
 
             return View("Index", mymodel);
         }

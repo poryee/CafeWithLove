@@ -40,26 +40,36 @@
                     <li>@Html.ActionLink("Browse All Cafes", "Index", "CafeDetails")</li>
                     <li>@Html.ActionLink("Cafe Reviews", "Index", "Home")</li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Price <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">Header</li>
-                            <li>@Html.ActionLink("$", "PFilter", "Home")</li>
-                            <li>@Html.ActionLink("$$", "PFilter", "Home")</li>
-                            <li>@Html.ActionLink("$$$", "PFilter", "Home")</li>
-                            <li>@Html.ActionLink("$$$$", "PFilter", "Home")</li>
+                            <li>@Html.ActionLink("$", "PFilter", "CafeDetails", new { chosen = "1" },null)</li>
+                            <li>@Html.ActionLink("$$", "PFilter", "CafeDetails", new { chosen = "2" }, null)</li>
+                            <li>@Html.ActionLink("$$$", "PFilter", "CafeDetails", new { chosen = "3" }, null)</li>
+                            <li>@Html.ActionLink("$$$$", "PFilter", "CafeDetails", new { chosen = "4" }, null)</li>
                             <li class="divider"></li>
-                            <li>@Html.ActionLink("$$$$$", "PFilter", "Home")</li>
+                            <li>@Html.ActionLink("$$$$$", "PFilter", "CafeDetails", new { chosen = "5" }, null)</li>
+
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("$", "RFilter", "CafeDetails", new { chosen = "1" }, null)</li>
+                            <li>@Html.ActionLink("$$", "PFilter", "CafeDetails", new { chosen = "2" }, null)</li>
+                            <li>@Html.ActionLink("$$$", "PFilter", "CafeDetails", new { chosen = "3" }, null)</li>
+                            <li>@Html.ActionLink("$$$$", "PFilter", "CafeDetails", new { chosen = "4" }, null)</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("$$$$$", "PFilter", "CafeDetails", new { chosen = "5" }, null)</li>
 
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Estates <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-header">Header</li>
-                            <li>@Html.ActionLink("North", "RFilter", "Home")</li>
-                            <li>@Html.ActionLink("South", "RFilter", "Home")</li>
-                            <li>@Html.ActionLink("East", "RFilter", "Home")</li>
-                            <li>@Html.ActionLink("West", "RFilter", "Home")</li>
+                            <li>@Html.ActionLink("North", "RFilter", "CafeDetails", new { chosen = "north" }, null)</li>
+                            <li>@Html.ActionLink("South", "RFilter", "CafeDetails", new { chosen = "south" }, null)</li>
+                            <li>@Html.ActionLink("East", "RFilter", "CafeDetails", new { chosen = "east" }, null)</li>
+                            <li>@Html.ActionLink("West", "RFilter", "CafeDetails", new { chosen = "west" }, null)</li>
                             
                         </ul>
                     </li>
