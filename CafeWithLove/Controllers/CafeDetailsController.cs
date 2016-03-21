@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CafeWithLove.DAL;
 using CafeWithLove.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CafeWithLove.Controllers
 {
@@ -15,11 +16,14 @@ namespace CafeWithLove.Controllers
     {
         private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
+        private BookmarkGateway bookmarkGateway = new BookmarkGateway();
         private SearchGateway searchGateway = new SearchGateway();
 
         private CafeMapper cafeMapper = new CafeMapper();
 
         private CafeWithLoveContext db = new CafeWithLoveContext();
+
+        
 
         // GET: CafeDetails
         public ActionResult Index()
@@ -72,8 +76,38 @@ namespace CafeWithLove.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
+
+            if (User.Identity.IsAuthenticated)
+            {
+                string userId = User.Identity.GetUserId();
+                bool bookmarked = bookmarkGateway.IfBookmarked((int)id, userId);
+                @ViewBag.Bookmarked = bookmarked;
+
+                if (bookmarked)
+                {
+                    @ViewBag.BookmarkClass = "btn-yellow-inverse";
+                }
+                else
+                {
+                    @ViewBag.BookmarkClass = "btn-yellow";
+                }
+            }
+
             return View(cafeMapper.CafeOutletMap((int)id));
+        }
+
+        [Authorize]             // only logged in users can view this page
+        public ActionResult Bookmark(int? newID, bool bookmarked)
+        {
+            string userId = User.Identity.GetUserId();
+            Bookmark newBookmark = new Bookmark((int)newID, userId);
+
+            if(bookmarked)
+                bookmarkGateway.Delete((int)newID, userId);            // should be delete
+            else
+                bookmarkGateway.Insert(newBookmark);
+
+            return RedirectToAction("Details", "CafeDetails", new { id = newID });
         }
 
         // GET: CafeDetails/Create

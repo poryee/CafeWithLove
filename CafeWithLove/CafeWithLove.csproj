@@ -170,6 +170,7 @@
     <Compile Include="Controllers\CafeDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="DAL\BookmarkGateway.cs" />
     <Compile Include="DAL\CafeDetailGateway.cs" />
     <Compile Include="DAL\CafeMapper.cs" />
     <Compile Include="DAL\CafeOutletGateway.cs" />
@@ -182,6 +183,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Bookmark.cs" />
     <Compile Include="Models\CafeDetail.cs" />
     <Compile Include="Models\CafeOpeningHour.cs" />
     <Compile Include="Models\CafeOutlet.cs" />
@@ -291,6 +293,7 @@
     <Content Include="Views\Search\_PopularSearches.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Booking\" />
     <Folder Include="Views\Search2\" />
   </ItemGroup>
   <ItemGroup>

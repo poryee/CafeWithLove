@@ -7,8 +7,13 @@
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 <script type="text/javascript" src="~/Scripts/Map.js"></script>
 
-
-<h3 class="no-top-margin">@Html.DisplayFor(model => model.CafeDetailVM.cafeName)</h3>
+<h3 class="no-top-margin">
+    @Html.DisplayFor(model => model.CafeDetailVM.cafeName)
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("★", "Bookmark", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, bookmarked = @ViewBag.Bookmarked }, new { @class = @ViewBag.BookmarkClass }) 
+    }
+</h3>
 <hr />
 <div class="container col-md-12">
     <div class="col-md-7">

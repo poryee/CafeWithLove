@@ -194,6 +194,44 @@ blockquote {
 .btn-default, .btn-default.disabled, .btn-default[disabled] {
   background-color: white;
 }
+.btn-yellow {
+  color: #434a54;
+  border-color: #aab2bd !important;
+}
+.btn-yellow:hover, .btn-yellow:focus, .btn-yellow:active, .btn-yellow.active{
+  /*background-color: #ccd1d9;
+  border-color: #ccd1d9;*/
+  border-color: #F7CA18 !important;
+  color: #F7CA18 !important;
+  background-color: white;
+}
+
+.btn-yellow:hover .caret, .btn-yellow:focus .caret, .btn-yellow:active .caret, .btn-yellow.active .caret {
+    border-top-color: #F7CA18;
+    border-bottom-color: #F7CA18;
+}
+.btn-yellow, .btn-yellow.disabled, .btn-yellow[disabled] {
+  background-color: white;
+}
+.btn-yellow-inverse {
+  color: #F7CA18;
+  border-color: #aab2bd !important;
+}
+.btn-yellow-inverse:hover, .btn-yellow-inverse:focus, .btn-yellow-inverse:active, .btn-yellow-inverse.active{
+  /*background-color: #ccd1d9;
+  border-color: #ccd1d9;*/
+  border-color: #434a54 !important;
+  color: #434a54 !important;
+  background-color: white;
+}
+
+.btn-yellow-inverse:hover .caret, .btn-yellow-inverse:focus .caret, .btn-yellow-inverse:active .caret, .btn-yellow-inverse.active .caret {
+    border-top-color: #434a54;
+    border-bottom-color: #434a54;
+}
+.btn-yellow-inverse, .btn-yellow-inverse.disabled, .btn-yellow-inverse[disabled] {
+  background-color: white;
+}
 .open .dropdown-toggle.btn-default {
   /*background-color: #ccd1d9;
   border-color: #ccd1d9;*/
