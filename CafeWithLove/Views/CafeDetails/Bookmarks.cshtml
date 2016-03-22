@@ -52,7 +52,7 @@ else
                             <p>
                                 Category: @Html.ActionLink(modellist.CafeDetailVM.cafeCategory, "Search", "CafeDetails", new { searchInput = modellist.CafeDetailVM.cafeCategory }, null)
                             </p>
-                            @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = modellist.CafeDetailVM.Id }, null)
+                            @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = outletlist.cafeOutletId }, null)
                         </div>
                         <div class="col-md-3">
                             <p>
