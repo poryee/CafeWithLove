@@ -67,6 +67,17 @@ namespace CafeWithLove.DAL
             return model;
         }
 
+        public IEnumerable<CafeDetail> CFilter(string chosen)
+        {
+
+            
+            IEnumerable<CafeDetail> model = db.CafeDetails.Where(
+                                            x => x.cafeCategory.Equals(chosen)).ToList();
+            //throw new NotImplementedException();
+
+            return model;
+        }
+
         public bool ValidNameOrCat(String input)
         {
             input = input.ToUpper();

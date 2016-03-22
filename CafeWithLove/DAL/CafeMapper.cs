@@ -90,6 +90,21 @@ namespace CafeWithLove.DAL
             return modelList;
         }
 
+        public ICollection<CafeViewModel> CafeCFilter(string chosen)
+        {
+            IEnumerable<CafeDetail> CafeList = cafeDetailGateway.CFilter(chosen);
+
+            foreach (CafeDetail cafe in CafeList)
+            {
+                ICollection<CafeOutlet> outletList = cafeOutletGateway.getOutlet(cafe.Id);
+                CafeViewModel tempmodel = new CafeViewModel();
+                tempmodel.CafeDetailVM = cafe;
+                tempmodel.CafeOutletVM = outletList;
+                modelList.Add(tempmodel);
+            }
+            return modelList;
+        }
+
         // query CafeOutlet database based on list of cafes from CafeDetails
         // map each CafeOutlet to CafDetails based on cafeId
         public void MapOutletToCafe(IEnumerable<CafeDetail> cafeList)

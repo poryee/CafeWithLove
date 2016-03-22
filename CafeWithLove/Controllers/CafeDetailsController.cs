@@ -49,9 +49,16 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeFilter by Region
-        public ActionResult CFilter()
+        public ActionResult CFilter(string chosen)
         {
-            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+            if (chosen == null)                         // no filter chosen, redirect to index
+                return RedirectToAction("Index");
+
+            ViewBag.Heading = "Browse cafes with Category (" + chosen + ")";
+
+            ICollection<CafeViewModel> mymodel = null;
+
+            mymodel = cafeMapper.CafeCFilter(chosen);
 
             return View("Index", mymodel);
         }
