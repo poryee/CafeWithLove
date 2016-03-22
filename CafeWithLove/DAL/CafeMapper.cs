@@ -16,7 +16,6 @@ namespace CafeWithLove.DAL
 
         public ICollection<CafeViewModel> CafeMap(String searchInput)
         {
-            
             IEnumerable<CafeDetail> CafeList = cafeDetailGateway.Search(searchInput);
             
             foreach (CafeDetail cafe in CafeList)
@@ -27,9 +26,6 @@ namespace CafeWithLove.DAL
                 tempmodel.CafeOutletVM = outletList;
                 modelList.Add(tempmodel);
             }
-
-
-      
             return modelList;
         }
 
@@ -61,6 +57,26 @@ namespace CafeWithLove.DAL
             return tempmodel;
         }
 
+        public ICollection<CafeViewModel> CafeMapBookmarks(int[] cafeOutletIds)
+        {
+            ICollection<CafeOutlet> outletList = cafeOutletGateway.getBookmarked(cafeOutletIds);        // get list of outlets
+            int[] cafeIds = outletList.Select(outlet => outlet.cafeId).Distinct().ToArray();   // get all cafeIds of cafeArray
+            
+            IEnumerable<CafeDetail> cafeList = cafeDetailGateway.BookmarkedCafes(cafeIds);        // get list of outlets
+            
+            foreach (var cafe in cafeList)      // loop through all cafes in cafeList
+            {
+                ICollection<CafeOutlet> outlets = new List<CafeOutlet>();
+                outlets = outletList.Where(outlet => outlet.cafeId == cafe.Id).ToList();
+                CafeViewModel tempmodel = new CafeViewModel();
+                tempmodel.CafeDetailVM = cafe;
+                tempmodel.CafeOutletVM = outlets;       // store all outlets into the same cafedetail
+                modelList.Add(tempmodel);
+            }
+
+            return modelList;
+        }
+
         public ICollection<CafeViewModel> MostVisited()
         {
             IEnumerable<CafeDetail> CafeList = cafeDetailGateway.MostVisited();
@@ -90,8 +106,8 @@ namespace CafeWithLove.DAL
                 tempmodel.CafeOutletVM = outletList;
                 modelList.Add(tempmodel);
             }
-
             return modelList;
         }
+
     }
 }

@@ -32,6 +32,13 @@ namespace CafeWithLove.DAL
             data.Remove(foundBookmark);
             db.SaveChanges();
             return foundBookmark;
+        }
+
+        public IEnumerable<Int32> GetBookmarks(string userId)
+        {
+            IEnumerable<Int32> model = data.Where(x => x.userId.Equals(userId)).Select(x => x.cafeOutletId);
+
+            return model;
 
         }
     }

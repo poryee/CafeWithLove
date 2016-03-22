@@ -110,6 +110,18 @@ namespace CafeWithLove.Controllers
             return RedirectToAction("Details", "CafeDetails", new { id = newID });
         }
 
+        //GET: CafeDetails/Bookmarks
+        [Authorize]             // only logged in users can view this page
+        public ActionResult Bookmarks()
+        {
+            string userId = User.Identity.GetUserId();
+            IEnumerable<Int32> bookmarkCafes = bookmarkGateway.GetBookmarks(userId);        // get all bookmarked cafes cafeoutletid
+            int[] cafeOutletIds = bookmarkCafes.Cast<int>().ToArray();              // convert to array
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapBookmarks(cafeOutletIds);
+
+            return View(mymodel);
+        }
+
         // GET: CafeDetails/Create
         public ActionResult Create()
         {
@@ -183,18 +195,15 @@ namespace CafeWithLove.Controllers
         public ActionResult Search(string searchInput)
         {
             ViewBag.Message = "Your search page.";
-
-
+            
             ICollection<CafeViewModel> mymodel = cafeMapper.CafeMap(searchInput);
-
-
+            
             // results found, add/update search database
             if (mymodel.Any())
             {
                 searchGateway.Insert(searchInput);
             }
-
-           
+            
             return View(mymodel);
         }
 

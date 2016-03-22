@@ -16,5 +16,14 @@ namespace CafeWithLove.DAL
             model = data.Where(p => p.cafeId == cafeId).ToList();
             return model;
         }
+
+        // get all cafes based on array of Scafeoutletid
+        public ICollection<CafeOutlet> getBookmarked(int[] cafeOutletIds)
+        {
+            ICollection<CafeOutlet> model = new List<CafeOutlet>();
+
+            model = data.Where(p => cafeOutletIds.Contains(p.cafeOutletId)).ToList();
+            return model;
+        }
     }
 }

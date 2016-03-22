@@ -113,6 +113,14 @@ namespace CafeWithLove.DAL
             db.SaveChanges();
         }
 
+        // get all cafes based on array of cafeid
+        public IEnumerable<CafeDetail> BookmarkedCafes(int[] cafeId)
+        {
+            IEnumerable<CafeDetail> model = data.Where(x => cafeId.Contains(x.Id)).ToList();    // get all cafe with Ids present in cafeId
+            
+            return model;
+        }
+
         public void Dispose()
         {
 

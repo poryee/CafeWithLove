@@ -291,6 +291,7 @@
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Search\_PopularSearches.cshtml" />
+    <Content Include="Views\CafeDetails\Bookmarks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Booking\" />
