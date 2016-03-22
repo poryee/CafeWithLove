@@ -49,11 +49,21 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeFilter by Region
-        public ActionResult RFilter()
+        public ActionResult CFilter()
         {
             ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
 
             return View("Index", mymodel);
+        }
+
+        
+        // GET: CafeFilter by Region
+        public ActionResult _RandomCategory()
+        {
+
+            IEnumerable<CafeDetail> mymodel = cafeDetailGateway.Random();
+
+            return PartialView(mymodel);
         }
 
         // GET: Featured Cafes

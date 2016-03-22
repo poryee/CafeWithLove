@@ -16,50 +16,24 @@ namespace CafeWithLove.DAL
             this.data = db.Set<CafeDetail>();
         }
 
-        //public void save()
-        //{
-        //    db.SaveChanges();
-        //    //throw new NotImplementedException();
-        //}
+        public ICollection<CafeDetail> Random()
+        {
+            List<CafeDetail> mymodel = new List<CafeDetail>();
+            int ran;
+            //randomly select 5 
+            Random rnd = new Random();
+            IEnumerable<CafeDetail> model = db.CafeDetails.GroupBy(c => c.cafeCategory).Select(grp => grp.FirstOrDefault()).ToList();
+            int number = model.Count();
+            //throw new NotImplementedException();
+            for (int i = 0; i < 5; i++)
+            {
+                ran = rnd.Next(number);
+                mymodel.Add(model.ElementAt(ran));
+            }
+            mymodel.GroupBy(s => s.cafeCategory).Select(grp => grp.FirstOrDefault());
 
-        //public CafeDetail Delete(int? id)
-        //{
-        //    CafeDetail obj = data.Find(id);
-        //    data.Remove(obj);
-        //    db.SaveChanges();
-        //    return obj;
-        //    //throw new NotImplementedException();
-
-        //}
-
-        //public void Insert(CafeDetail obj)
-        //{
-        //    data.Add(obj);
-        //    save();
-        //    //throw new NotImplementedException();
-        //}
-
-        //public IEnumerable<CafeDetail> SelectAll()
-        //{
-        //    IEnumerable<CafeDetail> model = data.ToList();
-
-        //    return model;
-        //    //throw new NotImplementedException();
-        //}
-
-        //public CafeDetail SelectById(int? id)
-        //{
-        //    CafeDetail obj = data.Find(id);
-        //    return obj;
-        //    //throw new NotImplementedException();
-        //}
-
-        //public void Update(CafeDetail obj)
-        //{
-        //    db.Entry(obj).State = EntityState.Modified;
-        //    save();
-        //    //throw new NotImplementedException();
-        //}
+            return mymodel;
+        }
 
         public IEnumerable<CafeDetail> Search(String input)
         {
