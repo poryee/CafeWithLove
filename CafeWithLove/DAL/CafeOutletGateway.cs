@@ -18,7 +18,7 @@ namespace CafeWithLove.DAL
         }
 
         // get all cafes based on array of Scafeoutletid
-        public ICollection<CafeOutlet> getBookmarked(int[] cafeOutletIds)
+        public ICollection<CafeOutlet> SelectByIdArray(int[] cafeOutletIds)
         {
             ICollection<CafeOutlet> model = new List<CafeOutlet>();
 

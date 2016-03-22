@@ -36,7 +36,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Top 10", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Top 10", "TopTen", "CafeDetails")</li>
                     <li>@Html.ActionLink("Browse All Cafes", "Index", "CafeDetails")</li>
                     <li>@Html.ActionLink("Cafe Reviews", "Index", "Home")</li>
                     <li class="dropdown">
@@ -88,7 +88,7 @@
                     }
                 </div>
             </div>
-            <div class="btn-group">
+            <div class="btn-group hidden-xs hidden-sm">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Price <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
@@ -98,7 +98,7 @@
                     <li><a href="#">Separated link</a></li>
                 </ul>
             </div>
-            <div class="btn-group">
+            <div class="btn-group hidden-xs hidden-sm">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
@@ -108,7 +108,7 @@
                     <li><a href="#">Separated link</a></li>
                 </ul>
             </div>
-            <div class="btn-group">
+            <div class="btn-group hidden-xs hidden-sm">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Estates <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
@@ -118,7 +118,7 @@
                     <li><a href="#">Separated link</a></li>
                 </ul>
             </div>
-            <div class="btn-group">
+            <div class="btn-group hidden-xs hidden-sm">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">KM <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
@@ -136,9 +136,10 @@
             <div class="col-md-9">
                 @RenderBody()   <!-- PAGE CONTENT HERE-->
             </div>
-            @{Html.RenderAction("_PopularSearches", "Search"); }    <!-- i not sure if i have to split to folder -->
+            <div class="hidden-xs hidden-sm">
+                @{Html.RenderAction("_PopularSearches", "Search"); }    <!-- i not sure if i have to split to folder -->
+            </div>
         </div>
-
         <hr />
         <footer>
             <h6>ABOUT CAFE WITH L💗VE</h6>
@@ -146,7 +147,7 @@
                 <span class="pull-left">
                     Copyright&copy; @DateTime.Now.Year - CAFE WITH L💗VE
                 </span>
-                <span class="pull-right col-md-3">
+                <span class="pull-right col-md-3 col-sm-12 col-xs-12">
                     <a href="#" class="col-md-offset-2 col-md-4">Help</a>
                     <a href="#" class="col-md-6">Contact Us</a>
                 </span>

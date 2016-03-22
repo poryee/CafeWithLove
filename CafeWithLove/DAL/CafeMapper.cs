@@ -48,7 +48,7 @@ namespace CafeWithLove.DAL
         // gets CafeOutlet before CafeDetails
         public ICollection<CafeViewModel> CafeMapBookmarks(int[] cafeOutletIds)
         {
-            ICollection<CafeOutlet> outletList = cafeOutletGateway.getBookmarked(cafeOutletIds);        // get list of outlets
+            ICollection<CafeOutlet> outletList = cafeOutletGateway.SelectByIdArray(cafeOutletIds);        // get list of outlets
             int[] cafeIds = outletList.Select(outlet => outlet.cafeId).Distinct().ToArray();   // get all cafeIds of cafeArray
             
             IEnumerable<CafeDetail> cafeList = cafeDetailGateway.BookmarkedCafes(cafeIds);        // get list of outlets
@@ -66,15 +66,15 @@ namespace CafeWithLove.DAL
             return modelList;
         }
 
-        public ICollection<CafeViewModel> MostVisited()
+        public ICollection<CafeViewModel> MostVisited(int numOfCafes)
         {
-            IEnumerable<CafeDetail> cafeList = cafeDetailGateway.MostVisited();
-            
+            IEnumerable<CafeDetail> cafeList = cafeDetailGateway.MostVisited(numOfCafes);
+
             MapOutletToCafe(cafeList);
 
             return modelList;
         }
-        
+
         public ICollection<CafeViewModel> CafePFilter(string chosen)
         {
             IEnumerable<CafeDetail> CafeList = cafeDetailGateway.PFilter(chosen);
@@ -96,7 +96,7 @@ namespace CafeWithLove.DAL
         {
             int[] cafeIds = cafeList.Select(cafe => cafe.Id).Distinct().ToArray();
 
-            ICollection<CafeOutlet> outletList = cafeOutletGateway.getBookmarked(cafeIds);        // get list of outlets
+            ICollection<CafeOutlet> outletList = cafeOutletGateway.SelectByIdArray(cafeIds);        // get list of outlets
 
             foreach (CafeDetail cafe in cafeList)      // loop through all cafes in cafeList
             {

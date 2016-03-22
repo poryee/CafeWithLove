@@ -73,10 +73,10 @@ namespace CafeWithLove.DAL
             return model;
         }
 
-        public IEnumerable<CafeDetail> MostVisited()
+        public IEnumerable<CafeDetail> MostVisited(int numOfCafes)
         {
             IEnumerable<CafeDetail> model = db.CafeDetails.OrderByDescending(
-                                            x => x.numOfVisit).Take(4).ToList();
+                                            x => x.numOfVisit).Take(numOfCafes).ToList();
             //throw new NotImplementedException();
 
             return model;
