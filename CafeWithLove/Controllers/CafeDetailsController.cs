@@ -78,8 +78,8 @@ namespace CafeWithLove.Controllers
         // MUST BE CHANGED
         public ActionResult _FeaturedCafes()
         {
-            //ICollection<CafeViewModel> mymodel = cafeMapper.MostVisited();
-            IEnumerable<CafeDetail> mymodel = cafeDetailGateway.MostVisited(4);
+            ICollection<OutletViewModel> mymodel = cafeMapper.MostVisited(4);
+            //IEnumerable<CafeDetail> mymodel = cafeMapper.MostVisited(4);
 
             return PartialView(mymodel);
         }
@@ -90,7 +90,7 @@ namespace CafeWithLove.Controllers
         {
             ViewBag.Heading = "Top 10 Cafes";
 
-            ICollection<CafeViewModel> mymodel = cafeMapper.MostVisited(10);
+            ICollection<OutletViewModel> mymodel = cafeMapper.MostVisited(10);
 
             return View("Index", mymodel);
         }
@@ -130,7 +130,7 @@ namespace CafeWithLove.Controllers
                     @ViewBag.LikeClass = "btn btn-red btn-lg";
                 }
             }
-
+            
             return View(cafeMapper.CafeOutletMap((int)id));
         }
 

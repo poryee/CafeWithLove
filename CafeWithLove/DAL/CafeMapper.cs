@@ -13,7 +13,7 @@ namespace CafeWithLove.DAL
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
 
         List<CafeViewModel> modelList = new List<CafeViewModel>();
-
+        
         public ICollection<CafeViewModel> CafeMap(String searchInput)
         {
             IEnumerable<CafeDetail> cafeList = cafeDetailGateway.Search(searchInput);
@@ -36,7 +36,7 @@ namespace CafeWithLove.DAL
         {
             CafeOutlet cafeOutlet = cafeOutletGateway.SelectById(outletID);
             CafeDetail cafeDetail = cafeDetailGateway.SelectById(cafeOutlet.cafeId);
-            cafeDetailGateway.UpdateNumOfVisits(cafeDetail);
+            cafeOutletGateway.UpdateNumOfVisits(cafeOutlet);
             OutletViewModel tempmodel = new OutletViewModel();
             tempmodel.CafeDetailVM = cafeDetail;
             tempmodel.CafeOutletVM = cafeOutlet;
@@ -66,13 +66,39 @@ namespace CafeWithLove.DAL
             return modelList;
         }
 
-        public ICollection<CafeViewModel> MostVisited(int numOfCafes)
+        public ICollection<OutletViewModel> MostVisited(int numOfCafes)
         {
-            IEnumerable<CafeDetail> cafeList = cafeDetailGateway.MostVisited(numOfCafes);
+            //IEnumerable<CafeDetail> cafeList = cafeDetailGateway.MostVisited(numOfCafes);
 
-            MapOutletToCafe(cafeList);
+            //MapOutletToCafe(cafeList);
 
-            return modelList;
+            //return modelList;
+
+            ICollection<CafeOutlet> outletList = cafeOutletGateway.MostVisited(numOfCafes);        // get list of outlets
+            int[] cafeIds = outletList.Select(outlet => outlet.cafeId).Distinct().ToArray();   // get all cafeIds of cafeArray
+
+            IEnumerable<CafeDetail> cafeList = cafeDetailGateway.BookmarkedCafes(cafeIds);        // get list of outlets
+
+            List<OutletViewModel> outletModelList = new List<OutletViewModel>();
+
+            foreach (var outlet in outletList)      // loop through all cafes in cafeList
+            {
+                ICollection<CafeOutlet> outlets = new List<CafeOutlet>();
+                OutletViewModel tempmodel = new OutletViewModel();
+
+                for (int i = 0; i < cafeList.Count(); i++)
+                {
+                    if (cafeList.ElementAt(i).Id.Equals(outlet.cafeId))
+                    {
+                        tempmodel.CafeDetailVM = cafeList.ElementAt(i);
+                        break;
+                    }
+                }
+                tempmodel.CafeOutletVM = outlet;       // store all outlets into the same cafedetail
+                outletModelList.Add(tempmodel);
+            }
+
+            return outletModelList;
         }
 
         public ICollection<CafeViewModel> CafePFilter(string chosen)

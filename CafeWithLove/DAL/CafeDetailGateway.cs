@@ -54,14 +54,14 @@ namespace CafeWithLove.DAL
             return model;
         }
 
-        public IEnumerable<CafeDetail> MostVisited(int numOfCafes)
-        {
-            IEnumerable<CafeDetail> model = db.CafeDetails.OrderByDescending(
-                                            x => x.numOfVisit).Take(numOfCafes).ToList();
-            //throw new NotImplementedException();
+        //public IEnumerable<CafeDetail> MostVisited(int numOfCafes)
+        //{
+        //    IEnumerable<CafeDetail> model = db.CafeDetails.OrderByDescending(
+        //                                    x => x.numOfVisit).Take(numOfCafes).ToList();
+        //    //throw new NotImplementedException();
 
-            return model;
-        }
+        //    return model;
+        //}
 
         public IEnumerable<CafeDetail> PFilter(string chosen)
         {
@@ -97,14 +97,6 @@ namespace CafeWithLove.DAL
                 return true;
             return false;
         }
-
-        public void UpdateNumOfVisits(CafeDetail cafe)
-        {
-            cafe.numOfVisit++;
-            db.Entry(cafe).State = EntityState.Modified;
-            db.SaveChanges();
-        }
-
         // get all cafes based on array of cafeid
         public IEnumerable<CafeDetail> BookmarkedCafes(int[] cafeId)
         {
