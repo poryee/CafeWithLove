@@ -16,50 +16,31 @@ namespace CafeWithLove.DAL
             this.data = db.Set<CafeDetail>();
         }
 
-        //public void save()
-        //{
-        //    db.SaveChanges();
-        //    //throw new NotImplementedException();
-        //}
+        public ICollection<CafeDetail> Random()
+        {
+            List<CafeDetail> mymodel = new List<CafeDetail>();
+            int ran;
+            //randomly select 5 
+            Random rnd = new Random();
+            IEnumerable<CafeDetail> model = db.CafeDetails.GroupBy(c => c.cafeCategory).Select(grp => grp.FirstOrDefault()).Distinct().ToList();
+            int number = model.Count();
+            //throw new NotImplementedException();
+            for (int i = 0; i < 5; i++)
+            {
+                do
+                {
+                    ran = rnd.Next(number);
+                    if (!mymodel.Contains(model.ElementAt(ran)))
+                    {
+                        mymodel.Add(model.ElementAt(ran));
+                        break;
+                    }
+                } while (true);
+            }
+            //mymodel.GroupBy(s => s.cafeCategory).Select(grp => grp.FirstOrDefault());
 
-        //public CafeDetail Delete(int? id)
-        //{
-        //    CafeDetail obj = data.Find(id);
-        //    data.Remove(obj);
-        //    db.SaveChanges();
-        //    return obj;
-        //    //throw new NotImplementedException();
-
-        //}
-
-        //public void Insert(CafeDetail obj)
-        //{
-        //    data.Add(obj);
-        //    save();
-        //    //throw new NotImplementedException();
-        //}
-
-        //public IEnumerable<CafeDetail> SelectAll()
-        //{
-        //    IEnumerable<CafeDetail> model = data.ToList();
-
-        //    return model;
-        //    //throw new NotImplementedException();
-        //}
-
-        //public CafeDetail SelectById(int? id)
-        //{
-        //    CafeDetail obj = data.Find(id);
-        //    return obj;
-        //    //throw new NotImplementedException();
-        //}
-
-        //public void Update(CafeDetail obj)
-        //{
-        //    db.Entry(obj).State = EntityState.Modified;
-        //    save();
-        //    //throw new NotImplementedException();
-        //}
+            return mymodel;
+        }
 
         public IEnumerable<CafeDetail> Search(String input)
         {
@@ -73,14 +54,14 @@ namespace CafeWithLove.DAL
             return model;
         }
 
-        public IEnumerable<CafeDetail> MostVisited()
-        {
-            IEnumerable<CafeDetail> model = db.CafeDetails.OrderByDescending(
-                                            x => x.numOfVisit).Take(4).ToList();
-            //throw new NotImplementedException();
+        //public IEnumerable<CafeDetail> MostVisited(int numOfCafes)
+        //{
+        //    IEnumerable<CafeDetail> model = db.CafeDetails.OrderByDescending(
+        //                                    x => x.numOfVisit).Take(numOfCafes).ToList();
+        //    //throw new NotImplementedException();
 
-            return model;
-        }
+        //    return model;
+        //}
 
         public IEnumerable<CafeDetail> PFilter(string chosen)
         {
@@ -88,6 +69,17 @@ namespace CafeWithLove.DAL
             int price = int.Parse(chosen);
             IEnumerable<CafeDetail> model = db.CafeDetails.Where(
                                             x => x.cafePrice== price).ToList();
+            //throw new NotImplementedException();
+
+            return model;
+        }
+
+        public IEnumerable<CafeDetail> CFilter(string chosen)
+        {
+
+            
+            IEnumerable<CafeDetail> model = db.CafeDetails.Where(
+                                            x => x.cafeCategory.Equals(chosen)).ToList();
             //throw new NotImplementedException();
 
             return model;
@@ -105,14 +97,6 @@ namespace CafeWithLove.DAL
                 return true;
             return false;
         }
-
-        public void UpdateNumOfVisits(CafeDetail cafe)
-        {
-            cafe.numOfVisit++;
-            db.Entry(cafe).State = EntityState.Modified;
-            db.SaveChanges();
-        }
-
         // get all cafes based on array of cafeid
         public IEnumerable<CafeDetail> BookmarkedCafes(int[] cafeId)
         {

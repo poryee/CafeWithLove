@@ -36,7 +36,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Top 10", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Top 10", "TopTen", "CafeDetails")</li>
                     <li>@Html.ActionLink("Browse All Cafes", "Index", "CafeDetails")</li>
                     <li>@Html.ActionLink("Cafe Reviews", "Index", "Home")</li>
                     <li class="dropdown">
@@ -50,18 +50,9 @@
 
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("$", "RFilter", "CafeDetails", new { chosen = "1" }, null)</li>
-                            <li>@Html.ActionLink("$$", "PFilter", "CafeDetails", new { chosen = "2" }, null)</li>
-                            <li>@Html.ActionLink("$$$", "PFilter", "CafeDetails", new { chosen = "3" }, null)</li>
-                            <li>@Html.ActionLink("$$$$", "PFilter", "CafeDetails", new { chosen = "4" }, null)</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("$$$$$", "PFilter", "CafeDetails", new { chosen = "5" }, null)</li>
 
-                        </ul>
-                    </li>
+                    @{Html.RenderAction("_RandomCategory", "CafeDetails"); }
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Estates <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
@@ -78,7 +69,7 @@
                 </ul>
             </div>
         </div>
-        <div class="container">
+        <div class="container col-md-12">
             <div class="col-md-6">
                 <div class="form-search search-only">
                     <i class="search-icon glyphicon glyphicon-search"></i>
@@ -89,7 +80,7 @@
                 </div>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Price <span class="caret"></span></button>
+                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Price <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -99,7 +90,7 @@
                 </ul>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Categories <span class="caret"></span></button>
+                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Categories <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -109,7 +100,7 @@
                 </ul>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Estates <span class="caret"></span></button>
+                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Estates <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -119,7 +110,7 @@
                 </ul>
             </div>
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">KM <span class="caret"></span></button>
+                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">KM <span class="caret"></span></button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -128,17 +119,19 @@
                     <li><a href="#">Separated link</a></li>
                 </ul>
             </div>
+        <div class="container">
             <hr />
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content no-top-margin">
         <div class="container col-md-12">
             <div class="col-md-9">
                 @RenderBody()   <!-- PAGE CONTENT HERE-->
             </div>
-            @{Html.RenderAction("_PopularSearches", "Search"); }    <!-- i not sure if i have to split to folder -->
+            <div class="hidden-xs hidden-sm">
+                @{Html.RenderAction("_PopularSearches", "Search"); }    <!-- i not sure if i have to split to folder -->
+            </div>
         </div>
-
         <hr />
         <footer>
             <h6>ABOUT CAFE WITH L💗VE</h6>
@@ -146,7 +139,7 @@
                 <span class="pull-left">
                     Copyright&copy; @DateTime.Now.Year - CAFE WITH L💗VE
                 </span>
-                <span class="pull-right col-md-3">
+                <span class="pull-right col-md-3 col-sm-12 col-xs-12">
                     <a href="#" class="col-md-offset-2 col-md-4">Help</a>
                     <a href="#" class="col-md-6">Contact Us</a>
                 </span>

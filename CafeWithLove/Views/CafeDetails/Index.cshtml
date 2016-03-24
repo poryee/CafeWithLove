@@ -11,12 +11,12 @@
 </style>
 
 @{
-    ViewBag.Title = "CAFE WITH L💗VE - All Cafes";
+    ViewBag.Title = "CAFE WITH L💗VE - " +ViewBag.Heading;
     var myboolean = true;
 }
 
 <!-- BROWSE ALL CAFES -->
-<h3 class="no-top-margin" style="display:inline-block;">Browse all cafes</h3>
+<h3 class="no-top-margin" style="display:inline-block;">@ViewBag.Heading</h3>
 <button type="button" class="btn btn-default add-15-bottom-margin add-15-left-margin active"><span class="glyphicon glyphicon-list"></span></button>
 <button type="button" class="btn btn-default add-15-bottom-margin"><span class="glyphicon glyphicon-map-marker"></span></button>
 
@@ -43,7 +43,7 @@ else
             {
                 <li class="list-group-item">
                     <div class="row">
-                        <img class="img-rounded col-md-2" src="@Url.Content(String.Format("~/Images/{0}", modellist.CafeDetailVM.cafeLogo))">
+                        <img class="img-rounded img-responsive col-md-2" src="@Url.Content(String.Format("~/Images/{0}", modellist.CafeDetailVM.cafeLogo))"/>
                         <div class="col-md-7" style="vertical-align: middle;">
                             <h5 class="no-bottom-margin no-top-margin">@Html.DisplayFor(modelItem => modellist.CafeDetailVM.cafeName)</h5>
                             <span class="label label-danger" style="">253 ❤</span>

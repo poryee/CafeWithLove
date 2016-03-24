@@ -17,19 +17,19 @@ namespace CafeWithLove.Controllers
         private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
         private BookmarkGateway bookmarkGateway = new BookmarkGateway();
+        private LikeGateway likeGateway = new LikeGateway();
         private SearchGateway searchGateway = new SearchGateway();
 
         private CafeMapper cafeMapper = new CafeMapper();
 
         private CafeWithLoveContext db = new CafeWithLoveContext();
-
         
-
         // GET: CafeDetails
         public ActionResult Index()
         {
+            ViewBag.Heading = "Browse all cafes";
 
-           ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
 
             return View(mymodel);
         }
@@ -37,36 +37,62 @@ namespace CafeWithLove.Controllers
         // GET: CafeFilter by Price
         public ActionResult PFilter(string chosen)
         {
+            if (chosen == null)                         // no filter chosen, redirect to index
+                return RedirectToAction("Index");
+
+            ViewBag.Heading = "Browse cafes with price (" + new string('$', Int32.Parse(chosen)) + ")";
+
             ICollection<CafeViewModel> mymodel = null;
 
-            if (chosen == null)
-            {
-                mymodel = cafeMapper.CafeMapAll();
-            }
-            else
-            {
-                mymodel = cafeMapper.CafePFilter(chosen);
-            }
-
-
+            mymodel = cafeMapper.CafePFilter(chosen);
+            
             return View("Index", mymodel);
         }
 
         // GET: CafeFilter by Region
-        public ActionResult RFilter()
+        public ActionResult CFilter(string chosen)
         {
+            if (chosen == null)                         // no filter chosen, redirect to index
+                return RedirectToAction("Index");
 
-            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+            ViewBag.Heading = "Browse cafes with Category (" + chosen + ")";
+
+            ICollection<CafeViewModel> mymodel = null;
+
+            mymodel = cafeMapper.CafeCFilter(chosen);
 
             return View("Index", mymodel);
         }
 
-        // GET: CafeDetails
-        public ActionResult _FeaturedCafes()
+        
+        // GET: CafeFilter by Region
+        public ActionResult _RandomCategory()
         {
-            ICollection<CafeViewModel> mymodel = cafeMapper.MostVisited();
+
+            IEnumerable<CafeDetail> mymodel = cafeDetailGateway.Random();
 
             return PartialView(mymodel);
+        }
+
+        // GET: Featured Cafes
+        // MUST BE CHANGED
+        public ActionResult _FeaturedCafes()
+        {
+            ICollection<OutletViewModel> mymodel = cafeMapper.MostVisited(4);
+            //IEnumerable<CafeDetail> mymodel = cafeMapper.MostVisited(4);
+
+            return PartialView(mymodel);
+        }
+
+        // GET: CafeDetails
+        // MUST BE CHANGED
+        public ActionResult TopTen()
+        {
+            ViewBag.Heading = "Top 10 Cafes";
+
+            ICollection<OutletViewModel> mymodel = cafeMapper.MostVisited(10);
+
+            return View("Index", mymodel);
         }
 
         // GET: CafeDetails/Details/5
@@ -81,18 +107,30 @@ namespace CafeWithLove.Controllers
             {
                 string userId = User.Identity.GetUserId();
                 bool bookmarked = bookmarkGateway.IfBookmarked((int)id, userId);
+                bool liked = likeGateway.IfLiked((int)id, userId);
+
                 @ViewBag.Bookmarked = bookmarked;
+                @ViewBag.Liked = liked;
 
                 if (bookmarked)
                 {
-                    @ViewBag.BookmarkClass = "btn-yellow-inverse";
+                    @ViewBag.BookmarkClass = "btn btn-yellow-inverse btn-lg";
                 }
                 else
                 {
-                    @ViewBag.BookmarkClass = "btn-yellow";
+                    @ViewBag.BookmarkClass = "btn btn-yellow btn-lg";
+                }
+
+                if (liked)
+                {
+                    @ViewBag.LikeClass = "btn btn-red-inverse btn-lg";
+                }
+                else
+                {
+                    @ViewBag.LikeClass = "btn btn-red btn-lg";
                 }
             }
-
+            
             return View(cafeMapper.CafeOutletMap((int)id));
         }
 
@@ -110,16 +148,46 @@ namespace CafeWithLove.Controllers
             return RedirectToAction("Details", "CafeDetails", new { id = newID });
         }
 
-        //GET: CafeDetails/Bookmarks
+        [Authorize]             // only logged in users can view this page
+        public ActionResult Like(int? newID, bool liked)
+        {
+            string userId = User.Identity.GetUserId();
+            Like newLike = new Like((int)newID, userId);
+
+            if (liked)
+                likeGateway.Delete((int)newID, userId);            // should be delete
+            else
+                likeGateway.Insert(newLike);
+
+            return RedirectToAction("Details", "CafeDetails", new { id = newID });
+        }
+
+        //GET: Bookmarked Cafes
         [Authorize]             // only logged in users can view this page
         public ActionResult Bookmarks()
         {
+            ViewBag.Heading = "Bookmarked Cafes";
+
             string userId = User.Identity.GetUserId();
             IEnumerable<Int32> bookmarkCafes = bookmarkGateway.GetBookmarks(userId);        // get all bookmarked cafes cafeoutletid
             int[] cafeOutletIds = bookmarkCafes.Cast<int>().ToArray();              // convert to array
             ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapBookmarks(cafeOutletIds);
 
-            return View(mymodel);
+            return View("Index", mymodel);
+        }
+
+        //GET: Liked Cafes
+        [Authorize]             // only logged in users can view this page
+        public ActionResult Likes()
+        {
+            ViewBag.Heading = "Liked Cafes";
+
+            string userId = User.Identity.GetUserId();
+            IEnumerable<Int32> likeCafes = likeGateway.GetLikes(userId);        // get all bookmarked cafes cafeoutletid
+            int[] cafeOutletIds = likeCafes.Cast<int>().ToArray();              // convert to array
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapBookmarks(cafeOutletIds);
+
+            return View("Index", mymodel);
         }
 
         // GET: CafeDetails/Create
@@ -194,7 +262,10 @@ namespace CafeWithLove.Controllers
         [HttpGet]
         public ActionResult Search(string searchInput)
         {
-            ViewBag.Message = "Your search page.";
+            if (searchInput == null || searchInput.Trim().Equals(""))
+                return RedirectToAction("Index");           // no search input, just show index page
+
+            ViewBag.Heading = "Browse cafes with \"" + searchInput + "\"";
             
             ICollection<CafeViewModel> mymodel = cafeMapper.CafeMap(searchInput);
             
@@ -209,8 +280,8 @@ namespace CafeWithLove.Controllers
 
             //string sJSON = oSerializer.Serialize(mymodel);
             ViewBag.JSON = oSerializer.Serialize(mymodel);
-
-            return View(mymodel);
+            
+            return View("Index", mymodel);
         }
 
         protected override void Dispose(bool disposing)

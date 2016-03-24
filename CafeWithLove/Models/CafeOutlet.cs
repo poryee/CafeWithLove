@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +14,8 @@ namespace CafeWithLove.Models
         public string cafePostalCode { get; set; }
         public string cafeContactNum { get; set; }
 
-      
+        [DefaultValue(0)]
+        public int numOfVisit { get; set; }
+
     }
 }

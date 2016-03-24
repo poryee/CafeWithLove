@@ -41,10 +41,5 @@ namespace CafeWithLove.Models
         [DisplayName("Website")]
         [Required]
         public string cafeWebsite { get; set; }
-
-        [DefaultValue(0)]
-        public int numOfVisit { get; set; }
-
-
     }
 }

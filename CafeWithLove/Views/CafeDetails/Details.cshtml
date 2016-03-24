@@ -11,7 +11,11 @@
     @Html.DisplayFor(model => model.CafeDetailVM.cafeName)
     @if (Request.IsAuthenticated)
     {
-        @Html.ActionLink("★", "Bookmark", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, bookmarked = @ViewBag.Bookmarked }, new { @class = @ViewBag.BookmarkClass }) 
+        @Html.ActionLink("★", "Bookmark", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, bookmarked = @ViewBag.Bookmarked }, new { @class = @ViewBag.BookmarkClass, type="button" }) 
+    }
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("❤", "Like", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, liked = @ViewBag.Liked }, new { @class = @ViewBag.LikeClass, type="button" })
     }
 </h3>
 <hr />
@@ -19,7 +23,7 @@
     <div class="col-md-7">
         <dl class="dl-horizontal">
             <dt>
-                <img class="img-rounded col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.CafeDetailVM.cafeLogo))">
+                <img class="img-rounded img-responsive col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.CafeDetailVM.cafeLogo))">
             </dt>
             <dd>
                 <p>@Html.DisplayFor(model => model.CafeDetailVM.cafeDesc)</p>
@@ -139,7 +143,7 @@
             <!-- <img class="img-rounded col-md-11 col-md-offset-1" src="http://dummyimage.com/600x400/81cfe0/ffffff.png&text=GOOGLE+MAP+HERE">-->
         </div>
         <div class="row" style="padding-top: 5px;">
-            <div class="col-md-9 col-md-offset-1">
+            <div class="col-md-9 col-md-offset-1 col-sm-9 col-xs-9">
                 <div class="form-search search-only">
                     <i class="search-icon glyphicon glyphicon-search"></i>
                     <input name="inputPostalCode" id="" type="text" class="form-control" placeholder="Current Location">
