@@ -11,7 +11,11 @@
     @Html.DisplayFor(model => model.CafeDetailVM.cafeName)
     @if (Request.IsAuthenticated)
     {
-        @Html.ActionLink("★", "Bookmark", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, bookmarked = @ViewBag.Bookmarked }, new { @class = @ViewBag.BookmarkClass }) 
+        @Html.ActionLink("★", "Bookmark", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, bookmarked = @ViewBag.Bookmarked }, new { @class = @ViewBag.BookmarkClass, type="button" }) 
+    }
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("❤", "Like", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, liked = @ViewBag.Liked }, new { @class = @ViewBag.LikeClass, type="button" })
     }
 </h3>
 <hr />

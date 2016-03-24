@@ -196,8 +196,11 @@ blockquote {
 }
 .btn-yellow {
   color: #434a54;
+  border-style: solid;
+  border-width: 1px;
   border-color: #aab2bd !important;
 }
+
 .btn-yellow:hover, .btn-yellow:focus, .btn-yellow:active, .btn-yellow.active{
   /*background-color: #ccd1d9;
   border-color: #ccd1d9;*/
@@ -205,31 +208,52 @@ blockquote {
   color: #F7CA18 !important;
   background-color: white;
 }
-
-.btn-yellow:hover .caret, .btn-yellow:focus .caret, .btn-yellow:active .caret, .btn-yellow.active .caret {
-    border-top-color: #F7CA18;
-    border-bottom-color: #F7CA18;
-}
 .btn-yellow, .btn-yellow.disabled, .btn-yellow[disabled] {
   background-color: white;
 }
 .btn-yellow-inverse {
   color: #F7CA18;
-  border-color: #aab2bd !important;
+  border-color: #F7CA18 !important;
 }
 .btn-yellow-inverse:hover, .btn-yellow-inverse:focus, .btn-yellow-inverse:active, .btn-yellow-inverse.active{
   /*background-color: #ccd1d9;
   border-color: #ccd1d9;*/
-  border-color: #434a54 !important;
+  border-color: #aab2bd !important;
   color: #434a54 !important;
   background-color: white;
 }
-
-.btn-yellow-inverse:hover .caret, .btn-yellow-inverse:focus .caret, .btn-yellow-inverse:active .caret, .btn-yellow-inverse.active .caret {
-    border-top-color: #434a54;
-    border-bottom-color: #434a54;
-}
 .btn-yellow-inverse, .btn-yellow-inverse.disabled, .btn-yellow-inverse[disabled] {
+  background-color: white;
+}
+.btn-red {
+  color: #434a54;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #aab2bd !important;
+}
+
+.btn-red:hover, .btn-red:focus, .btn-red:active, .btn-red.active{
+  /*background-color: #ccd1d9;
+  border-color: #ccd1d9;*/
+  border-color: #CF000F !important;
+  color: #CF000F !important;
+  background-color: white;
+}
+.btn-red, .btn-red.disabled, .btn-red[disabled] {
+  background-color: white;
+}
+.btn-red-inverse {
+  color: #CF000F;
+  border-color: #CF000F !important;
+}
+.btn-red-inverse:hover, .btn-red-inverse:focus, .btn-red-inverse:active, .btn-red-inverse.active{
+  /*background-color: #ccd1d9;
+  border-color: #ccd1d9;*/
+  border-color: #aab2bd !important;
+  color: #434a54 !important;
+  background-color: white;
+}
+.btn-red-inverse, .btn-red-inverse.disabled, .btn-red-inverse[disabled] {
   background-color: white;
 }
 .open .dropdown-toggle.btn-default {

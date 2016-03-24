@@ -17,6 +17,7 @@ namespace CafeWithLove.Controllers
         private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
         private BookmarkGateway bookmarkGateway = new BookmarkGateway();
+        private LikeGateway likeGateway = new LikeGateway();
         private SearchGateway searchGateway = new SearchGateway();
 
         private CafeMapper cafeMapper = new CafeMapper();
@@ -106,15 +107,27 @@ namespace CafeWithLove.Controllers
             {
                 string userId = User.Identity.GetUserId();
                 bool bookmarked = bookmarkGateway.IfBookmarked((int)id, userId);
+                bool liked = likeGateway.IfLiked((int)id, userId);
+
                 @ViewBag.Bookmarked = bookmarked;
+                @ViewBag.Liked = liked;
 
                 if (bookmarked)
                 {
-                    @ViewBag.BookmarkClass = "btn-yellow-inverse";
+                    @ViewBag.BookmarkClass = "btn btn-yellow-inverse btn-lg";
                 }
                 else
                 {
-                    @ViewBag.BookmarkClass = "btn-yellow";
+                    @ViewBag.BookmarkClass = "btn btn-yellow btn-lg";
+                }
+
+                if (liked)
+                {
+                    @ViewBag.LikeClass = "btn btn-red-inverse btn-lg";
+                }
+                else
+                {
+                    @ViewBag.LikeClass = "btn btn-red btn-lg";
                 }
             }
 
@@ -135,7 +148,21 @@ namespace CafeWithLove.Controllers
             return RedirectToAction("Details", "CafeDetails", new { id = newID });
         }
 
-        //GET: CafeDetails/Bookmarks
+        [Authorize]             // only logged in users can view this page
+        public ActionResult Like(int? newID, bool liked)
+        {
+            string userId = User.Identity.GetUserId();
+            Like newLike = new Like((int)newID, userId);
+
+            if (liked)
+                likeGateway.Delete((int)newID, userId);            // should be delete
+            else
+                likeGateway.Insert(newLike);
+
+            return RedirectToAction("Details", "CafeDetails", new { id = newID });
+        }
+
+        //GET: Bookmarked Cafes
         [Authorize]             // only logged in users can view this page
         public ActionResult Bookmarks()
         {
@@ -144,6 +171,20 @@ namespace CafeWithLove.Controllers
             string userId = User.Identity.GetUserId();
             IEnumerable<Int32> bookmarkCafes = bookmarkGateway.GetBookmarks(userId);        // get all bookmarked cafes cafeoutletid
             int[] cafeOutletIds = bookmarkCafes.Cast<int>().ToArray();              // convert to array
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapBookmarks(cafeOutletIds);
+
+            return View("Index", mymodel);
+        }
+
+        //GET: Liked Cafes
+        [Authorize]             // only logged in users can view this page
+        public ActionResult Likes()
+        {
+            ViewBag.Heading = "Liked Cafes";
+
+            string userId = User.Identity.GetUserId();
+            IEnumerable<Int32> likeCafes = likeGateway.GetLikes(userId);        // get all bookmarked cafes cafeoutletid
+            int[] cafeOutletIds = likeCafes.Cast<int>().ToArray();              // convert to array
             ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapBookmarks(cafeOutletIds);
 
             return View("Index", mymodel);

@@ -170,6 +170,7 @@
     <Compile Include="Controllers\CafeDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="DAL\LikeGateway.cs" />
     <Compile Include="DAL\BookmarkGateway.cs" />
     <Compile Include="DAL\CafeDetailGateway.cs" />
     <Compile Include="DAL\CafeMapper.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Models\CafeOutlet.cs" />
     <Compile Include="Models\CafeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OutletViewModel.cs" />
     <Compile Include="Models\Search.cs" />

@@ -19,5 +19,6 @@ namespace CafeWithLove.DAL
         public DbSet<Search> Searches { get; set; }
         public DbSet<CafeOpeningHour> CafeOpeningHours { get; set; }
         public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Like> Likes { get; set; }
     }
 }
