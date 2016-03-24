@@ -22,15 +22,22 @@ namespace CafeWithLove.DAL
             int ran;
             //randomly select 5 
             Random rnd = new Random();
-            IEnumerable<CafeDetail> model = db.CafeDetails.GroupBy(c => c.cafeCategory).Select(grp => grp.FirstOrDefault()).ToList();
+            IEnumerable<CafeDetail> model = db.CafeDetails.GroupBy(c => c.cafeCategory).Select(grp => grp.FirstOrDefault()).Distinct().ToList();
             int number = model.Count();
             //throw new NotImplementedException();
             for (int i = 0; i < 5; i++)
             {
-                ran = rnd.Next(number);
-                mymodel.Add(model.ElementAt(ran));
+                do
+                {
+                    ran = rnd.Next(number);
+                    if (!mymodel.Contains(model.ElementAt(ran)))
+                    {
+                        mymodel.Add(model.ElementAt(ran));
+                        break;
+                    }
+                } while (true);
             }
-            mymodel.GroupBy(s => s.cafeCategory).Select(grp => grp.FirstOrDefault());
+            //mymodel.GroupBy(s => s.cafeCategory).Select(grp => grp.FirstOrDefault());
 
             return mymodel;
         }
