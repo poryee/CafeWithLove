@@ -284,6 +284,7 @@ function getCoordinate(postalCode, map) {
     return result;
 }
 
+//testing
 //Create Map Marker of Search Cafe Location
 function createMarker(latlng) {
     // If the user makes another search you must clear the marker variable
@@ -292,10 +293,32 @@ function createMarker(latlng) {
     //    cafeMarker = '';
     //}
 
-    cafeMarker = new google.maps.Marker({
-        map: map,
-        position: latlng
-    });
+    var test = map.getDiv();
+    var test = test.id;
+    
+    if (test == "map-container") {
+        var icon = {
+            url: "/Images/currentLocation.png", // url
+            scaledSize: new google.maps.Size(30, 30), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        cafeMarker = new google.maps.Marker({
+            map: map,
+            icon: icon,
+            position: latlng
+        });
+    }
+    else
+    {
+
+
+        cafeMarker = new google.maps.Marker({
+            map: map,
+            position: latlng
+        });
+    }
     //markersArray.push(cafeMarker);
 }
 
@@ -323,6 +346,9 @@ $(document).on("click", ".openmodal", function () {
     var cafeAddress = $(this).data('cafeaddress');
     var cafeWebsite = $(this).data('cafewebsite');
     var cafeContact = $(this).data('cafecontact');
+
+    var object = $(this).data('toggle');
+    alert(object[0].CafeDetailVM.cafePrice);
 
     map_init(cafePostalCode, "Click to visit the " + cafeName + "",
           '<div id="mapInfo">' +

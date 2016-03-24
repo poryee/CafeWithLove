@@ -203,7 +203,13 @@ namespace CafeWithLove.Controllers
             {
                 searchGateway.Insert(searchInput);
             }
-            
+
+            System.Web.Script.Serialization.JavaScriptSerializer oSerializer =
+         new System.Web.Script.Serialization.JavaScriptSerializer();
+
+            //string sJSON = oSerializer.Serialize(mymodel);
+            ViewBag.JSON = oSerializer.Serialize(mymodel);
+
             return View(mymodel);
         }
 

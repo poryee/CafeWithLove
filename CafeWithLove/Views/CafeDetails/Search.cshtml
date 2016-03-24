@@ -68,7 +68,7 @@ else
                                 Singapore @Html.DisplayFor(modelItem => outletlist.cafePostalCode)
                             </p>
                             <!-- Button to trigger modal -->
-                            <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal" 
+                            <a class="openmodal" href="#mapmodals" role="button" data-toggle="@ViewBag.JSON" 
                                data-cafepostalcode="@outletlist.cafePostalCode" data-cafeaddress="@outletlist.cafeAddress" 
                                data-cafelogo="@modellist.CafeDetailVM.cafeLogo" data-cafedesc="@modellist.CafeDetailVM.cafeDesc" 
                                data-cafename="@modellist.CafeDetailVM.cafeName" data-cafewebsite="@modellist.CafeDetailVM.cafeWebsite", data-cafecontact="@outletlist.cafeContactNum" >View On Map</a><br />
