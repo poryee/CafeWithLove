@@ -62,11 +62,13 @@ else
                                 @Html.Raw(Html.Encode(outletlist.cafeAddress).Replace(",", "<br/>").Replace(";", ""))<br />
                                 Singapore @Html.DisplayFor(modelItem => outletlist.cafePostalCode)
                             </p>
+                            <!--help~lol please i want to commit make it available to for me to presss loleerewrerwerwe-->
+                            <!-- i changing alreadyyasdasdasdasdas-->
+                            <!-- please i want to commit and leep lols-->
                             <!-- Button to trigger modal -->
-                            <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal"
+                            <a class="openmodal" href="#mapmodals" role="button" data-toggle="modal" data-object="@ViewBag.JSON"
                                data-cafepostalcode="@outletlist.cafePostalCode" data-cafeaddress="@outletlist.cafeAddress"
-                               data-cafelogo="@modellist.CafeDetailVM.cafeLogo" data-cafedesc="@modellist.CafeDetailVM.cafeDesc"
-                               data-cafename="@modellist.CafeDetailVM.cafeName">View On Map</a><br />
+                               data-cafelogo="@modellist.CafeDetailVM.cafeLogo" data-cafedesc="@modellist.CafeDetailVM.cafeDesc" data-cafename="@modellist.CafeDetailVM.cafeName">View On Map</a><br />
                             <!-- Modals -->
                             <div class="modal fade" id="mapmodals">
                                 <div class="modal-dialog modal-lg">
@@ -88,7 +90,7 @@ else
                     </div>
                 </li>
             }
-
         }
     }
 </ul>
+

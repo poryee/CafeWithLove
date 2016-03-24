@@ -347,8 +347,9 @@ $(document).on("click", ".openmodal", function () {
     var cafeWebsite = $(this).data('cafewebsite');
     var cafeContact = $(this).data('cafecontact');
 
-    var object = $(this).data('toggle');
-    alert(object[0].CafeDetailVM.cafePrice);
+    //testingpls
+    //var object = $(this).data('object');
+    //alert(object[0].CafeDetailVM.cafePrice);
 
     map_init(cafePostalCode, "Click to visit the " + cafeName + "",
           '<div id="mapInfo">' +
