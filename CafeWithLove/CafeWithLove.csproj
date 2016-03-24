@@ -177,6 +177,7 @@
     <Compile Include="DAL\CafeWithLoveContext.cs" />
     <Compile Include="DAL\DataGateway.cs" />
     <Compile Include="DAL\IDataGateway.cs" />
+    <Compile Include="DAL\LikeGateway.cs" />
     <Compile Include="DAL\SearchGateway.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -189,6 +190,7 @@
     <Compile Include="Models\CafeOutlet.cs" />
     <Compile Include="Models\CafeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OutletViewModel.cs" />
     <Compile Include="Models\Search.cs" />
@@ -292,6 +294,7 @@
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Search\_PopularSearches.cshtml" />
     <Content Include="Views\CafeDetails\Bookmarks.cshtml" />
+    <Content Include="Views\CafeDetails\_RandomCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Booking\" />
