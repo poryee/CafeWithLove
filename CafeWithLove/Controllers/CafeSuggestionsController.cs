@@ -17,6 +17,7 @@ namespace CafeWithLove.Controllers
         private CafeWithLoveContext db = new CafeWithLoveContext();
 
         // GET: CafeSuggestions
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.CafeSuggestions.ToList());

@@ -1,5 +1,8 @@
 namespace CafeWithLove.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +30,13 @@ namespace CafeWithLove.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            //var userStore = new UserStore<ApplicationUser>(context);
+            //var userManager = new UserManager<ApplicationUser>(userStore);
+            //var user = context.Users.Where(t => t.UserName.Equals("admin")).First();
+            //context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Admin" });
+            //context.SaveChanges();
+            //userManager.AddToRole(user.Id, "Admin");
         }
     }
 }
