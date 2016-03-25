@@ -164,5 +164,11 @@ namespace CafeWithLove.DAL
             cafeOutletGateway.Update(ovm.CafeOutletVM);
             cafeOpeningHourGateway.Update(ovm.CafeOpeningHourVM);
         }
+
+        public void DeleteOutlet(int outletId)
+        {
+            cafeOutletGateway.Delete(outletId);
+            cafeOpeningHourGateway.DeleteByOutletId(outletId);
+        }
     }
 }

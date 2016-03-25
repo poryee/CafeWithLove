@@ -312,12 +312,33 @@ namespace CafeWithLove.Controllers
         }
 
         // POST: CafeDetails/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteOutlet")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            cafeDetailGateway.Delete(id);
+            cafeMapper.DeleteOutlet(id);
             return RedirectToAction("Index");
+        }
+
+        // GET: CafeDetails/Delete/5
+        public ActionResult DeleteOutlet(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            return View(cafeMapper.CafeOutletMap((int)id));
+        }
+
+        // POST: CafeDetails/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteOutletConfirmed(int id)
+        {
+            cafeDetailGateway.Delete(id);
+            return RedirectToAction("ManageCafes");
         }
 
         [HttpGet]
