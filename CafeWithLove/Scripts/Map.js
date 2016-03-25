@@ -242,7 +242,7 @@ function showPosition(position) {
 
 
 
-
+/*SEARCH PAGE - INDEX*/
 var var_infowindow;
 
 //map Initialization for Search Cafe
@@ -262,6 +262,7 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
     $('#mapmodals').on('shown.bs.modal', function () {
         google.maps.event.trigger(map, "resize");
         map.setCenter(currentCafeLocation);
+        map.setZoom(16);
     });
 
 }
@@ -328,12 +329,15 @@ function clearOverlays() {
     }
     markersArray.length = 0;
 }
+
+//Setting Info Window for the Markers
 function setInfoWindow(map)
 {
-    //var_infowindow.setContent(currentCafeLocation);
     google.maps.event.addListener(cafeMarker, 'click', function () {
-        //var_infowindow.setContent('address');
         var_infowindow.open(map, cafeMarker);
+    });
+    google.maps.event.addListener(var_infowindow, 'closeclick', function () {
+        map.setCenter(currentCafeLocation);
     });
 }
 
