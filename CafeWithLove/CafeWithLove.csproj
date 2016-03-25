@@ -168,6 +168,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CafeDetailsController.cs" />
+    <Compile Include="Controllers\CafeSuggestionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DAL\BookmarkGateway.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Models\CafeDetail.cs" />
     <Compile Include="Models\CafeOpeningHour.cs" />
     <Compile Include="Models\CafeOutlet.cs" />
+    <Compile Include="Models\CafeSuggestion.cs" />
     <Compile Include="Models\CafeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Like.cs" />
@@ -296,6 +298,11 @@
     <Content Include="Views\Search\_PopularSearches.cshtml" />
     <Content Include="Views\CafeDetails\Bookmarks.cshtml" />
     <Content Include="Views\CafeDetails\_RandomCategory.cshtml" />
+    <Content Include="Views\CafeSuggestions\Create.cshtml" />
+    <Content Include="Views\CafeSuggestions\Delete.cshtml" />
+    <Content Include="Views\CafeSuggestions\Details.cshtml" />
+    <Content Include="Views\CafeSuggestions\Edit.cshtml" />
+    <Content Include="Views\CafeSuggestions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Booking\" />
