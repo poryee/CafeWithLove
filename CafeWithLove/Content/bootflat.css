@@ -19,6 +19,9 @@
  * typography
  * --------------------------------------------------
  */
+.row-list-item-heading {
+    min-height: 0px !important;
+}
 .border-bottom-grey {
     border-bottom: 1px solid #ccd1d9;
 }
@@ -1931,23 +1934,34 @@ a.list-group-item.active .list-group-item-text, a.list-group-item.active:hover .
   color: white;
 }
 
+.a-white {
+  color: #ffffff;
+  text-decoration:underline;
+}
+.a-white:hover {
+  color: #6C7A89 !important;
+  text-decoration:underline;
+}
 .list-group-item-primary {
-  color: #22b1e3;
-  background-color: #4fc1e9;
+  color: #ffffff;
+  background-color: #81CFE0;
   border-color: #81CFE0 transparent transparent transparent;
+}
+a.list-group-item-primary .list-group-item-heading  {
+    color: #ffffff;
 }
 .list-group-item-primary:first-child {
   border-color: transparent;
 }
 a.list-group-item-primary {
-  color: #126d8d;
+  color: #ffffff;
 }
 a.list-group-item-primary:hover, a.list-group-item-primary:focus {
   color: white;
-  background-color: #81CFE0;
+  background-color: #9ad8e6;
 }
 a.list-group-item-primary.active, a.list-group-item-primary:hover, a.list-group-item-primary:focus {
-  background-color: #81CFE0;
+  background-color: #9ad8e6;
   border-color: #4fc1e9 transparent transparent transparent;
 }
 

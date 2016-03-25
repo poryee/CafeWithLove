@@ -15,12 +15,18 @@ namespace CafeWithLove.Models
         [Required]
         public int cafeId { get; set; }
 
+        [DisplayName("Cafe Address")]
         [Required]
         public string cafeAddress { get; set; }
 
+        [DisplayName("Cafe Postal Code")]
         [Required]
+        [StringLength(6)]
+        [RegularExpression("(\\d{6})", ErrorMessage = "Invalid postal code")]
         public string cafePostalCode { get; set; }
 
+        [DisplayName("Cafe Contact Number")]
+        [RegularExpression("(\\d{4} \\d{4}|-)", ErrorMessage = "Invalid phone number. Example of number: 9123 4567. If no number: -")]
         public string cafeContactNum { get; set; }
 
         [DefaultValue(0)]
@@ -28,6 +34,7 @@ namespace CafeWithLove.Models
 
         public CafeOutlet() {
             numOfVisit = 0;
+            cafeContactNum = "-";
         }
     }
 }

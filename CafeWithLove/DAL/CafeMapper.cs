@@ -11,7 +11,7 @@ namespace CafeWithLove.DAL
     {
         private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
-        private CafeOpeningHourGateway cafOpeningHourGateway = new CafeOpeningHourGateway();
+        private CafeOpeningHourGateway cafeOpeningHourGateway = new CafeOpeningHourGateway();
         List<CafeViewModel> modelList = new List<CafeViewModel>();
         
         public ICollection<CafeViewModel> CafeMap(String searchInput)
@@ -36,7 +36,7 @@ namespace CafeWithLove.DAL
         {
             CafeOutlet cafeOutlet = cafeOutletGateway.SelectById(outletID);
             CafeDetail cafeDetail = cafeDetailGateway.SelectById(cafeOutlet.cafeId);
-            CafeOpeningHour cafeOpeningHour = cafOpeningHourGateway.SelectByCafeOutletId(cafeOutlet.cafeId);
+            CafeOpeningHour cafeOpeningHour = cafeOpeningHourGateway.SelectByCafeOutletId(outletID);
             cafeOutletGateway.UpdateNumOfVisits(cafeOutlet);
             OutletViewModel tempmodel = new OutletViewModel();
             tempmodel.CafeDetailVM = cafeDetail;
@@ -150,6 +150,13 @@ namespace CafeWithLove.DAL
                 tempmodel.CafeOutletVM = outlets;       // store all outlets into the same cafedetail
                 modelList.Add(tempmodel);
             }
+        }
+
+        public void InsertOutlet(OutletViewModel ovm)
+        {
+            int cafeOutletId = cafeOutletGateway.InsertReturnId(ovm.CafeOutletVM);
+            ovm.CafeOpeningHourVM.cafeOutletId = cafeOutletId;
+            cafeOpeningHourGateway.Insert(ovm.CafeOpeningHourVM);
         }
     }
 }

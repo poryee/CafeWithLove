@@ -1,0 +1,92 @@
+﻿﻿@model ICollection<CafeWithLove.Models.CafeViewModel>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<script type="text/javascript" src="~/Scripts/Map.js"></script>
+<style>
+    #map-container {
+        height: 450px;
+    }
+</style>
+
+@{
+    ViewBag.Title = "CAFE WITH L💗VE - " +ViewBag.Heading;
+    var myboolean = true;
+}
+
+<!-- BROWSE ALL CAFES -->
+<h3 class="no-top-margin" style="display:inline-block;">@ViewBag.Heading</h3>
+<button type="button" class="btn btn-default add-15-bottom-margin add-15-left-margin active"><span class="glyphicon glyphicon-list"></span></button>
+<button type="button" class="btn btn-default add-15-bottom-margin"><span class="glyphicon glyphicon-map-marker"></span></button>
+
+<br />
+<h4>@Html.ActionLink("Add new cafe", "Create")</h4>
+<br />
+
+@if (Model.Count() == 0)
+{
+    //if nothing
+    <h4>No Cafe</h4>
+    myboolean = false;
+}
+else
+{
+    myboolean = true;
+}
+@foreach (var modellist in Model)
+{
+<div class="row">
+    <img class="img-rounded img-responsive col-md-2" src="@Url.Content(String.Format("~/Images/{0}", modellist.CafeDetailVM.cafeLogo))"/>
+    <div class="col-md-offset-2 list-group">
+        <div class="list-group-item list-group-item-primary">
+            <div class="row row-list-item-heading">
+                <div class="col-md-9">
+                    <h5 class="no-bottom-margin no-top-margin">@Html.DisplayFor(modelItem => modellist.CafeDetailVM.cafeName)</h5>
+                    <p class="list-group-item-text no-bottom-margin no-top-margin">@Html.DisplayFor(ModelItem => modellist.CafeDetailVM.cafeDesc)</p>
+                </div>
+                <div class="col-md-3">
+                    @Html.ActionLink("Edit", "Edit", new { id=modellist.CafeDetailVM.Id }, new {@class="a-white"}) |
+                    @Html.ActionLink("Details", "Details", new { id=modellist.CafeDetailVM.Id }, new {@class="a-white"}) |
+                    @Html.ActionLink("Delete", "Delete", new { id=modellist.CafeDetailVM.Id }, new {@class="a-white"})
+                </div>
+            </div>
+        </div>
+        @{var outletNum = 0;}
+        @foreach (var outletlist in modellist.CafeOutletVM)
+        {
+        outletNum = outletNum + 1;
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-md-9">
+                    <h4 class="list-group-item-heading">Outlet @outletNum</h4>
+                    <p class="list-group-item-text">
+                        <strong>Address</strong><br />
+                        @Html.Raw(Html.Encode(outletlist.cafeAddress).Replace(",", "<br />").Replace(";", ""))<br />
+                        Singapore @Html.DisplayFor(modelItem => outletlist.cafePostalCode)
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    @Html.ActionLink("Edit", "Edit", new { id=modellist.CafeDetailVM.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=modellist.CafeDetailVM.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=modellist.CafeDetailVM.Id })
+                </div>
+            </div>
+        </div>
+        }
+        <div class="list-group-item">
+            @Html.ActionLink("Add a new outlet", "CreateOutlet", new { cafeId=modellist.CafeDetailVM.Id })
+        </div>
+    </div>
+</div>
+}
+
+<!-- set row height to wrap content -->
+<script>
+    $(document).ready(function () {
+        $(".row-list-item-heading").each(function (index) {
+            $(this).height($(this).find(':first-child').height() + "px");
+            console.log($(this).find(':first-child'));
+        });
+    });
+</script>

@@ -34,6 +34,17 @@ namespace CafeWithLove.Controllers
             return View(mymodel);
         }
 
+        // GET: ViewAllCafes
+        [Authorize(Roles = "Admin")]
+        public ActionResult ManageCafes()
+        {
+            ViewBag.Heading = "Manage Cafes";
+
+            ICollection<CafeViewModel> mymodel = cafeMapper.CafeMapAll();
+
+            return View(mymodel);
+        }
+
         // GET: CafeFilter by Price
         public ActionResult PFilter(string chosen)
         {
@@ -195,23 +206,48 @@ namespace CafeWithLove.Controllers
         {
             return View();
         }
+        
+        // POST: CafeDetails/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,cafeName,cafeDesc,cafeLogo,cafePrice,cafeRating,cafeCategory,cafeWebsite")] CafeDetail cafeDetails)
+        {
+            if (ModelState.IsValid)
+            {
+                cafeDetailGateway.Insert(cafeDetails);
+                return RedirectToAction("CreateOutlet", new { cafeId = cafeDetails.Id });
+            }
+
+            return View(cafeDetails);
+        }
+
+        // GET: CafeDetails/CreateOutlet
+        public ActionResult CreateOutlet(int cafeId)
+        {
+            OutletViewModel ovm = new OutletViewModel();
+            CafeOutlet co = new CafeOutlet();
+            ovm.CafeOutletVM = co;
+            ovm.CafeOutletVM.cafeId = cafeId;
+            return View(ovm);
+        }
 
         // POST: CafeDetails/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,cafeName,cafeDesc,cafeLogo,cafePrice,cafeRating,cafeCategory,cafeWebsite,numOfVisit")] CafeDetail cafeDetails)
+        public ActionResult CreateOutlet(OutletViewModel ovm)
         {
             if (ModelState.IsValid)
             {
-                cafeDetailGateway.Insert(cafeDetails);
-                return RedirectToAction("Index");
+                cafeMapper.InsertOutlet(ovm);
+                return RedirectToAction("ManageCafes");
             }
-
-            return View(cafeDetails);
+            
+            return View(ovm);
         }
-
         // GET: CafeDetails/Edit/5
         public ActionResult Edit(int? id)
         {

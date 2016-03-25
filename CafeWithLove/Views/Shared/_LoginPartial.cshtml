@@ -14,6 +14,7 @@
                     @if(@User.IsInRole("Admin")) 
                     {
                         <li class="divider"></li>
+            <li class="@(Request.Url.PathAndQuery == "/CafeSuggestions" ? "active" : "")">@Html.ActionLink("Manage Cafes", "ManageCafes", "CafeDetails", routeValues: null, htmlAttributes: new { title = "ManageCafes" })</li>
                         <li class="@(Request.Url.PathAndQuery == "/CafeSuggestions" ? "active" : "")">@Html.ActionLink("View Suggested Cafes", "Index", "CafeSuggestions", routeValues: null, htmlAttributes: new { title = "Suggestions" })</li>
                     }
                 </ul>

@@ -18,12 +18,12 @@ namespace CafeWithLove.DAL
             return model;
         }
 
-        // get all cafes based on array of Scafeoutletid
-        public ICollection<CafeOutlet> SelectByIdArray(int[] cafeOutletIds)
+        // get all cafes based on array of cafeIds
+        public ICollection<CafeOutlet> SelectByIdArray(int[] cafeIds)
         {
             ICollection<CafeOutlet> model = new List<CafeOutlet>();
 
-            model = data.Where(p => cafeOutletIds.Contains(p.cafeOutletId)).ToList();
+            model = data.Where(p => cafeIds.Contains(p.cafeId)).ToList();
             return model;
         }
 
@@ -41,6 +41,13 @@ namespace CafeWithLove.DAL
             cafe.numOfVisit++;
             db.Entry(cafe).State = EntityState.Modified;
             db.SaveChanges();
+        }
+
+        public int InsertReturnId(CafeOutlet cafe)
+        {
+            data.Add(cafe);
+            db.SaveChanges();
+            return cafe.cafeOutletId;
         }
     }
 }

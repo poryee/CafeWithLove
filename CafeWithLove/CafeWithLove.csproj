@@ -219,6 +219,7 @@
     <Content Include="Images\cali.png" />
     <Content Include="Images\coastandcompany.jpg" />
     <Content Include="Images\compoundcoffee.png" />
+    <Content Include="Images\curiouspalette.jpg" />
     <Content Include="Images\fabbakerboy.jpg" />
     <Content Include="Images\fatcat.jpg" />
     <Content Include="Images\habitat.jpg" />
@@ -303,6 +304,8 @@
     <Content Include="Views\CafeSuggestions\Details.cshtml" />
     <Content Include="Views\CafeSuggestions\Edit.cshtml" />
     <Content Include="Views\CafeSuggestions\Index.cshtml" />
+    <Content Include="Views\CafeDetails\ManageCafes.cshtml" />
+    <Content Include="Views\CafeDetails\CreateOutlet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Booking\" />
