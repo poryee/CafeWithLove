@@ -262,6 +262,7 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
     $('#mapmodals').on('shown.bs.modal', function () {
         google.maps.event.trigger(map, "resize");
         map.setCenter(currentCafeLocation);
+        map.setZoom(16);
     });
 
 }
