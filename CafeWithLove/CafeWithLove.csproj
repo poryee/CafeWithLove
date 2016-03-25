@@ -173,6 +173,7 @@
     <Compile Include="DAL\BookmarkGateway.cs" />
     <Compile Include="DAL\CafeDetailGateway.cs" />
     <Compile Include="DAL\CafeMapper.cs" />
+    <Compile Include="DAL\CafeOpeningHourGateway.cs" />
     <Compile Include="DAL\CafeOutletGateway.cs" />
     <Compile Include="DAL\CafeWithLoveContext.cs" />
     <Compile Include="DAL\DataGateway.cs" />

@@ -11,7 +11,7 @@ namespace CafeWithLove.DAL
     {
         private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
-
+        private CafeOpeningHourGateway cafOpeningHourGateway = new CafeOpeningHourGateway();
         List<CafeViewModel> modelList = new List<CafeViewModel>();
         
         public ICollection<CafeViewModel> CafeMap(String searchInput)
@@ -36,11 +36,13 @@ namespace CafeWithLove.DAL
         {
             CafeOutlet cafeOutlet = cafeOutletGateway.SelectById(outletID);
             CafeDetail cafeDetail = cafeDetailGateway.SelectById(cafeOutlet.cafeId);
+            CafeOpeningHour cafeOpeningHour = cafOpeningHourGateway.SelectByCafeOutletId(cafeOutlet.cafeId);
             cafeOutletGateway.UpdateNumOfVisits(cafeOutlet);
             OutletViewModel tempmodel = new OutletViewModel();
             tempmodel.CafeDetailVM = cafeDetail;
             tempmodel.CafeOutletVM = cafeOutlet;
-            
+            tempmodel.CafeOpeningHourVM = cafeOpeningHour;
+
             return tempmodel;
         }
 
