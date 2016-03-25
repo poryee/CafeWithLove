@@ -248,6 +248,7 @@ namespace CafeWithLove.Controllers
             
             return View(ovm);
         }
+
         // GET: CafeDetails/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -269,9 +270,33 @@ namespace CafeWithLove.Controllers
             if (ModelState.IsValid)
             {
                 cafeDetailGateway.Update(cafeDetails);
-                return RedirectToAction("Index");
+                return RedirectToAction("ManageCafes");
             }
             return View(cafeDetails);
+        }
+
+        // GET: CafeDetails/EditOutlet/5
+        public ActionResult EditOutlet(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(cafeMapper.CafeOutletMap((int)id));
+        }
+
+        // POST: CafeDetails/EditOutlet/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditOutlet(OutletViewModel ovm)
+        {
+            if (ModelState.IsValid)
+            {
+                cafeMapper.UpdateOutlet(ovm);
+                return RedirectToAction("ManageCafes");
+            }
+            return View(ovm);
         }
 
         // GET: CafeDetails/Delete/5

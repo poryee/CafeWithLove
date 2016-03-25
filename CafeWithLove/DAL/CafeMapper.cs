@@ -158,5 +158,11 @@ namespace CafeWithLove.DAL
             ovm.CafeOpeningHourVM.cafeOutletId = cafeOutletId;
             cafeOpeningHourGateway.Insert(ovm.CafeOpeningHourVM);
         }
+
+        public void UpdateOutlet(OutletViewModel ovm)
+        {
+            cafeOutletGateway.Update(ovm.CafeOutletVM);
+            cafeOpeningHourGateway.Update(ovm.CafeOpeningHourVM);
+        }
     }
 }
