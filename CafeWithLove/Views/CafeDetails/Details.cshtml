@@ -28,8 +28,6 @@
             <dd>
                 <p>@Html.DisplayFor(model => model.CafeDetailVM.cafeDesc)</p>
             </dd>
-
-            <!-- NOT FROM MODEL -->
             <dt>
                 Address
             </dt>
@@ -40,68 +38,66 @@
                 </p>
                 <p id="postalCode" hidden>@Html.DisplayFor(model => model.CafeOutletVM.cafePostalCode)</p>
             </dd>
-
-            <!-- NOT FROM MODEL -->
             <dt>
                 Opening Hours<br />
                 <a href="#" id="openingHoursToggle">(Show All)</a>
             </dt>
             <dd>
                 <table class="col-md-12">
-                    <tr class="collaspedDay collapse" id="monday">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="monday">
                         <td class="monday col-md-5">
                             Monday
                         </td>
                         <td>
-                            11:00 - 23:00
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.monday)).Replace("/", "<br />"))
                         </td>
                     </tr>
-                    <tr class="collaspedDay collapse" id="tuesday">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="tuesday">
                         <td class="col-md-5">
                             Tuesday
                         </td>
                         <td>
-                            11:00 - 23:00
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.tuesday)).Replace("/", "<br />"))
                         </td>
                     </tr>
-                    <tr class="collaspedDay collapse" id="wednesday">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="wednesday">
                         <td class="col-md-5">
                             Wednesday
                         </td>
                         <td>
-                            11:00 - 23:00
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.wednesday)).Replace("/", "<br />"))
                         </td>
                     </tr>
-                    <tr class="collaspedDay collapse" id="thursday">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="thursday">
                         <td class="col-md-5">
                             Thursday
                         </td>
                         <td>
-                            11:00 - 23:00
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.thursday)).Replace("/", "<br />"))
                         </td>
                     </tr>
-                    <tr class="collaspedDay collapse" id="friday">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="friday">
                         <td class="col-md-5">
                             Friday
                         </td>
                         <td>
-                            11:00 - 23:00
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.friday)).Replace("/", "<br />"))
                         </td>
                     </tr>
-                    <tr class="collaspedDay collapse" id="saturday">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="saturday">
                         <td class="col-md-5">
                             Saturday
                         </td>
                         <td>
-                            11:00 - 23:00
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.saturday)).Replace("/", "<br />"))
                         </td>
                     </tr>
-                    <tr class="collaspedDay collapse" id="sunday">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="sunday">
                         <td class="col-md-5">
                             Sunday
                         </td>
                         <td>
-                            11:00 - 23:00
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.sunday)).Replace("/", "<br />"))
                         </td>
                     </tr>
                 </table>

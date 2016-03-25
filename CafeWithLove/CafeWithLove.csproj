@@ -168,15 +168,18 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CafeDetailsController.cs" />
+    <Compile Include="Controllers\CafeSuggestionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="DAL\BookmarkGateway.cs" />
     <Compile Include="DAL\CafeDetailGateway.cs" />
     <Compile Include="DAL\CafeMapper.cs" />
+    <Compile Include="DAL\CafeOpeningHourGateway.cs" />
     <Compile Include="DAL\CafeOutletGateway.cs" />
     <Compile Include="DAL\CafeWithLoveContext.cs" />
     <Compile Include="DAL\DataGateway.cs" />
     <Compile Include="DAL\IDataGateway.cs" />
+    <Compile Include="DAL\LikeGateway.cs" />
     <Compile Include="DAL\SearchGateway.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,8 +190,10 @@
     <Compile Include="Models\CafeDetail.cs" />
     <Compile Include="Models\CafeOpeningHour.cs" />
     <Compile Include="Models\CafeOutlet.cs" />
+    <Compile Include="Models\CafeSuggestion.cs" />
     <Compile Include="Models\CafeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OutletViewModel.cs" />
     <Compile Include="Models\Search.cs" />
@@ -292,6 +297,12 @@
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Search\_PopularSearches.cshtml" />
     <Content Include="Views\CafeDetails\Bookmarks.cshtml" />
+    <Content Include="Views\CafeDetails\_RandomCategory.cshtml" />
+    <Content Include="Views\CafeSuggestions\Create.cshtml" />
+    <Content Include="Views\CafeSuggestions\Delete.cshtml" />
+    <Content Include="Views\CafeSuggestions\Details.cshtml" />
+    <Content Include="Views\CafeSuggestions\Edit.cshtml" />
+    <Content Include="Views\CafeSuggestions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Booking\" />

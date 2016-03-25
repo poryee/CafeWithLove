@@ -60,7 +60,7 @@
                             <li>@Html.ActionLink("South", "RFilter", "CafeDetails", new { chosen = "south" }, null)</li>
                             <li>@Html.ActionLink("East", "RFilter", "CafeDetails", new { chosen = "east" }, null)</li>
                             <li>@Html.ActionLink("West", "RFilter", "CafeDetails", new { chosen = "west" }, null)</li>
-                            
+
                         </ul>
                     </li>
                 </ul>
@@ -69,56 +69,57 @@
                 </ul>
             </div>
         </div>
-        <div class="container col-md-12">
-            <div class="col-md-6">
-                <div class="form-search search-only">
-                    <i class="search-icon glyphicon glyphicon-search"></i>
-                    @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Get))
-                    {
-                        @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
-                    }
-                </div>
+    </div>
+    <div class="container col-md-12">
+        <div class="col-md-6">
+            <div class="form-search search-only">
+                <i class="search-icon glyphicon glyphicon-search"></i>
+                @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Get))
+                {
+                @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
+                }
             </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Price <span class="caret"></span></button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Categories <span class="caret"></span></button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Estates <span class="caret"></span></button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">KM <span class="caret"></span></button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Price <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Categories <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Estates <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">KM <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
         <div class="container">
             <hr />
         </div>
@@ -146,7 +147,6 @@
             </div>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

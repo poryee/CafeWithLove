@@ -1,0 +1,52 @@
+﻿@model CafeWithLove.Models.CafeSuggestion
+
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h3 class="no-top-margin" style="display:inline-block;">Suggest a new cafe</h3>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })    
+            <div class="form-group">
+                @Html.LabelFor(model => model.cafeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cafeName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cafeName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.cafeWebsite, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cafeWebsite, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cafeWebsite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.cafeDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cafeDesc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cafeDesc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+@if(Request.Params["cafeName"] != null)
+{
+    <div class="col-md-offset-2">
+        <p>You have successfully suggested a cafe named '@Request.Params["cafeName"]'.</p>
+        <p>Our admins will get to it soon.</p>
+        <p>Thank you for the suggestion!</p>
+    </div>
+}
+
+

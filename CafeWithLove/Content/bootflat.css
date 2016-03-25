@@ -19,6 +19,12 @@
  * typography
  * --------------------------------------------------
  */
+.border-bottom-grey {
+    border-bottom: 1px solid #ccd1d9;
+}
+.modal-backdrop {
+    z-index: 1030 !important;
+}
 body {
   /*font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
   font-family: 'Titillium Web', sans-serif;

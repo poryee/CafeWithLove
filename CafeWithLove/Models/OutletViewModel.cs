@@ -9,6 +9,6 @@ namespace CafeWithLove.Models
     {
         public CafeDetail CafeDetailVM { get; set; }
         public CafeOutlet CafeOutletVM { get; set; }
-        //working hour
+        public CafeOpeningHour CafeOpeningHourVM { get; set; }
     }
 }
