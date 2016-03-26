@@ -3,7 +3,7 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-        
+    @Html.Hidden("CafeSuggestionId", (string)@ViewBag.CafeSuggestionId);    
     <div class="form-horizontal">
         <h4>Add a new cafe</h4>
         <hr />
@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.cafeDesc, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.cafeDesc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.cafeDesc, 3, 90, new { @style = "resize: none;" })
                 @Html.ValidationMessageFor(model => model.cafeDesc, "", new { @class = "text-danger" })
             </div>
         </div>

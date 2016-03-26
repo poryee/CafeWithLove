@@ -23,12 +23,5 @@ namespace CafeWithLove.Models
         [DisplayName("Cafe Description")]
         [MaxLength(255)]
         public string cafeDesc { get; set; }
-
-        public string status { get; set; }
-
-        public CafeSuggestion()
-        {
-            this.status = "Pending";
-        }
     }
 }

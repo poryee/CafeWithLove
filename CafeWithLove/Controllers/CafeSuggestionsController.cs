@@ -16,28 +16,15 @@ namespace CafeWithLove.Controllers
     {
         private CafeWithLoveContext db = new CafeWithLoveContext();
 
+        private CafeSuggestionGateway cafeSuggestionGateway = new CafeSuggestionGateway();
+
         // GET: CafeSuggestions
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.CafeSuggestions.ToList());
+            return View(cafeSuggestionGateway.SelectAll());
         }
-
-        // GET: CafeSuggestions/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CafeSuggestion cafeSuggestion = db.CafeSuggestions.Find(id);
-            if (cafeSuggestion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cafeSuggestion);
-        }
-
+        
         // GET: CafeSuggestions/Create
         [Authorize]
         public ActionResult Create()
@@ -57,12 +44,19 @@ namespace CafeWithLove.Controllers
             {
                 string userId = User.Identity.GetUserId();
                 cafeSuggestion.userId = userId;
-                db.CafeSuggestions.Add(cafeSuggestion);
-                db.SaveChanges();
+                cafeSuggestionGateway.Insert(cafeSuggestion);
                 return RedirectToAction("Create", new { cafeName = cafeSuggestion.cafeName });
             }
 
             return View(cafeSuggestion);
+        }
+
+        // Reject a cafe (delete from database)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Reject(int? id)
+        {
+            cafeSuggestionGateway.Delete(id);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

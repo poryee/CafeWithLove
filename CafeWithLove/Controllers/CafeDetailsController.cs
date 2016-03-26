@@ -19,6 +19,7 @@ namespace CafeWithLove.Controllers
         private BookmarkGateway bookmarkGateway = new BookmarkGateway();
         private LikeGateway likeGateway = new LikeGateway();
         private SearchGateway searchGateway = new SearchGateway();
+        private CafeSuggestionGateway cafeSuggestionGateway = new CafeSuggestionGateway();
 
         private CafeMapper cafeMapper = new CafeMapper();
 
@@ -224,7 +225,15 @@ namespace CafeWithLove.Controllers
         // CAFE
         public ActionResult Create()
         {
-            return View();
+            CafeDetail cafeDetail = new CafeDetail();
+            cafeDetail.cafeName = Request.Params["cafeName"];
+            cafeDetail.cafeDesc = Request.Params["cafeDesc"];
+            cafeDetail.cafeWebsite = Request.Params["cafeWebsite"];
+            if(Request.Params["cafeSuggestionId"] == null)
+                @ViewBag.CafeSuggestionId = "-1";               // not linked from cafe suggestions
+            else
+                @ViewBag.CafeSuggestionId = Request.Params["cafeSuggestionId"]; // linked from cafe suggestions
+            return View(cafeDetail);
         }
 
         // POST: CafeDetails/Create
@@ -233,11 +242,13 @@ namespace CafeWithLove.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,cafeName,cafeDesc,cafeLogo,cafePrice,cafeRating,cafeCategory,cafeWebsite")] CafeDetail cafeDetails)
+        public ActionResult Create([Bind(Include = "Id,cafeName,cafeDesc,cafeLogo,cafePrice,cafeRating,cafeCategory,cafeWebsite")] CafeDetail cafeDetails, int cafeSuggestionId)
         {
             if (ModelState.IsValid)
             {
                 cafeDetailGateway.Insert(cafeDetails);
+                if (cafeSuggestionId != -1)
+                    cafeSuggestionGateway.Delete(cafeSuggestionId);
                 return RedirectToAction("CreateOutlet", new { cafeId = cafeDetails.Id });
             }
 
