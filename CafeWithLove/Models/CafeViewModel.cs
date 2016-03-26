@@ -9,5 +9,6 @@ namespace CafeWithLove.Models
     {
         public CafeDetail CafeDetailVM { get; set; }
         public ICollection<CafeOutlet> CafeOutletVM { get; set; }
+        public ICollection<CafeOpeningHour> CafeOpeningHourVM { get; set; }
     }
 }

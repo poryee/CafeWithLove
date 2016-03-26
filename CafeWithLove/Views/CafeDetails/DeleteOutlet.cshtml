@@ -2,7 +2,7 @@
 
     <h3>Are you sure you want to delete this?</h3>
     <div>
-        <h4>CafeOutlet</h4>
+        <h4>@Html.DisplayFor(model => model.CafeDetailVM.cafeName) Outlet</h4>
         <hr />
         <h5>Outlet Details</h5>
         @Html.HiddenFor(model => model.CafeOutletVM.cafeId, new { id = "cafeId" })
@@ -100,7 +100,7 @@
 
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
+                @Html.ActionLink("Back to List", "ManageCafes")
             </div>
         }
 </div>

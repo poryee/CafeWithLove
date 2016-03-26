@@ -85,8 +85,8 @@ namespace CafeWithLove.Controllers
             return PartialView(mymodel);
         }
 
-        // GET: Featured Cafes
-        // MUST BE CHANGED
+        // GET: Featured Outlets
+        // OUTLETs
         public ActionResult _FeaturedCafes()
         {
             ICollection<OutletViewModel> mymodel = cafeMapper.MostVisited(4);
@@ -96,7 +96,7 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeDetails
-        // MUST BE CHANGED
+        // OUTLETs
         public ActionResult TopTen()
         {
             ViewBag.Heading = "Top 10 Cafes";
@@ -107,6 +107,7 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeDetails/Details/5
+        // OUTLET
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -145,6 +146,24 @@ namespace CafeWithLove.Controllers
             return View(cafeMapper.CafeOutletMap((int)id));
         }
 
+        public ActionResult DetailsCafe(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            CafeViewModel cvm = cafeMapper.SelectOneCafe((int)id);
+            int outletNum = cvm.CafeOutletVM.Count;
+            if (outletNum < 2)
+                @ViewBag.outletClass = "col-md-offset-4 col-md-4 center-block";
+            else if (outletNum == 2)
+                @ViewBag.outletClass = "col-md-offset-1 col-md-5 center-block";
+            else
+                @ViewBag.outletClass = "col-md-4 center-block";
+            return View(cvm);
+        }
+
         [Authorize]             // only logged in users can view this page
         public ActionResult Bookmark(int? newID, bool bookmarked)
         {
@@ -173,7 +192,7 @@ namespace CafeWithLove.Controllers
             return RedirectToAction("Details", "CafeDetails", new { id = newID });
         }
 
-        //GET: Bookmarked Cafes
+        //GET: Bookmarked OUTLETs
         [Authorize]             // only logged in users can view this page
         public ActionResult Bookmarks()
         {
@@ -187,7 +206,7 @@ namespace CafeWithLove.Controllers
             return View("Index", mymodel);
         }
 
-        //GET: Liked Cafes
+        //GET: Liked OUTLETs
         [Authorize]             // only logged in users can view this page
         public ActionResult Likes()
         {
@@ -202,12 +221,14 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeDetails/Create
+        // CAFE
         public ActionResult Create()
         {
             return View();
         }
-        
+
         // POST: CafeDetails/Create
+        // CAFE
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -224,6 +245,7 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeDetails/CreateOutlet
+        // OUTLET
         public ActionResult CreateOutlet(int cafeId)
         {
             OutletViewModel ovm = new OutletViewModel();
@@ -233,7 +255,8 @@ namespace CafeWithLove.Controllers
             return View(ovm);
         }
 
-        // POST: CafeDetails/Create
+        // POST: CafeDetails/CreateOutlet
+        // OUTLET
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -250,6 +273,7 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeDetails/Edit/5
+        // CAFE
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -261,6 +285,7 @@ namespace CafeWithLove.Controllers
         }
 
         // POST: CafeDetails/Edit/5
+        // CAFE
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -276,6 +301,7 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeDetails/EditOutlet/5
+        // OUTLET
         public ActionResult EditOutlet(int? id)
         {
             if (id == null)
@@ -287,6 +313,7 @@ namespace CafeWithLove.Controllers
         }
 
         // POST: CafeDetails/EditOutlet/5
+        // OUTLET
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditOutlet(OutletViewModel ovm)
@@ -300,44 +327,57 @@ namespace CafeWithLove.Controllers
         }
 
         // GET: CafeDetails/Delete/5
+        // CAFE
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-          
-            return View(cafeDetailGateway.SelectById(id));
+
+            CafeViewModel cvm = cafeMapper.SelectOneCafe((int)id);
+            int outletNum = cvm.CafeOutletVM.Count;
+            if(outletNum < 2)
+                @ViewBag.outletClass = "col-md-offset-4 col-md-4 center-block";
+            else if (outletNum == 2)
+                @ViewBag.outletClass = "col-md-offset-1 col-md-5 center-block";
+            else
+                @ViewBag.outletClass = "col-md-4 center-block";
+            return View(cvm);
         }
 
         // POST: CafeDetails/Delete/5
-        [HttpPost, ActionName("DeleteOutlet")]
+        // CAFE
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            cafeMapper.DeleteOutlet(id);
-            return RedirectToAction("Index");
+            cafeMapper.DeleteCafe(id);
+            return RedirectToAction("ManageCafes");
         }
 
         // GET: CafeDetails/Delete/5
+        // OUTLET
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteOutlet(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-
             return View(cafeMapper.CafeOutletMap((int)id));
         }
 
-        // POST: CafeDetails/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: CafeDetails/DeleteOutlet/5
+        // OUTLET
+        [HttpPost, ActionName("DeleteOutlet")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteOutletConfirmed(int id)
         {
-            cafeDetailGateway.Delete(id);
+            cafeMapper.DeleteOutlet(id);
             return RedirectToAction("ManageCafes");
         }
 

@@ -10,6 +10,7 @@ namespace CafeWithLove.DAL
         
         public ICollection<CafeOutlet> model;
         
+        // list of outlets to one cafe
         public ICollection<CafeOutlet> getOutlet(int cafeId)
         {
             ICollection<CafeOutlet> model = new List<CafeOutlet>();
@@ -18,7 +19,7 @@ namespace CafeWithLove.DAL
             return model;
         }
 
-        // get all cafes based on array of cafeIds
+        // get all outlets based on array of cafeIds
         public ICollection<CafeOutlet> SelectByIdArray(int[] cafeIds)
         {
             ICollection<CafeOutlet> model = new List<CafeOutlet>();
@@ -27,6 +28,7 @@ namespace CafeWithLove.DAL
             return model;
         }
 
+        // get top visited outlets
         public ICollection<CafeOutlet> MostVisited(int numOfCafes)
         {
             ICollection<CafeOutlet> model = data.OrderByDescending(x => x.numOfVisit).Take(numOfCafes).ToList();
@@ -36,6 +38,7 @@ namespace CafeWithLove.DAL
             return model;
         }
 
+        // update num of visits to outlet
         public void UpdateNumOfVisits(CafeOutlet cafe)
         {
             cafe.numOfVisit++;
@@ -43,11 +46,21 @@ namespace CafeWithLove.DAL
             db.SaveChanges();
         }
 
+        // insert one outlet and return its id
         public int InsertReturnId(CafeOutlet cafe)
         {
             data.Add(cafe);
             db.SaveChanges();
             return cafe.cafeOutletId;
+        }
+
+        // delete outlet based on cafe id
+        public ICollection<CafeOutlet> DeleteByCafeId(int cafeId)
+        {
+            // return a collection of cafeoutlets instead of one cafeoutlet in datagateway
+            ICollection<CafeOutlet> model = data.RemoveRange(data.Where(x => x.cafeId.Equals(cafeId))).ToList();
+            db.SaveChanges();
+            return model;
         }
     }
 }

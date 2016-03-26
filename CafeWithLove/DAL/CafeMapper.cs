@@ -32,11 +32,26 @@ namespace CafeWithLove.DAL
             return modelList;
         }
 
+        // select one CAFE and all its outlets + opening hours to its outlets
+        public CafeViewModel SelectOneCafe(int cafeId)
+        {
+            CafeViewModel cvm = new CafeViewModel();
+            cvm.CafeDetailVM = cafeDetailGateway.SelectById(cafeId);
+            cvm.CafeOutletVM = cafeOutletGateway.getOutlet(cafeId);
+
+            int[] outletIds = cvm.CafeOutletVM.Select(outlet => outlet.cafeOutletId).Distinct().ToArray();
+            cvm.CafeOpeningHourVM = cafeOpeningHourGateway.SelectByOutletIds(outletIds);
+
+            return cvm;
+        }
+
+        // select one OUTLET + its opening hours + its details from CafeDetail
+        // gets CafeOutlet before CafeDetails
         public OutletViewModel CafeOutletMap(int outletID)
         {
             CafeOutlet cafeOutlet = cafeOutletGateway.SelectById(outletID);
             CafeDetail cafeDetail = cafeDetailGateway.SelectById(cafeOutlet.cafeId);
-            CafeOpeningHour cafeOpeningHour = cafeOpeningHourGateway.SelectByCafeOutletId(outletID);
+            CafeOpeningHour cafeOpeningHour = cafeOpeningHourGateway.SelectByOutletId(outletID);
             cafeOutletGateway.UpdateNumOfVisits(cafeOutlet);
             OutletViewModel tempmodel = new OutletViewModel();
             tempmodel.CafeDetailVM = cafeDetail;
@@ -46,8 +61,8 @@ namespace CafeWithLove.DAL
             return tempmodel;
         }
 
-        // different from the rest
         // gets CafeOutlet before CafeDetails
+        // gets all bookmarked/liked OUTLETs
         public ICollection<CafeViewModel> CafeMapBookmarks(int[] cafeOutletIds)
         {
             ICollection<CafeOutlet> outletList = cafeOutletGateway.SelectByIdArray(cafeOutletIds);        // get list of outlets
@@ -68,6 +83,8 @@ namespace CafeWithLove.DAL
             return modelList;
         }
 
+        // gets CafeOutlet before CafeDetails
+        // gets most visited OUTLETs
         public ICollection<OutletViewModel> MostVisited(int numOfCafes)
         {
             //IEnumerable<CafeDetail> cafeList = cafeDetailGateway.MostVisited(numOfCafes);
@@ -152,6 +169,7 @@ namespace CafeWithLove.DAL
             }
         }
 
+        // insert one OUTLET
         public void InsertOutlet(OutletViewModel ovm)
         {
             int cafeOutletId = cafeOutletGateway.InsertReturnId(ovm.CafeOutletVM);
@@ -159,16 +177,27 @@ namespace CafeWithLove.DAL
             cafeOpeningHourGateway.Insert(ovm.CafeOpeningHourVM);
         }
 
+        // update one OUTLET
         public void UpdateOutlet(OutletViewModel ovm)
         {
             cafeOutletGateway.Update(ovm.CafeOutletVM);
             cafeOpeningHourGateway.Update(ovm.CafeOpeningHourVM);
         }
 
+        // delete one OUTLET
         public void DeleteOutlet(int outletId)
         {
             cafeOutletGateway.Delete(outletId);
             cafeOpeningHourGateway.DeleteByOutletId(outletId);
+        }
+
+        // delete one CAFE
+        public void DeleteCafe(int cafeId)
+        {
+            cafeDetailGateway.Delete(cafeId);
+            ICollection<CafeOutlet> deletedOutletList = cafeOutletGateway.DeleteByCafeId(cafeId);
+            int[] deletedOutletIds = deletedOutletList.Select(outlet => outlet.cafeOutletId).Distinct().ToArray();
+            cafeOpeningHourGateway.DeleteByOutletIds(deletedOutletIds);
         }
     }
 }

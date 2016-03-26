@@ -17,8 +17,6 @@
 
 <!-- BROWSE ALL CAFES -->
 <h3 class="no-top-margin" style="display:inline-block;">@ViewBag.Heading</h3>
-<button type="button" class="btn btn-default add-15-bottom-margin add-15-left-margin active"><span class="glyphicon glyphicon-list"></span></button>
-<button type="button" class="btn btn-default add-15-bottom-margin"><span class="glyphicon glyphicon-map-marker"></span></button>
 
 <br />
 <h4>@Html.ActionLink("Add new cafe", "Create")</h4>
@@ -47,7 +45,7 @@ else
                 </div>
                 <div class="col-md-3">
                     @Html.ActionLink("Edit", "Edit", new { id=modellist.CafeDetailVM.Id }, new {@class="a-white"}) |
-                    @Html.ActionLink("Details", "Details", new { id=modellist.CafeDetailVM.Id }, new {@class="a-white"}) |
+                    @Html.ActionLink("Details", "DetailsCafe", new { id=modellist.CafeDetailVM.Id }, new {@class="a-white"}) |
                     @Html.ActionLink("Delete", "Delete", new { id=modellist.CafeDetailVM.Id }, new {@class="a-white"})
                 </div>
             </div>
@@ -81,6 +79,7 @@ else
 </div>
 }
 
+<a href="#" class="col-md-offset-2">Back to top</a>
 <!-- set row height to wrap content -->
 <script>
     $(document).ready(function () {

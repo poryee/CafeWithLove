@@ -246,6 +246,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\cafedetails.js" />
+    <Content Include="Scripts\featuredcafes.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -308,6 +309,7 @@
     <Content Include="Views\CafeDetails\CreateOutlet.cshtml" />
     <Content Include="Views\CafeDetails\EditOutlet.cshtml" />
     <Content Include="Views\CafeDetails\DeleteOutlet.cshtml" />
+    <Content Include="Views\CafeDetails\DetailsCafe.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
