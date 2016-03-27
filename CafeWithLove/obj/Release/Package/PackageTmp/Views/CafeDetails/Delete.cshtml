@@ -1,0 +1,151 @@
+﻿@model CafeWithLove.Models.CafeViewModel
+
+@Scripts.Render("~/bundles/cafedetails")
+
+<h3 class="no-top-margin">@Html.DisplayFor(model => model.CafeDetailVM.cafeName)</h3>
+<hr />
+<div>
+    <div class="container col-md-12">
+        <img class="img-rounded col-md-4 col-md-offset-4" src="@Url.Content(String.Format("~/Images/{0}", Model.CafeDetailVM.cafeLogo))">
+    </div>
+    <div class="col-md-12">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeDesc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeDesc)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafePrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafePrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeRating)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeRating)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeCategory)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeCategory)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeWebsite)
+            </dt>
+            <dd>
+                <a href="@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)</a>
+            </dd>
+        </dl>
+    </div>
+    
+    @{
+        var outletNum = 0;
+    }
+    <div class="container">
+        @for(var i = 0; i < Model.CafeOutletVM.Count;i++)
+        {
+        outletNum = outletNum + 1;
+        <div class="@ViewBag.outletClass">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">Outlet @outletNum</div>
+                <div class="panel-body">
+                    <h5 class="no-top-margin no-bottom-margin">Address</h5>
+                    <p class="list-group-item-text">
+                        @Html.Raw(Html.Encode(Model.CafeOutletVM.ToList()[i].cafeAddress).Replace(",", "<br />").Replace(";", ""))<br />
+                        Singapore @Html.DisplayFor(modelItem => Model.CafeOutletVM.ToList()[i].cafePostalCode)
+                    </p>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h5 class="no-top-margin no-bottom-margin">Opening Hours</h5>
+                        <table class="col-md-12">
+                            <tr>
+                                <td class="monday col-md-3">
+                                    @Html.DisplayNameFor(model => Model.CafeOpeningHourVM.ToList()[i].monday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.CafeOpeningHourVM.ToList()[i].monday)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.CafeOpeningHourVM.ToList()[i].tuesday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.CafeOpeningHourVM.ToList()[i].tuesday)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.CafeOpeningHourVM.ToList()[i].wednesday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.CafeOpeningHourVM.ToList()[i].wednesday)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.CafeOpeningHourVM.ToList()[i].thursday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.CafeOpeningHourVM.ToList()[i].thursday)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.CafeOpeningHourVM.ToList()[i].friday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.CafeOpeningHourVM.ToList()[i].friday)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.CafeOpeningHourVM.ToList()[i].saturday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.CafeOpeningHourVM.ToList()[i].saturday)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3">
+                                    @Html.DisplayNameFor(model => Model.CafeOpeningHourVM.ToList()[i].sunday)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => Model.CafeOpeningHourVM.ToList()[i].sunday)
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="container col-md-12">
+        @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color text-center">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "ManageCafes")
+        </div>
+        }
+    </div>
+    
+</div>

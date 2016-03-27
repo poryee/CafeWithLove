@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CafeWithLove.Models.CafeSuggestion>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cafeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cafeWebsite)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cafeDesc)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cafeName)
+            </td>
+            <td>
+                <a href="@Html.DisplayFor(modelItem => item.cafeWebsite)" target="_blank">@Html.DisplayFor(modelItem => item.cafeWebsite)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cafeDesc)
+            </td>
+            <td>
+                @Html.ActionLink("Add", "Create", "CafeDetails", new { cafeSuggestionId = item.Id, cafeName=item.cafeName, cafeDesc=item.cafeDesc, cafeWebsite=item.cafeWebsite }, null) |
+                @Html.ActionLink("Reject", "Reject", new { id=item.Id })
+            </td>
+        </tr>
+    }
+    
+    </table>

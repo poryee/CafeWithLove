@@ -1,0 +1,38 @@
+﻿@model CafeWithLove.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<h3 class="no-top-margin">@ViewBag.Title</h3>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            <h4>Use a local account to log in.</h4>
+            <hr />
+            @Html.ValidationSummary(true)
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" }) <br />
+                @Html.ValidationMessageFor(m => m.UserName)
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" }) <br />
+                @Html.ValidationMessageFor(m => m.Password)
+                <div class="pwstrength_viewport_progress"></div>
+                <button type="submit" name="go" class="btn btn-lg btn-primary">Login</button>
+                <div>
+                    @Html.ActionLink("Register", "Register") if you don't have a local account.
+                </div>
+            }
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

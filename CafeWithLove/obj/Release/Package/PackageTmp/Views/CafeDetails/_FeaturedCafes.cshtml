@@ -1,0 +1,19 @@
+﻿﻿@model IEnumerable<CafeWithLove.Models.OutletViewModel>
+
+@Scripts.Render("~/bundles/featuredcafes")
+
+@foreach (var modellist in Model)
+{
+    <div class="col-md-3">
+        <div class="thumbnail featured-cafe-thumbnail">
+            <img class="img-rounded" src="@Url.Content(String.Format("~/Images/{0}", modellist.CafeDetailVM.cafeLogo))"/>
+            <div class="caption text-center">
+                <h3>@Html.DisplayFor(modelItem => modellist.CafeDetailVM.cafeName)</h3>
+                <p>
+                    @Html.DisplayFor(ModelItem => modellist.CafeDetailVM.cafeDesc)
+                </p>
+                @Html.ActionLink("View Cafe Details", "Details", "CafeDetails", new { id = modellist.CafeOutletVM.cafeOutletId }, null)
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,159 @@
+﻿@model CafeWithLove.Models.OutletViewModel
+
+@Scripts.Render("~/bundles/cafedetails")
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<script type="text/javascript" src="~/Scripts/Map.js"></script>
+
+<h3 class="no-top-margin">
+    @Html.DisplayFor(model => model.CafeDetailVM.cafeName)
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("★", "Bookmark", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, bookmarked = @ViewBag.Bookmarked }, new { @class = @ViewBag.BookmarkClass, type="button" }) 
+    }
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("❤", "Like", "CafeDetails", new { newID = Model.CafeOutletVM.cafeId, liked = @ViewBag.Liked }, new { @class = @ViewBag.LikeClass, type="button" })
+    }
+</h3>
+<hr />
+<div class="container col-md-12">
+    <div class="col-md-7">
+        <dl class="dl-horizontal">
+            <dt>
+                <img class="img-rounded img-responsive col-md-12" src="@Url.Content(String.Format("~/Images/{0}", Model.CafeDetailVM.cafeLogo))">
+            </dt>
+            <dd>
+                <p>@Html.DisplayFor(model => model.CafeDetailVM.cafeDesc)</p>
+            </dd>
+            <dt>
+                Address
+            </dt>
+            <dd>
+                <p>
+                    @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOutletVM.cafeAddress)).Replace(",", "<br/>"))<br />
+                    Singapore @Html.DisplayFor(model => model.CafeOutletVM.cafePostalCode)
+                </p>
+                <p id="postalCode" hidden>@Html.DisplayFor(model => model.CafeOutletVM.cafePostalCode)</p>
+            </dd>
+            <dt>
+                Opening Hours<br />
+                <a href="#" id="openingHoursToggle">(Show All)</a>
+            </dt>
+            <dd>
+                <table class="col-md-12">
+                    <tr class="collaspedDay collapse border-bottom-grey" id="monday">
+                        <td class="monday col-md-5">
+                            Monday
+                        </td>
+                        <td>
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.monday)).Replace("/", "<br />"))
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse border-bottom-grey" id="tuesday">
+                        <td class="col-md-5">
+                            Tuesday
+                        </td>
+                        <td>
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.tuesday)).Replace("/", "<br />"))
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse border-bottom-grey" id="wednesday">
+                        <td class="col-md-5">
+                            Wednesday
+                        </td>
+                        <td>
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.wednesday)).Replace("/", "<br />"))
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse border-bottom-grey" id="thursday">
+                        <td class="col-md-5">
+                            Thursday
+                        </td>
+                        <td>
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.thursday)).Replace("/", "<br />"))
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse border-bottom-grey" id="friday">
+                        <td class="col-md-5">
+                            Friday
+                        </td>
+                        <td>
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.friday)).Replace("/", "<br />"))
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse border-bottom-grey" id="saturday">
+                        <td class="col-md-5">
+                            Saturday
+                        </td>
+                        <td>
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.saturday)).Replace("/", "<br />"))
+                        </td>
+                    </tr>
+                    <tr class="collaspedDay collapse border-bottom-grey" id="sunday">
+                        <td class="col-md-5">
+                            Sunday
+                        </td>
+                        <td>
+                            @Html.Raw(Html.Encode(@Html.DisplayFor(model => model.CafeOpeningHourVM.sunday)).Replace("/", "<br />"))
+                        </td>
+                    </tr>
+                </table>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafePrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafePrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeRating)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeRating)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeCategory)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CafeDetailVM.cafeCategory)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CafeDetailVM.cafeWebsite)
+            </dt>
+            <dd>
+                <a href="@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)" target="_blank">@Html.DisplayFor(model => model.CafeDetailVM.cafeWebsite)</a>
+            </dd>
+        </dl>
+    </div>
+    <!-- GOOGLE MAP HERE -->
+    <div class="col-md-5">
+        <div class="row">
+            <div inputPostalCodeclass="img-rounded col-md-11 col-md-offset-1" style="width:500px;height:300px;" id="googleMap"></div>
+            <!-- <img class="img-rounded col-md-11 col-md-offset-1" src="http://dummyimage.com/600x400/81cfe0/ffffff.png&text=GOOGLE+MAP+HERE">-->
+        </div>
+        <div class="row" style="padding-top: 5px;">
+            <div class="col-md-9 col-md-offset-1 col-sm-9 col-xs-9">
+                <div class="form-search search-only">
+                    <i class="search-icon glyphicon glyphicon-search"></i>
+                    <input name="inputPostalCode" id="" type="text" class="form-control" placeholder="Current Location">
+                </div>
+            </div>
+            <button type="button" class="btn btn-info col-md-2" style="padding: 6px;" onclick="getCurrentLocation()"><span class="glyphicon glyphicon-map-marker"></span></button>
+        </div>
+        <div class="row" style="padding-top: 3px;">
+            <button type="button" class="btn btn-info col-md-3 col-md-offset-2 pull-right" data-toggle="modal" data-test="760423" onclick="getThereClicked(inputPostalCode.value), (inputPostalCode.value = '')">Get Here</button>
+        </div>
+    </div>
+    <div class="col-md-7 col-md-offset-1">         
+        <div class="fb-comments" data-href="@Request.Url.AbsoluteUri" data-numposts="5"></div>
+        </div>
+        <!-- get the current URL only, so different page got different comment box, eg commenting on fatcat wont comment on cali cafe -->
+
+    </div>
