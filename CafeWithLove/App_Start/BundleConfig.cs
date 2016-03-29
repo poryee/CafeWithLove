@@ -29,8 +29,10 @@ namespace CafeWithLove
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/*.css", new CssRewriteUrlTransform()));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap.css", new CssRewriteUrlTransform())
+                .Include("~/Content/Site.css", new CssRewriteUrlTransform())
+                .Include("~/Content/bootflat.css", new CssRewriteUrlTransform()));
+            //"~/Content/*.css", new CssRewriteUrlTransform()));
 
             BundleTable.EnableOptimizations = true;
         }
