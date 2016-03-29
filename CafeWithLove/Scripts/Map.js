@@ -280,7 +280,8 @@ function createMarker(latlng) {
     var test = map.getDiv();
     var test = test.id;
     
-    if (test == "map-container" && whatMarker == "1") {
+    //Check which marker icon image to be set for the markers
+    if (test == "map-container" && whatMarker == "0") {
         var icon = {
             url: "/Images/currentLocation.png", // url
             scaledSize: new google.maps.Size(30, 30), // scaled size
