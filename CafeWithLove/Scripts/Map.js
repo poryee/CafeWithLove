@@ -256,7 +256,17 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
     };
 
     map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
-    var_infowindow = new google.maps.InfoWindow({content: var_contentstring});
+    var_infowindow = new google.maps.InfoWindow({ content: var_contentstring });
+
+    // Create the DIV to hold the control and call the CenterControl()
+    // constructor passing in this DIV.
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map);
+
+    centerControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(centerControlDiv);
+
+
     getCoordinate(var_postalcode, map);
 
     $('#mapmodals').on('shown.bs.modal', function () {
@@ -367,37 +377,6 @@ $(document).on("click", ".openmodal", function () {
     $(".modal-header #title_id").html(cafeName);
     $('#mapmodals').modal('show');
 });
-
-function geocodeAddress(var_postalcode, geocoder, map, infowindow) {
-
-    geocoder.geocode({ address:var_postalcode }, function (results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-            if (results[0]) {
-                map.setCenter(results[0].geometry.location);
-                var var_marker = new google.maps.Marker({
-                    position: results[0].geometry.location,
-                    map: map
-                });
-                infowindow.setContent(results[0].geometry.location);
-                infowindow.open(map, marker);
-
-                google.maps.event.addListener(var_marker, 'click', function () {
-                    var_infowindow.open(var_map, var_marker);
-                });
-
-                $('#mapmodals').on('shown.bs.modal', function () {
-                    google.maps.event.trigger(var_map, "resize");
-                    var_map.setCenter(latlng);
-                });
-            } else {
-                window.alert('No results found');
-            }
-        }
-        else {
-            window.alert('Geocoder failed due to: ' + status);
-        }
-    });
-}
 
 //GoogleMap Extra Buttons for LIST OF CARPARK
 function CenterControl(controlDiv, map) {
