@@ -6,7 +6,6 @@ var currentCafeLocation;
 var markersArray = [];
 
 $(function () {
-    //initialize();
     if (window.location.pathname.match('CafeDetails/Details')) {
         google.maps.event.addDomListener(window, 'load', initialDetailGoogleMap);
     }
@@ -69,33 +68,6 @@ function displayRoute() {
     markersArray.push(directionsDisplay);
     //markersArray.push(start);
     //markersArray.push(end);
-}
-
-//Execute initialize ONLY when the complete document model has been loaded
-function initialize() {
-    // $(this) will give you div element
-    //Setting the option for default setting of zoom
-    //Google New UI Map
-    google.maps.visualRefresh = true;
-
-    //Setting the option for default setting of zoom
-    var mapOptions = {
-        center: new google.maps.LatLng(1.371635, 103.813802), //India Lat and Lon
-        zoom: 11,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    //Set div with id "map" a google map
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    // Create the DIV to hold the control and call the CenterControl()
-    // constructor passing in this DIV.
-    var centerControlDiv = document.createElement('div');
-    var centerControl = new CenterControl(centerControlDiv, map);
-
-    centerControlDiv.index = 1;
-    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(centerControlDiv);
-    setupLocationMarker(map)
 }
 
 function setupLocationMarker(map) {
@@ -410,6 +382,55 @@ function CenterControl(controlDiv, map) {
     });
 
 }
+
+var locations = [
+          { "Id": 1, "Name": "Cafe With Love", "GeoLong": "1.312367", "GeoLat": "103.797141" },
+          { "Id": 2, "Name": "49 Seater ", "GeoLong": "1.314511", "GeoLat": "103.919353" }
+    ];
+
+var closest = [];
+//Find closest carpark
+function findClosestN() {
+    // Multiple Markers
+    var markers = [
+        ['London Eye, London', 51.503454, -0.119562],
+        ['Palace of Westminster, London', 51.499633, -0.124755]
+    ];
+
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].distance = google.maps.geometry.spherical.computeDistanceBetween(pt, markers[i].getPosition());
+        markers[i].setMap(null);
+        closest.push(markers[i]);
+    }
+    closest.sort(sortByDist);
+    return closest.splice(0, numberOfResults);
+}
+
+function sortByDist(a, b) {
+    return (a.distance - b.distance)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Dummy List of Carparks
 function setupLocationMarker2(map) {
