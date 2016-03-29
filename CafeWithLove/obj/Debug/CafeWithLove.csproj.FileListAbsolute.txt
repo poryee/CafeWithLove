@@ -479,3 +479,4 @@ C:\Users\Meixi\Desktop\meixi laptop\School\Trimester 2\ICT2106\Project\CafeWithL
 C:\Users\Meixi\Desktop\meixi laptop\School\Trimester 2\ICT2106\Project\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.dll
 C:\Users\Meixi\Desktop\meixi laptop\School\Trimester 2\ICT2106\Project\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.pdb
 C:\Users\Meixi\Desktop\meixi laptop\School\Trimester 2\ICT2106\Project\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.csprojResolveAssemblyReference.cache
+C:\Users\LoonX\Desktop\Year2-Trimster2\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.csprojResolveAssemblyReference.cache

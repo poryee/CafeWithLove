@@ -267,6 +267,7 @@ function getCoordinate(postalCode, map) {
     return result;
 }
 
+var whatMarker;
 //testing
 //Create Map Marker of Search Cafe Location
 function createMarker(latlng) {
@@ -279,9 +280,24 @@ function createMarker(latlng) {
     var test = map.getDiv();
     var test = test.id;
     
-    if (test == "map-container") {
+    if (test == "map-container" && whatMarker == "1") {
         var icon = {
             url: "/Images/currentLocation.png", // url
+            scaledSize: new google.maps.Size(30, 30), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        cafeMarker = new google.maps.Marker({
+            map: map,
+            icon: icon,
+            position: latlng
+        });
+    }
+    else if (whatMarker == "1")
+    {
+        var icon = {
+            url: "/Images/carparkLocation.png", // url
             scaledSize: new google.maps.Size(30, 30), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
@@ -378,7 +394,12 @@ function CenterControl(controlDiv, map) {
 
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener('click', function () {
-        setupLocationMarker2(map);
+        closest = findClosestN();
+        for (var i = 0; i < closest.length; i++) {
+            var position = new google.maps.LatLng(closest[i][1], closest[i][2]);
+            createMarker(position);
+        }
+        whatMarker = "0";
     });
 
 }
@@ -393,33 +414,29 @@ var closest = [];
 function findClosestN() {
     // Multiple Markers
     var markers = [
-        ['London Eye, London', 51.503454, -0.119562],
-        ['Palace of Westminster, London', 51.499633, -0.124755]
+        ['near2', 1.328984, 103.929695],
+        ['far', 1.330507, 103.907897],
+        ['near', 1.329092, 103.931100]
     ];
 
     for (var i = 0; i < markers.length; i++) {
-        markers[i].distance = google.maps.geometry.spherical.computeDistanceBetween(pt, markers[i].getPosition());
-        markers[i].setMap(null);
-        closest.push(markers[i]);
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        markers[i].distance = google.maps.geometry.spherical.computeDistanceBetween(currentCafeLocation, position) / 1000;
+
+        var R = 1; // radius of earth in km
+        if (markers[i].distance < R)
+        {
+            whatMarker = "1";
+            closest.push(markers[i]);
+        }
     }
     closest.sort(sortByDist);
-    return closest.splice(0, numberOfResults);
+    return closest.splice(0, 3);
 }
 
 function sortByDist(a, b) {
     return (a.distance - b.distance)
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
