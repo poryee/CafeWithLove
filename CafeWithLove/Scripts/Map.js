@@ -267,7 +267,7 @@ function getCoordinate(postalCode, map) {
     return result;
 }
 
-var whatMarker;
+var whatMarker = "0";
 //testing
 //Create Map Marker of Search Cafe Location
 function createMarker(latlng) {
@@ -410,10 +410,11 @@ var locations = [
           { "Id": 2, "Name": "49 Seater ", "GeoLong": "1.314511", "GeoLat": "103.919353" }
     ];
 
-var closest = [];
+
 //Find closest carpark
 function findClosestN() {
     // Multiple Markers
+    var closest = [];
     var markers = [
         ['near2', 1.328984, 103.929695],
         ['far', 1.330507, 103.907897],
