@@ -21,11 +21,10 @@ namespace CafeWithLove.Models
         public string cafeDesc { get; set; }
 
         [DisplayName("Cafe Logo")]
-        [Required]
         public string cafeLogo { get; set; }
 
         [DisplayName("Price")]
-        [Range(1, 5)]
+        [Range(1,99)]
         [Required]
         public int cafePrice { get; set; }
         
