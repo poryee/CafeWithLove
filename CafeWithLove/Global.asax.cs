@@ -14,6 +14,7 @@ namespace CafeWithLove
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<CafeWithLoveContext>(null);
             //Database.SetInitializer<CafeWithLoveContext>(null);     // for change in database issues
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
