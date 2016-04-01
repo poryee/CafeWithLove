@@ -72,5 +72,19 @@ namespace CafeWithLove.DAL
             model = data.Where(p => p.cafeRegion.Equals(chosen)).ToList();
             return model;
         }
+
+        public void addLike(int outletId)
+        {
+            CafeOutlet cafeOutlet = SelectById(outletId);
+            cafeOutlet.numOfLike++;
+            Update(cafeOutlet);
+        }
+
+        public void removeLike(int outletId)
+        {
+            CafeOutlet cafeOutlet = SelectById(outletId);
+            cafeOutlet.numOfLike--;
+            Update(cafeOutlet);
+        }
     }
 }

@@ -198,12 +198,11 @@ namespace CafeWithLove.Controllers
         public ActionResult Like(int? newID, bool liked)
         {
             string userId = User.Identity.GetUserId();
-            Like newLike = new Like((int)newID, userId);
 
             if (liked)
-                likeGateway.Delete((int)newID, userId);            // should be delete
+                cafeMapper.removeLike((int)newID);
             else
-                likeGateway.Insert(newLike);
+                cafeMapper.doLike((int)newID, userId);            // should be delete
 
             return RedirectToAction("Details", "CafeDetails", new { id = newID });
         }

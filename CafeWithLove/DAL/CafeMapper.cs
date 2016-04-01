@@ -12,6 +12,8 @@ namespace CafeWithLove.DAL
         private CafeDetailGateway cafeDetailGateway = new CafeDetailGateway();
         private CafeOutletGateway cafeOutletGateway = new CafeOutletGateway();
         private CafeOpeningHourGateway cafeOpeningHourGateway = new CafeOpeningHourGateway();
+        private LikeGateway likeGateway = new LikeGateway();
+
         List<CafeViewModel> modelList = new List<CafeViewModel>();
         
         public ICollection<CafeViewModel> CafeMap(String searchInput)
@@ -223,6 +225,18 @@ namespace CafeWithLove.DAL
             ICollection<CafeOutlet> deletedOutletList = cafeOutletGateway.DeleteByCafeId(cafeId);
             int[] deletedOutletIds = deletedOutletList.Select(outlet => outlet.cafeOutletId).Distinct().ToArray();
             cafeOpeningHourGateway.DeleteByOutletIds(deletedOutletIds);
+        }
+
+        public void doLike(int outletId, string userId)
+        {
+            likeGateway.Insert(new Like(outletId, userId));
+            cafeOutletGateway.addLike(outletId);
+        }
+
+        public void removeLike(int outletId)
+        {
+            likeGateway.Delete(outletId);
+            cafeOutletGateway.removeLike(outletId);
         }
     }
 }

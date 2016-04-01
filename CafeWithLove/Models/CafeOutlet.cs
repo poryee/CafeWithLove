@@ -34,13 +34,16 @@ namespace CafeWithLove.Models
 
         public CafeOutlet() {
             numOfVisit = 0;
+            numOfLike = 0;
             cafeContactNum = "-";
         }
 
         public string cafeLat { get; set; }
         public string CafeLong { get; set; }
-
-
+        
         public string cafeRegion { get; set; }
+
+        [DefaultValue(0)]
+        public int numOfLike { get; set; }
     }
 }
