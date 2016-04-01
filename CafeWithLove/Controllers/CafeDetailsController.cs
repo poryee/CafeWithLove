@@ -120,7 +120,7 @@ namespace CafeWithLove.Controllers
 
             ICollection<OutletViewModel> mymodel = cafeMapper.MostVisited(10);
 
-            return View("Index", mymodel);
+            return View(mymodel);
         }
 
         // GET: CafeDetails/Details/5

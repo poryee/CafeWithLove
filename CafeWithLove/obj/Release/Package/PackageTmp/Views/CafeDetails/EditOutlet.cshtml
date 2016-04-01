@@ -3,9 +3,9 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-        
+    <h3 class="no-top-margin">@Html.DisplayFor(model => model.CafeDetailVM.cafeName)</h3>
     <div class="form-horizontal">
-        <h4>Add a new outlet</h4>
+        <h4>Edit Outlet</h4>
         <hr />
         <!-- outlet details -->
         <h5>Outlet Details</h5>
