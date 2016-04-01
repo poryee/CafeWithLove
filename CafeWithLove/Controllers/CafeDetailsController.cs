@@ -162,6 +162,7 @@ namespace CafeWithLove.Controllers
             return View(cafeMapper.CafeOutletMap((int)id));
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DetailsCafe(int? id)
         {
             if (id == null)
@@ -237,6 +238,7 @@ namespace CafeWithLove.Controllers
 
         // GET: CafeDetails/Create
         // CAFE
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             CafeDetail cafeDetail = new CafeDetail();
@@ -276,6 +278,7 @@ namespace CafeWithLove.Controllers
 
         // GET: CafeDetails/CreateOutlet
         // OUTLET
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateOutlet(int cafeId)
         {
             OutletViewModel ovm = new OutletViewModel();
@@ -304,6 +307,7 @@ namespace CafeWithLove.Controllers
 
         // GET: CafeDetails/Edit/5
         // CAFE
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -332,6 +336,7 @@ namespace CafeWithLove.Controllers
 
         // GET: CafeDetails/EditOutlet/5
         // OUTLET
+        [Authorize(Roles = "Admin")]
         public ActionResult EditOutlet(int? id)
         {
             if (id == null)
@@ -381,7 +386,6 @@ namespace CafeWithLove.Controllers
         // CAFE
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             cafeMapper.DeleteCafe(id);
@@ -404,7 +408,6 @@ namespace CafeWithLove.Controllers
         // OUTLET
         [HttpPost, ActionName("DeleteOutlet")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
         public ActionResult DeleteOutletConfirmed(int id)
         {
             cafeMapper.DeleteOutlet(id);
