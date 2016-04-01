@@ -42,6 +42,9 @@ namespace CafeWithLove.DAL
             return mymodel;
         }
 
+
+
+
         public IEnumerable<CafeDetail> Search(String input)
         {
             input = input.ToUpper();
@@ -49,19 +52,12 @@ namespace CafeWithLove.DAL
                                             x => x.cafeName.ToUpper().Contains(input) ||
                                             x.cafeCategory.ToUpper().Contains(input) ||
                                             input == null) .ToList();
-            //throw new NotImplementedException();
+           
 
             return model;
         }
 
-        //public IEnumerable<CafeDetail> MostVisited(int numOfCafes)
-        //{
-        //    IEnumerable<CafeDetail> model = db.CafeDetails.OrderByDescending(
-        //                                    x => x.numOfVisit).Take(numOfCafes).ToList();
-        //    //throw new NotImplementedException();
-
-        //    return model;
-        //}
+       
 
         public IEnumerable<CafeDetail> PFilter(string chosen)
         {
@@ -112,5 +108,6 @@ namespace CafeWithLove.DAL
             //throw new NotImplementedException();
         }
 
+        
     }
 }

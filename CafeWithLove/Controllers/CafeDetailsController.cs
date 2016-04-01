@@ -20,10 +20,7 @@ namespace CafeWithLove.Controllers
         private LikeGateway likeGateway = new LikeGateway();
         private SearchGateway searchGateway = new SearchGateway();
         private CafeSuggestionGateway cafeSuggestionGateway = new CafeSuggestionGateway();
-
         private CafeMapper cafeMapper = new CafeMapper();
-
-        private CafeWithLoveContext db = new CafeWithLoveContext();
         
         // GET: CafeDetails
         public ActionResult Index()
@@ -35,7 +32,7 @@ namespace CafeWithLove.Controllers
             return View(mymodel);
         }
 
-        // GET: ViewAllCafes
+        // GET: ViewAllCafes for admin role
         [Authorize(Roles = "Admin")]
         public ActionResult ManageCafes()
         {
@@ -45,6 +42,24 @@ namespace CafeWithLove.Controllers
 
             return View(mymodel);
         }
+
+
+        // GET: CafeFilter by Region
+        public ActionResult RFilter(string chosen)
+        {
+            if (chosen == null)                         // no filter chosen, redirect to index
+                return RedirectToAction("Index");
+
+            ViewBag.Heading = "Browse cafes with Region (" + chosen + ")";
+
+            ICollection<CafeViewModel> mymodel = null;
+
+            mymodel = cafeMapper.CafeRFilter(chosen);
+
+            return View("Index", mymodel);
+        }
+
+
 
         // GET: CafeFilter by Price
         public ActionResult PFilter(string chosen)
@@ -61,7 +76,7 @@ namespace CafeWithLove.Controllers
             return View("Index", mymodel);
         }
 
-        // GET: CafeFilter by Region
+        // GET: CafeFilter by Category
         public ActionResult CFilter(string chosen)
         {
             if (chosen == null)                         // no filter chosen, redirect to index
@@ -421,13 +436,6 @@ namespace CafeWithLove.Controllers
             return View("Index", mymodel);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        
     }
 }

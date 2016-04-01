@@ -61,6 +61,8 @@ namespace CafeWithLove.DAL
             return tempmodel;
         }
 
+        
+
         // gets CafeOutlet before CafeDetails
         // gets all bookmarked/liked OUTLETs
         public ICollection<CafeViewModel> CafeMapBookmarks(int[] cafeOutletIds)
@@ -120,6 +122,8 @@ namespace CafeWithLove.DAL
             return outletModelList;
         }
 
+
+        //filter by price
         public ICollection<CafeViewModel> CafePFilter(string chosen)
         {
             IEnumerable<CafeDetail> CafeList = cafeDetailGateway.PFilter(chosen);
@@ -135,6 +139,7 @@ namespace CafeWithLove.DAL
             return modelList;
         }
 
+        //filter by category
         public ICollection<CafeViewModel> CafeCFilter(string chosen)
         {
             IEnumerable<CafeDetail> CafeList = cafeDetailGateway.CFilter(chosen);
@@ -145,6 +150,26 @@ namespace CafeWithLove.DAL
                 CafeViewModel tempmodel = new CafeViewModel();
                 tempmodel.CafeDetailVM = cafe;
                 tempmodel.CafeOutletVM = outletList;
+                modelList.Add(tempmodel);
+            }
+            return modelList;
+        }
+
+
+        //filter by region
+        public ICollection<CafeViewModel> CafeRFilter(string chosen)
+        {
+            ICollection<CafeOutlet> outletList = cafeOutletGateway.regionFilter(chosen);        // get list of outlets
+            int[] cafeIds = outletList.Select(outlet => outlet.cafeId).Distinct().ToArray();   // get all cafeIds of cafeArray
+
+            IEnumerable<CafeDetail> cafeList = cafeDetailGateway.BookmarkedCafes(cafeIds);        // get list of outlets
+
+            foreach (CafeDetail cafe in cafeList)
+            {
+                ICollection<CafeOutlet> templist = cafeOutletGateway.getOutlet(cafe.Id);
+                CafeViewModel tempmodel = new CafeViewModel();
+                tempmodel.CafeDetailVM = cafe;
+                tempmodel.CafeOutletVM = templist;
                 modelList.Add(tempmodel);
             }
             return modelList;
