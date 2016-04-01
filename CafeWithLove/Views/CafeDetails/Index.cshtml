@@ -93,4 +93,8 @@ else
         }
     }
 </ul>
-
+@if(!@User.IsInRole("Admin"))
+{
+    <p>Can't find an existing cafe?</p>
+    @Html.ActionLink("Suggest a cafe to be added to this page here.", "Create", "CafeSuggestions", null, null);
+}

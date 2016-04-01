@@ -70,7 +70,7 @@
                         @Html.Raw(Html.Encode(Model.CafeOutletVM.ToList()[i].cafeAddress).Replace(",", "<br />").Replace(";", ""))<br />
                         Singapore @Html.DisplayFor(modelItem => Model.CafeOutletVM.ToList()[i].cafePostalCode)
                     </p>
-                </div>
+                </div> 
                 <ul class="list-group">
                     <li class="list-group-item">
                         <h5 class="no-top-margin no-bottom-margin">Opening Hours</h5>
@@ -134,6 +134,12 @@
                         </table>
                     </li>
                 </ul>
+                <hr class="no-bottom-margin no-top-margin"/>
+                <div class="panel-body text-center">
+                    @Html.ActionLink("View", "Details", new { id = Model.CafeOutletVM.ToList()[i].cafeOutletId }) |
+                    @Html.ActionLink("Edit", "EditOutlet", new { id = Model.CafeOutletVM.ToList()[i].cafeOutletId }) |
+                    @Html.ActionLink("Delete", "DeleteOutlet", new { id = Model.CafeOutletVM.ToList()[i].cafeOutletId })
+                </div>
             </div>
         </div>
         }
