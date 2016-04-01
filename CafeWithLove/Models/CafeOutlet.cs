@@ -39,7 +39,7 @@ namespace CafeWithLove.Models
         }
 
         public string cafeLat { get; set; }
-        public string CafeLong { get; set; }
+        public string cafeLong { get; set; }
         
         public string cafeRegion { get; set; }
 
