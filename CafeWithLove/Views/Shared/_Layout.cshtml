@@ -38,7 +38,6 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Top 10", "TopTen", "CafeDetails")</li>
                     <li>@Html.ActionLink("Browse All Cafes", "Index", "CafeDetails")</li>
-                    <li>@Html.ActionLink("Cafe Reviews", "Index", "Home")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Price <b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu">
@@ -63,67 +62,24 @@
                             <li>@Html.ActionLink("Central", "RFilter", "CafeDetails", new { chosen = "central" }, null)</li>
                         </ul>
                     </li>
+                    <li>
+                        <div class="form-search search-only add-10px-margin">
+                            <i class="search-icon glyphicon glyphicon-search"></i>
+                            @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Get))
+                            {
+                            @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
+                            }
+                        </div>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav pull-right">
                     @Html.Partial("_LoginPartial")
                 </ul>
             </div>
-        </div>
-    </div>
-    <div class="container col-md-12">
-        <div class="col-md-6">
-            <div class="form-search search-only">
-                <i class="search-icon glyphicon glyphicon-search"></i>
-                @using (Html.BeginForm("Search", "CafeDetails", FormMethod.Get))
-                {
-                @Html.TextBox("searchInput", null, new { @class = "form-control", @placeholder = "Search for a cafe.." })
-                }
-            </div>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Price <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Categories <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">Estates <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">KM <span class="caret"></span></button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
-        </div>
-        <div class="container">
             <hr />
         </div>
     </div>
+    >
     <div class="container body-content no-top-margin">
         <div class="container col-md-12">
             <div class="col-md-9">
