@@ -4,6 +4,7 @@ var currentLocation;
 var inputLocation;
 var currentCafeLocation;
 var markersArray = [];
+var object;
 
 $(function () {
     if (window.location.pathname.match('CafeDetails/Details')) {
@@ -271,12 +272,6 @@ var whatMarker = "0";
 //testing
 //Create Map Marker of Search Cafe Location
 function createMarker(latlng) {
-    // If the user makes another search you must clear the marker variable
-    //if (cafeMarker != undefined && cafeMarker != '') {
-    //    cafeMarker.setMap(null);
-    //    cafeMarker = '';
-    //}
-
     var test = map.getDiv();
     var test = test.id;
     
@@ -351,8 +346,7 @@ $(document).on("click", ".openmodal", function () {
     var cafeContact = $(this).data('cafecontact');
 
     //testingpls
-    //var object = $(this).data('object');
-    //alert(object[0].CafeDetailVM.cafePrice);
+    object = $(this).data('object');
 
     map_init(cafePostalCode, "Click to visit the " + cafeName + "",
           '<div id="mapInfo">' +
@@ -397,7 +391,7 @@ function CenterControl(controlDiv, map) {
     controlUI.addEventListener('click', function () {
         closest = findClosestN();
         for (var i = 0; i < closest.length; i++) {
-            var position = new google.maps.LatLng(closest[i][1], closest[i][2]);
+            var position = new google.maps.LatLng(closest[i].lat, closest[i].lon);
             createMarker(position);
         }
         whatMarker = "0";
@@ -405,31 +399,21 @@ function CenterControl(controlDiv, map) {
 
 }
 
-var locations = [
-          { "Id": 1, "Name": "Cafe With Love", "GeoLong": "1.312367", "GeoLat": "103.797141" },
-          { "Id": 2, "Name": "49 Seater ", "GeoLong": "1.314511", "GeoLat": "103.919353" }
-    ];
-
-
 //Find closest carpark
 function findClosestN() {
     // Multiple Markers
     var closest = [];
-    var markers = [
-        ['near2', 1.328984, 103.929695],
-        ['far', 1.330507, 103.907897],
-        ['near', 1.329092, 103.931100]
-    ];
+    //object[i].l
 
-    for (var i = 0; i < markers.length; i++) {
-        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-        markers[i].distance = google.maps.geometry.spherical.computeDistanceBetween(currentCafeLocation, position) / 1000;
+    for (var i = 0; i < object.length; i++) {
+        var position = new google.maps.LatLng(object[i].lat, object[i].lon)
+        object[i].distance = google.maps.geometry.spherical.computeDistanceBetween(currentCafeLocation, position) / 1000;
 
-        var R = 1; // radius of earth in km
-        if (markers[i].distance < R)
+        var R = 15; // radius of earth in km
+        if (object[i].distance < R)
         {
             whatMarker = "1";
-            closest.push(markers[i]);
+            closest.push(object[i]);
         }
     }
     closest.sort(sortByDist);
