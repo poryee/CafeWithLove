@@ -186,6 +186,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604011236133_initial.cs" />
+    <Compile Include="Migrations\201604011236133_initial.Designer.cs">
+      <DependentUpon>201604011236133_initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bookmark.cs" />
@@ -323,7 +327,11 @@
     <Content Include="Views\CafeDetails\DetailsCafe.cshtml" />
     <Content Include="Views\CafeDetails\TopTen.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604011236133_initial.resx">
+      <DependentUpon>201604011236133_initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
