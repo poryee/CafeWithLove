@@ -21,6 +21,7 @@ namespace CafeWithLove.DAL
         public DbSet<Bookmark> Bookmarks { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<CafeSuggestion> CafeSuggestions { get; set; }
+        public DbSet<CarPark> CarParks { get; set; }
 
     }
 }

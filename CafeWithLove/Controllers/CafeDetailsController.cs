@@ -20,6 +20,7 @@ namespace CafeWithLove.Controllers
         private LikeGateway likeGateway = new LikeGateway();
         private SearchGateway searchGateway = new SearchGateway();
         private CafeSuggestionGateway cafeSuggestionGateway = new CafeSuggestionGateway();
+        private CarParkGateway carparkGateway = new CarParkGateway();
         private CafeMapper cafeMapper = new CafeMapper();
         
         // GET: CafeDetails
@@ -430,14 +431,16 @@ namespace CafeWithLove.Controllers
                 searchGateway.Insert(searchInput);
             }
 
-            System.Web.Script.Serialization.JavaScriptSerializer oSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-            //string sJSON = oSerializer.Serialize(mymodel);
-            ViewBag.JSON = oSerializer.Serialize(mymodel);
+            //Retrieving list of Carpark Information
+            IEnumerable<CarPark> asd = carparkGateway.SelectAll();
+            
+
+            System.Web.Script.Serialization.JavaScriptSerializer oSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            ViewBag.CarPark = oSerializer.Serialize(asd);
             
             return View("Index", mymodel);
         }
 
-        
     }
 }

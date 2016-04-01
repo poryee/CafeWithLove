@@ -181,6 +181,7 @@
     <Compile Include="DAL\DataGateway.cs" />
     <Compile Include="DAL\IDataGateway.cs" />
     <Compile Include="DAL\LikeGateway.cs" />
+    <Compile Include="DAL\CarParkGateway.cs" />
     <Compile Include="DAL\SearchGateway.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -190,6 +191,7 @@
     <Compile Include="Models\Bookmark.cs" />
     <Compile Include="Models\CafeDetail.cs" />
     <Compile Include="Models\CafeOpeningHour.cs" />
+    <Compile Include="Models\CarPark.cs" />
     <Compile Include="Models\CafeOutlet.cs" />
     <Compile Include="Models\CafeSuggestion.cs" />
     <Compile Include="Models\CafeViewModel.cs" />
