@@ -6,7 +6,6 @@ var currentCafeLocation;
 var markersArray = [];
 
 $(function () {
-    //initialize();
     if (window.location.pathname.match('CafeDetails/Details')) {
         google.maps.event.addDomListener(window, 'load', initialDetailGoogleMap);
     }
@@ -69,33 +68,6 @@ function displayRoute() {
     markersArray.push(directionsDisplay);
     //markersArray.push(start);
     //markersArray.push(end);
-}
-
-//Execute initialize ONLY when the complete document model has been loaded
-function initialize() {
-    // $(this) will give you div element
-    //Setting the option for default setting of zoom
-    //Google New UI Map
-    google.maps.visualRefresh = true;
-
-    //Setting the option for default setting of zoom
-    var mapOptions = {
-        center: new google.maps.LatLng(1.371635, 103.813802), //India Lat and Lon
-        zoom: 11,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    //Set div with id "map" a google map
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    // Create the DIV to hold the control and call the CenterControl()
-    // constructor passing in this DIV.
-    var centerControlDiv = document.createElement('div');
-    var centerControl = new CenterControl(centerControlDiv, map);
-
-    centerControlDiv.index = 1;
-    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(centerControlDiv);
-    setupLocationMarker(map)
 }
 
 function setupLocationMarker(map) {
@@ -256,7 +228,17 @@ function map_init(var_postalcode, var_cafename, var_contentstring) {
     };
 
     map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
-    var_infowindow = new google.maps.InfoWindow({content: var_contentstring});
+    var_infowindow = new google.maps.InfoWindow({ content: var_contentstring });
+
+    // Create the DIV to hold the control and call the CenterControl()
+    // constructor passing in this DIV.
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map);
+
+    centerControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(centerControlDiv);
+
+
     getCoordinate(var_postalcode, map);
 
     $('#mapmodals').on('shown.bs.modal', function () {
@@ -285,6 +267,7 @@ function getCoordinate(postalCode, map) {
     return result;
 }
 
+var whatMarker = "0";
 //testing
 //Create Map Marker of Search Cafe Location
 function createMarker(latlng) {
@@ -297,9 +280,25 @@ function createMarker(latlng) {
     var test = map.getDiv();
     var test = test.id;
     
-    if (test == "map-container") {
+    //Check which marker icon image to be set for the markers
+    if (test == "map-container" && whatMarker == "0") {
         var icon = {
             url: "/Images/currentLocation.png", // url
+            scaledSize: new google.maps.Size(30, 30), // scaled size
+            origin: new google.maps.Point(0, 0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+
+        cafeMarker = new google.maps.Marker({
+            map: map,
+            icon: icon,
+            position: latlng
+        });
+    }
+    else if (whatMarker == "1")
+    {
+        var icon = {
+            url: "/Images/carparkLocation.png", // url
             scaledSize: new google.maps.Size(30, 30), // scaled size
             origin: new google.maps.Point(0, 0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
@@ -368,37 +367,6 @@ $(document).on("click", ".openmodal", function () {
     $('#mapmodals').modal('show');
 });
 
-function geocodeAddress(var_postalcode, geocoder, map, infowindow) {
-
-    geocoder.geocode({ address:var_postalcode }, function (results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-            if (results[0]) {
-                map.setCenter(results[0].geometry.location);
-                var var_marker = new google.maps.Marker({
-                    position: results[0].geometry.location,
-                    map: map
-                });
-                infowindow.setContent(results[0].geometry.location);
-                infowindow.open(map, marker);
-
-                google.maps.event.addListener(var_marker, 'click', function () {
-                    var_infowindow.open(var_map, var_marker);
-                });
-
-                $('#mapmodals').on('shown.bs.modal', function () {
-                    google.maps.event.trigger(var_map, "resize");
-                    var_map.setCenter(latlng);
-                });
-            } else {
-                window.alert('No results found');
-            }
-        }
-        else {
-            window.alert('Geocoder failed due to: ' + status);
-        }
-    });
-}
-
 //GoogleMap Extra Buttons for LIST OF CARPARK
 function CenterControl(controlDiv, map) {
 
@@ -427,10 +395,61 @@ function CenterControl(controlDiv, map) {
 
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener('click', function () {
-        setupLocationMarker2(map);
+        closest = findClosestN();
+        for (var i = 0; i < closest.length; i++) {
+            var position = new google.maps.LatLng(closest[i][1], closest[i][2]);
+            createMarker(position);
+        }
+        whatMarker = "0";
     });
 
 }
+
+var locations = [
+          { "Id": 1, "Name": "Cafe With Love", "GeoLong": "1.312367", "GeoLat": "103.797141" },
+          { "Id": 2, "Name": "49 Seater ", "GeoLong": "1.314511", "GeoLat": "103.919353" }
+    ];
+
+
+//Find closest carpark
+function findClosestN() {
+    // Multiple Markers
+    var closest = [];
+    var markers = [
+        ['near2', 1.328984, 103.929695],
+        ['far', 1.330507, 103.907897],
+        ['near', 1.329092, 103.931100]
+    ];
+
+    for (var i = 0; i < markers.length; i++) {
+        var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+        markers[i].distance = google.maps.geometry.spherical.computeDistanceBetween(currentCafeLocation, position) / 1000;
+
+        var R = 1; // radius of earth in km
+        if (markers[i].distance < R)
+        {
+            whatMarker = "1";
+            closest.push(markers[i]);
+        }
+    }
+    closest.sort(sortByDist);
+    return closest.splice(0, 3);
+}
+
+function sortByDist(a, b) {
+    return (a.distance - b.distance)
+}
+
+
+
+
+
+
+
+
+
+
+
 
 //Dummy List of Carparks
 function setupLocationMarker2(map) {

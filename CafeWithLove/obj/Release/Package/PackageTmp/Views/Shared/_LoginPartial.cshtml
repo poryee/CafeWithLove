@@ -10,11 +10,15 @@
                 <ul class="dropdown-menu" role="menu">
                     <li class="@(Request.Url.PathAndQuery == "/CafeDetails/Likes" ? "active" : "")">@Html.ActionLink("Liked Cafes", "Likes", "CafeDetails", routeValues: null, htmlAttributes: new { title = "Likes" }) </li>
                     <li class="@(Request.Url.PathAndQuery == "/CafeDetails/Bookmarks" ? "active" : "")">@Html.ActionLink("Bookmarked Cafes", "Bookmarks", "CafeDetails", routeValues: null, htmlAttributes: new { title = "Bookmarks" }) </li>
+                    @if(!@User.IsInRole("Admin"))
+                    {
+                        <li class="@(Request.Url.PathAndQuery == "/CafeSuggestions/Create" ? "active" : "")">@Html.ActionLink("Suggest a cafe", "Create", "CafeSuggestions", routeValues: null, htmlAttributes: new { title = "Suggestions" }) </li>
+                    }
                     <li class="@(Request.Url.PathAndQuery == "/Account/Manage" ? "active" : "")">@Html.ActionLink("Change Password", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
                     @if(@User.IsInRole("Admin")) 
                     {
                         <li class="divider"></li>
-            <li class="@(Request.Url.PathAndQuery == "/CafeDetails/ManageCafes" ? "active" : "")">@Html.ActionLink("Manage Cafes", "ManageCafes", "CafeDetails", routeValues: null, htmlAttributes: new { title = "ManageCafes" })</li>
+                        <li class="@(Request.Url.PathAndQuery == "/CafeDetails/ManageCafes" ? "active" : "")">@Html.ActionLink("Manage Cafes", "ManageCafes", "CafeDetails", routeValues: null, htmlAttributes: new { title = "ManageCafes" })</li>
                         <li class="@(Request.Url.PathAndQuery == "/CafeSuggestions" ? "active" : "")">@Html.ActionLink("View Suggested Cafes", "Index", "CafeSuggestions", routeValues: null, htmlAttributes: new { title = "Suggestions" })</li>
                     }
                 </ul>

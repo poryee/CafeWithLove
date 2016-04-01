@@ -321,6 +321,7 @@
     <Content Include="Views\CafeDetails\EditOutlet.cshtml" />
     <Content Include="Views\CafeDetails\DeleteOutlet.cshtml" />
     <Content Include="Views\CafeDetails\DetailsCafe.cshtml" />
+    <Content Include="Views\CafeDetails\TopTen.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
