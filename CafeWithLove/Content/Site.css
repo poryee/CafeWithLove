@@ -908,6 +908,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 /*
     others
 */
+
+.minus-5-bottom-margin {
+    margin-bottom: -5px;
+}
+
 .add-10px-margin {
     margin-top: 10px;
 }
