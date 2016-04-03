@@ -331,8 +331,8 @@ namespace CafeWithLove.Controllers
             {
                 string path = Server.MapPath("~/Images/" + file.FileName);
                 file.SaveAs(path);
-                
-                cafeDetails.cafeLogo = file.FileName;
+
+                cafeDetails.cafeLogo = "fatcat.jpg";
 
                 cafeDetailGateway.Update(cafeDetails);
                 return RedirectToAction("ManageCafes");
