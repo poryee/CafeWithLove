@@ -325,10 +325,15 @@ namespace CafeWithLove.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,cafeName,cafeDesc,cafeLogo,cafePrice,cafeRating,cafeCategory,cafeWebsite,numOfVisit")] CafeDetail cafeDetails)
+        public ActionResult Edit([Bind(Include = "Id,cafeName,cafeDesc,cafeLogo,cafePrice,cafeRating,cafeCategory,cafeWebsite,numOfVisit")] CafeDetail cafeDetails, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                string path = Server.MapPath("~/Images/" + file.FileName);
+                file.SaveAs(path);
+                
+                cafeDetails.cafeLogo = file.FileName;
+
                 cafeDetailGateway.Update(cafeDetails);
                 return RedirectToAction("ManageCafes");
             }
