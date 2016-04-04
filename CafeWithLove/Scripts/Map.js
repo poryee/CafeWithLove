@@ -14,8 +14,7 @@ $(function () {
 });
 
 //Details Setup Google Map
-function initialDetailGoogleMap()
-{
+function initialDetailGoogleMap() {
     var postalCode = document.getElementById("postalCode");
     var mapProp = {
         center: new google.maps.LatLng(1.3285714, 103.9283453),
@@ -28,8 +27,7 @@ function initialDetailGoogleMap()
 }
 
 //How to get there from current or specific location to cafe location
-function getThereClicked(value)
-{
+function getThereClicked(value) {
     if (cafeMarker != undefined && cafeMarker != '') {
         cafeMarker.setMap(null);
         cafeMarker = '';
@@ -43,13 +41,13 @@ function displayRoute() {
     clearOverlays();
     var start
     var end
-    if (inputLocation == "") {start = currentLocation; end = currentCafeLocation;}
-    else{start = inputLocation; end = currentCafeLocation;}
+    if (inputLocation == "") { start = currentLocation; end = currentCafeLocation; }
+    else { start = inputLocation; end = currentCafeLocation; }
 
     var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
     directionsDisplay.setMap(map); // map should be already initialized.
 
-    var request = {origin: start, destination: end, travelMode: google.maps.TravelMode.DRIVING};
+    var request = { origin: start, destination: end, travelMode: google.maps.TravelMode.DRIVING };
     var directionsService = new google.maps.DirectionsService();
     directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
@@ -132,7 +130,7 @@ var whatMarker = "0";
 function createMarker(latlng) {
     var divName = map.getDiv();
     var divName = divName.id;
-    
+
     //Check which marker icon image to be set for the markers
     if (divName == "map-container" && whatMarker == "0") {
         var icon = {
@@ -147,8 +145,7 @@ function createMarker(latlng) {
             position: latlng
         });
     }
-    else if (whatMarker == "1")
-    {
+    else if (whatMarker == "1") {
         var icon = {
             url: "/Images/carparkLocation.png", // url
             scaledSize: new google.maps.Size(30, 30), // scaled size
@@ -161,8 +158,7 @@ function createMarker(latlng) {
             position: latlng
         });
     }
-    else
-    {
+    else {
         cafeMarker = new google.maps.Marker({
             map: map,
             position: latlng
@@ -179,8 +175,7 @@ function clearOverlays() {
 }
 
 //Setting Info Window for the Markers
-function setInfoWindow(map)
-{
+function setInfoWindow(map) {
     google.maps.event.addListener(cafeMarker, 'click', function () {
         var_infowindow.open(map, cafeMarker);
     });
@@ -262,8 +257,7 @@ function findClosestN() {
         carparkList[i].distance = google.maps.geometry.spherical.computeDistanceBetween(currentCafeLocation, position) / 1000;
 
         var R = 15; // radius of earth in km
-        if (carparkList[i].distance < R)
-        {
+        if (carparkList[i].distance < R) {
             whatMarker = "1";
             closest.push(carparkList[i]);
         }

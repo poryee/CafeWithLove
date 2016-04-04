@@ -482,3 +482,6 @@ C:\Users\LoonX\Desktop\Year2-Trimster2\CafeWithLove\CafeWithLove\obj\Debug\CafeW
 C:\Users\PorYee\Desktop\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.csprojResolveAssemblyReference.cache
 C:\Users\PorYee\Desktop\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.Migrations.initial.resources
 C:\Users\PorYee\Desktop\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.csproj.GenerateResource.Cache
+C:\Users\LoonX\Desktop\Year2-Trimster2\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.csprojResolveAssemblyReference.cache
+C:\Users\LoonX\Desktop\Year2-Trimster2\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.Migrations.initial.resources
+C:\Users\LoonX\Desktop\Year2-Trimster2\CafeWithLove\CafeWithLove\obj\Debug\CafeWithLove.csproj.GenerateResource.Cache

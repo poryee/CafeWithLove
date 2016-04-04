@@ -438,11 +438,11 @@ namespace CafeWithLove.Controllers
 
 
             //Retrieving list of Carpark Information
-            IEnumerable<CarPark> asd = carparkGateway.SelectAll();
+            IEnumerable<CarPark> carparkList = carparkGateway.SelectAll();
             
 
             System.Web.Script.Serialization.JavaScriptSerializer oSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            ViewBag.CarPark = oSerializer.Serialize(asd);
+            ViewBag.CarPark = oSerializer.Serialize(carparkList);
             
             return View("Index", mymodel);
         }
