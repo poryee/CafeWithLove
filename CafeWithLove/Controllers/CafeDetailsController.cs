@@ -202,7 +202,7 @@ namespace CafeWithLove.Controllers
             string userId = User.Identity.GetUserId();
 
             if (liked)
-                cafeMapper.removeLike((int)newID);
+                cafeMapper.removeLike((int)newID, userId);
             else
                 cafeMapper.doLike((int)newID, userId);            // should be delete
 

@@ -233,9 +233,9 @@ namespace CafeWithLove.DAL
             cafeOutletGateway.addLike(outletId);
         }
 
-        public void removeLike(int outletId)
+        public void removeLike(int outletId, string userId)
         {
-            likeGateway.Delete(outletId);
+            likeGateway.Delete(outletId, userId);
             cafeOutletGateway.removeLike(outletId);
         }
     }
